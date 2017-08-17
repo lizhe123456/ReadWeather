@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Binder;
 
 import com.readweather.BuildConfig;
+import com.readweather.utils.LogUtil;
 
 /**
  * Created by Administrator on 2017/8/17 0017.
@@ -26,5 +27,6 @@ public class App extends Application{
         if (!BuildConfig.DEBUG){
 
         }
+        LogUtil.init(Constants.IS_DEBUG);
     }
 }
