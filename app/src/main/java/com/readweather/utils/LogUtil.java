@@ -25,6 +25,10 @@ public class LogUtil {
     public static void d(String message) {
         Logger.d(message);
     }
+    public static void d(String className,String message) {
+        Logger.d(className+" : "+message);
+    }
+
 
     public static void i(String message) {
         Logger.i(message);

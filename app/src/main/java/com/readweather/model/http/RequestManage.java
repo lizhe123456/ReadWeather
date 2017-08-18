@@ -33,8 +33,8 @@ public class RequestManage {
 
     private OkHttpClient mOkHttpClient;
 
-    private RequestManage instance;
-    private int type;
+    private static RequestManage instance;
+    private static int type;
 
     private Retrofit mRetrofit = new Retrofit.Builder()
             .baseUrl(Constants.getURL(type))
@@ -47,13 +47,13 @@ public class RequestManage {
 
     }
 
-    public RequestManage getInstance(int type) {
+    public static RequestManage getInstance(int type1) {
         if (instance == null){
             synchronized (RequestManage.class){
                 instance = new RequestManage();
             }
         }
-        this.type = type;
+        type = type1;
         return instance;
     }
 
