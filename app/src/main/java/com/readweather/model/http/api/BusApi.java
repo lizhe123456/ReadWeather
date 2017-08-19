@@ -1,6 +1,6 @@
 package com.readweather.model.http.api;
 
-import com.readweather.app.Constants;
+
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.http.response.BaseResponse;
@@ -8,6 +8,7 @@ import com.readweather.model.http.response.BaseResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
+
 
 /**
  * Created by Administrator on 2017/8/17 0017.

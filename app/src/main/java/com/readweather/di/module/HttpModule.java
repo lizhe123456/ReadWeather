@@ -1,10 +1,9 @@
-package com.readweather.model.http;
+package com.readweather.di.module;
 
-import android.util.Log;
-
-import com.readweather.BuildConfig;
 import com.readweather.app.App;
 import com.readweather.app.Constants;
+import com.readweather.di.qualifier.BusUrl;
+import com.readweather.model.http.api.BusApi;
 import com.readweather.utils.JsonUtil;
 import com.readweather.utils.LogUtil;
 import com.readweather.utils.SystemUtil;
@@ -13,6 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -25,45 +28,39 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Administrator on 2017/8/17 0017.
- * 请求管理者
+ * Created by Administrator on 2017/8/18 0018.
  */
+@Module
+public class HttpModule {
 
-public class RequestManage {
-
-    private OkHttpClient mOkHttpClient;
-
-    private static RequestManage instance;
-    private static int type;
-
-    private Retrofit mRetrofit = new Retrofit.Builder()
-            .baseUrl(Constants.getURL(type))
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okhttpclient())
-            .build();
-
-    private RequestManage(){
-
+    @Singleton
+    @Provides
+    Retrofit.Builder provideRetrofitBuilder(){
+        return new Retrofit.Builder();
     }
 
-    public static RequestManage getInstance(int type1) {
-        if (instance == null){
-            synchronized (RequestManage.class){
-                instance = new RequestManage();
-            }
-        }
-        type = type1;
-        return instance;
+    @Singleton
+    @Provides
+    OkHttpClient.Builder provideOkHttpBuilder(){
+        return new OkHttpClient.Builder();
     }
 
-    /**
-     * 初始化okhttpclient.
-     *
-     * @return okhttpClient
-     */
-    private OkHttpClient okhttpclient() {
-        if (mOkHttpClient == null) {
+    @Singleton
+    @Provides
+    @BusUrl
+    Retrofit provideBusRetrofit(Retrofit.Builder builder,OkHttpClient client){
+        return createRetrofit(builder,client,Constants.BUS_API);
+    }
+
+    @Singleton
+    @Provides
+    BusApi provideBusService(@BusUrl Retrofit retrofit){
+        return retrofit.create(BusApi.class);
+    }
+
+    @Singleton
+    @Provides
+    OkHttpClient provideClient(OkHttpClient.Builder builder) {
             HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLogger());
             logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -109,18 +106,25 @@ public class RequestManage {
 //        }
 //        设置统一的请求头部参数
 //        builder.addInterceptor(apikey);
-            mOkHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .addInterceptor(logInterceptor)
-                    .addNetworkInterceptor(cacheInterceptor)
-                    .readTimeout(20, TimeUnit.SECONDS)
-                    .writeTimeout(20, TimeUnit.SECONDS)
-                    .retryOnConnectionFailure(true)
-                    .cache(cache)
-                    .addInterceptor(cacheInterceptor)
-                    .build();
-        }
-        return mOkHttpClient;
+        builder.connectTimeout(15, TimeUnit.SECONDS)
+                .addInterceptor(logInterceptor)
+                .addNetworkInterceptor(cacheInterceptor)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .cache(cache)
+                .addInterceptor(cacheInterceptor);
+
+        return builder.build();
+    }
+
+    private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
+        return builder
+                .baseUrl(url)
+                .client(client)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 
     /**
