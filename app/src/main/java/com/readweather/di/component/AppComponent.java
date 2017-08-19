@@ -4,11 +4,8 @@ import com.readweather.app.App;
 import com.readweather.di.module.AppModule;
 import com.readweather.di.module.HttpModule;
 import com.readweather.model.DataManager;
-import com.readweather.model.db.RealmHelper;
 import com.readweather.model.db.RealmHelperImpl;
-import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.HttpHelperImpl;
-import com.readweather.model.prefs.PreferencesHelper;
 import com.readweather.model.prefs.PreferencesHelperImpl;
 
 import javax.inject.Singleton;

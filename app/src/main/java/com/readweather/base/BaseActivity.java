@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.readweather.app.App;
 import com.readweather.utils.LogUtil;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2017/8/18 0018.
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private LayoutInflater mLayoutInflater;
     protected Activity mActivity;
     protected final String TAG = this.getClass().getSimpleName();
+    private Unbinder mUnbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +58,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         mLayoutInflater = LayoutInflater.from(mActivity);
         mView = mLayoutInflater.inflate(setLayout(),null);
         if (mView != null){
-            ButterKnife.bind(mActivity);
+            mUnbinder = ButterKnife.bind(mActivity);
             setContentView(mView);
+            App.getInstance().addActivity(this);
             init();
             setData();
         }else {
           setContentView(setLayout());
         }
-
     }
 
 
@@ -159,6 +162,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LogUtil.d(TAG, "onDestroy()");
+        App.getInstance().removeActivity(this);
+        mUnbinder.unbind();
     }
 
 }

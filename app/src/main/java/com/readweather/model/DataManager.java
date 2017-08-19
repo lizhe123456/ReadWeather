@@ -1,6 +1,7 @@
 package com.readweather.model;
 
 import com.readweather.model.bean.BusBean;
+import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.response.BaseResponse;
@@ -42,4 +43,10 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     public Observable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String bus) {
         return mHttpHelper.fetchBusBeanInfo(city,bus);
     }
+
+    @Override
+    public Observable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
+        return mHttpHelper.fetchBusNumberBeanInfo(city,bus);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.readweather.model.http;
 
 import com.readweather.model.bean.BusBean;
+import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.response.BaseResponse;
 
@@ -22,8 +23,14 @@ public class HttpHelperImpl  implements HttpHelper{
     }
 
     @Override
-    public Observable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String bus) {
-        return busApi.getBusBeanInfo(city,bus);
+    public Observable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String station) {
+        return busApi.getBusBeanInfo(city,station);
     }
+
+    @Override
+    public Observable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
+        return busApi.getBusNumberBeanInfo(city,bus);
+    }
+
 
 }

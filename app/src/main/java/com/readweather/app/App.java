@@ -3,20 +3,13 @@ package com.readweather.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import com.readweather.BuildConfig;
 import com.readweather.di.component.AppComponent;
-import com.readweather.di.component.DaggerActivityComponent;
-import com.readweather.di.component.DaggerAppComponent;
 import com.readweather.di.module.AppModule;
 import com.readweather.di.module.HttpModule;
 import com.readweather.service.InitService;
-import com.readweather.utils.LogUtil;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 /**
  * Created by Administrator on 2017/8/17 0017.
@@ -33,14 +26,16 @@ public class App extends Application{
         return mContext;
     }
 
-    public static synchronized void setInstance(App instance) {
-        App.instance = instance;
+    public static synchronized App getInstance() {
+        return instance;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         mContext = getApplicationContext();
+
         Realm.init(mContext);
 
         InitService.start(this);

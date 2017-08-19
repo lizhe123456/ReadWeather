@@ -1,20 +1,24 @@
 package com.readweather.di.component;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 
+import com.readweather.MainActivity;
 import com.readweather.di.module.ActivityModule;
-import com.readweather.di.scope.AcyivityScope;
+import com.readweather.di.scope.ActivityScope;
+import com.readweather.ui.TestActivity;
 
 import dagger.Component;
 
 /**
  * Created by Administrator on 2017/8/18 0018.
  */
-@AcyivityScope
+@ActivityScope
 @Component(dependencies = AppComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
 
     Activity getActivity();
 
+//    void inject(TestActivity activity);
+
+//    void inject(MainActivity activity);
 }

@@ -2,7 +2,7 @@ package com.readweather.di.module;
 
 import android.app.Activity;
 
-import com.readweather.di.scope.AcyivityScope;
+import com.readweather.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,6 +12,7 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
+
     private Activity mActivity;
 
     public ActivityModule(Activity mActivity) {
@@ -19,7 +20,7 @@ public class ActivityModule {
     }
 
     @Provides
-    @AcyivityScope
+    @ActivityScope
     public Activity provideActivity(){
         return mActivity;
     }
