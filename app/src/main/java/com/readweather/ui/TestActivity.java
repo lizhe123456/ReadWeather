@@ -1,15 +1,14 @@
 package com.readweather.ui;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.readweather.R;
 import com.readweather.base.MvpActivity;
+import com.readweather.presenter.TestPresenter;
 import com.readweather.presenter.contract.TestContract;
 import com.readweather.utils.LogUtil;
 
 
-public class TestActivity extends MvpActivity<TestContract.Presenter> implements TestContract.View{
+public class TestActivity extends MvpActivity<TestPresenter> implements TestContract.View{
 
 
     @Override
@@ -19,7 +18,12 @@ public class TestActivity extends MvpActivity<TestContract.Presenter> implements
 
     @Override
     protected void setData() {
-        mPresenter.getTest();
+        if (mPresenter == null){
+            LogUtil.d("haha","null");
+
+        }else {
+            LogUtil.d("haha","bu  kong");
+        }
     }
 
     @Override
@@ -49,6 +53,6 @@ public class TestActivity extends MvpActivity<TestContract.Presenter> implements
 
     @Override
     protected void initInject() {
-//        getActivityComponent().inject(this);
+        getActivityComponent().inject(this);
     }
 }

@@ -27,7 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /* 是否允许全屏*/
     private boolean isAllowFullScreen = true;
     /* 是否禁止旋转屏幕*/
-    private boolean isAllowScreenRoate = false;
+    private boolean isAllowScreenRoate = true;
     /* 是否沉浸状态栏当前Activity渲染的视图*/
     private View mView;
 
@@ -60,7 +60,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mView != null){
             mUnbinder = ButterKnife.bind(mActivity);
             setContentView(mView);
-            App.getInstance().addActivity(this);
+            if (App.getInstance() != null) {
+                App.getInstance().addActivity(this);
+            }
             init();
             setData();
         }else {

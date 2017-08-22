@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import com.readweather.di.component.AppComponent;
+import com.readweather.di.component.DaggerAppComponent;
 import com.readweather.di.module.AppModule;
 import com.readweather.di.module.HttpModule;
 import com.readweather.service.InitService;
@@ -35,9 +36,7 @@ public class App extends Application{
         super.onCreate();
         instance = this;
         mContext = getApplicationContext();
-
         Realm.init(mContext);
-
         InitService.start(this);
     }
 
