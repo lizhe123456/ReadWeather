@@ -22,7 +22,7 @@ public class TestActivity extends MvpActivity<TestPresenter> implements TestCont
             LogUtil.d("haha","null");
 
         }else {
-            LogUtil.d("haha","bu  kong");
+           mPresenter.getTest();
         }
     }
 
@@ -48,7 +48,7 @@ public class TestActivity extends MvpActivity<TestPresenter> implements TestCont
 
     @Override
     public void setTest(String msg) {
-        LogUtil.d(TAG,msg);
+        LogUtil.d("hahaaaaa",msg);
     }
 
     @Override

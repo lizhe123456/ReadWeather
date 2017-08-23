@@ -7,7 +7,7 @@ import com.readweather.model.http.response.BaseResponse;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Flowable;
 
 /**
  * Created by Administrator on 2017/8/18 0018.
@@ -23,12 +23,12 @@ public class HttpHelperImpl  implements HttpHelper{
     }
 
     @Override
-    public Observable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String station) {
+    public Flowable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String station) {
         return busApi.getBusBeanInfo(city,station);
     }
 
     @Override
-    public Observable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
+    public Flowable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
         return busApi.getBusNumberBeanInfo(city,bus);
     }
 

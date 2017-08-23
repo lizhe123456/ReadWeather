@@ -3,13 +3,20 @@ package com.readweather.utils;
 import com.readweather.model.http.exception.ApiException;
 import com.readweather.model.http.response.BaseResponse;
 
-import rx.Emitter;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.functions.Function;
-import rx.schedulers.Schedulers;
+import org.reactivestreams.Publisher;
+
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Emitter;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.FlowableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by Administrator on 2017/8/19 0019.
@@ -23,52 +30,52 @@ public class RxUtil {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<T,T> rxSchedulerHelper(){
-        return new Observable.Transformer<T, T>() {
+    public static <T> FlowableTransformer<T, T> rxSchedulerHelper(){
+        return new FlowableTransformer<T,T>(){
+
             @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.subscribeOn(Schedulers.io())
+            public Flowable<T> apply(Flowable<T> observable) {
+                return observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
     }
 
-    public static <T> Observable.Transformer<BaseResponse<T>,T> handleBus(){
-        return new Observable.Transformer<BaseResponse<T>, T>() {
+    public static <T> FlowableTransformer<BaseResponse<T>, T>  handleBus(){
+        return new FlowableTransformer<BaseResponse<T>, T> () {
             @Override
-            public Observable<T> call(Observable<BaseResponse<T>> baseResponseObservable) {
-                return baseResponseObservable.flatMap(new Func1<BaseResponse<T>, Observable<T>>() {
+            public Publisher<T> apply(Flowable<BaseResponse<T>> upstream) {
+                return upstream.flatMap(new Function<BaseResponse<T>, Flowable<T>>() {
                     @Override
-                    public Observable<T> call(BaseResponse<T> tBaseResponse) {
-                        if (!tBaseResponse.getError().equals("")){
-                            return Observable.error(new ApiException("服务器返回error"));
-                        }else {
+                    public Flowable<T> apply(@NonNull BaseResponse<T> tBaseResponse) throws Exception {
+                        if (!tBaseResponse.getError().equals("")) {
+                            return Flowable.error(new ApiException("服务器返回error"));
+                        } else {
                             return createData(tBaseResponse.getResult());
                         }
                     }
                 });
             }
-
         };
     }
 
 
-    /**
-     * 生成Flowable
-     * @param <T>
-     * @return
-     */
-    public static <T> Observable<T> createData(final T t) {
-        return Observable.create(new Action1<Emitter<T>>() {
-            @Override
-            public void call(Emitter<T> tEmitter) {
-                try {
-                    tEmitter.onNext(t);
-                    tEmitter.onCompleted();
-                } catch (Exception e) {
-                    tEmitter.onError(e);
+        /**
+         * 生成Flowable
+         * @param <T>
+         * @return
+         */
+        public static <T> Flowable<T> createData(final T t) {
+            return Flowable.create(new FlowableOnSubscribe<T>() {
+                @Override
+                public void subscribe(FlowableEmitter<T> emitter) throws Exception {
+                    try {
+                        emitter.onNext(t);
+                        emitter.onComplete();
+                    } catch (Exception e) {
+                        emitter.onError(e);
+                    }
                 }
-            }
-        }, Emitter.BackpressureMode.BUFFER);
-    }
+            }, BackpressureStrategy.BUFFER);
+        }
 }

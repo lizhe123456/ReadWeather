@@ -9,7 +9,7 @@ import com.readweather.model.prefs.PreferencesHelper;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Flowable;
 
 /**
  * Created by Administrator on 2017/8/18 0018.
@@ -40,12 +40,12 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     }
 
     @Override
-    public Observable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String bus) {
+    public Flowable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String bus) {
         return mHttpHelper.fetchBusBeanInfo(city,bus);
     }
 
     @Override
-    public Observable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
+    public Flowable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
         return mHttpHelper.fetchBusNumberBeanInfo(city,bus);
     }
 

@@ -1,7 +1,7 @@
 package com.readweather.base;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Administrator on 2017/8/18 0018.
@@ -10,25 +10,25 @@ import rx.subscriptions.CompositeSubscription;
 public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T>{
 
     protected T mView;
-    protected CompositeSubscription mCompositeSubscription;
+    protected CompositeDisposable mCompositeDisposable;
 
 
     /**
      * 订阅
      */
-    protected void addSubscribe(Subscription s){
-        if (mCompositeSubscription == null){
-            mCompositeSubscription = new CompositeSubscription();
+    protected void addSubscribe(Disposable s){
+        if (mCompositeDisposable == null){
+            mCompositeDisposable = new CompositeDisposable();
         }
-        mCompositeSubscription.add(s);
+        mCompositeDisposable.add(s);
     }
 
     /**
      * 解绑
      */
     private void unSubscribe() {
-        if (mCompositeSubscription != null){
-            mCompositeSubscription.unsubscribe();
+        if (mCompositeDisposable != null){
+            mCompositeDisposable.clear();
         }
     }
 
