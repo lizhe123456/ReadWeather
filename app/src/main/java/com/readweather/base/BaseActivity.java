@@ -40,24 +40,24 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
-        if (isAllowFullScreen){
-            mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
 
-        if (isSetStatusBar){
-            steepStatusBar();
-        }
-
-        if (!isAllowScreenRoate){
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-        mLayoutInflater = LayoutInflater.from(mActivity);
         mView = mLayoutInflater.inflate(setLayout(),null);
         if (mView != null){
+            if (isAllowFullScreen){
+                mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                requestWindowFeature(Window.FEATURE_NO_TITLE);
+            }
+
+            if (isSetStatusBar){
+                steepStatusBar();
+            }
+            if (!isAllowScreenRoate){
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+            mLayoutInflater = LayoutInflater.from(mActivity);
             mUnbinder = ButterKnife.bind(mActivity);
             setContentView(mView);
             if (App.getInstance() != null) {
