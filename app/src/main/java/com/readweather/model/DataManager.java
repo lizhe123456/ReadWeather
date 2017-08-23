@@ -4,8 +4,10 @@ import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
-import com.readweather.model.http.response.BaseResponse;
+import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.prefs.PreferencesHelper;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,12 +42,12 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String bus) {
+    public Flowable<BusResponse<BusBean>> fetchBusBeanInfo(String city, String bus) {
         return mHttpHelper.fetchBusBeanInfo(city,bus);
     }
 
     @Override
-    public Flowable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
+    public Flowable<BusResponse<List<BusNumberBean>>> fetchBusNumberBeanInfo(String city, String bus) {
         return mHttpHelper.fetchBusNumberBeanInfo(city,bus);
     }
 

@@ -34,10 +34,12 @@ public class App extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        AppExceptionHandler.getInstance().setCrashHanler(this);
         instance = this;
         mContext = getApplicationContext();
         Realm.init(mContext);
         InitService.start(this);
+
     }
 
     public static AppComponent getAppComponent() {

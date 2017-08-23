@@ -1,7 +1,8 @@
 package com.readweather.di.module;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+
 
 import com.readweather.di.scope.FragmentScope;
 
