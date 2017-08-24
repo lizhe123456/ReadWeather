@@ -6,4 +6,6 @@
     <string name="navigation_item3">妹子</string>
     <string name="srttings">设置</string>
     <string name="about">关于</string>
+    <string name="open">打开</string>
+    <string name="close">关闭</string>
 </resources>
