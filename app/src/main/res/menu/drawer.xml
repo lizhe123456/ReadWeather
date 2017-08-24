@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navigation_weather"
+            android:checked="true"
+            android:title="@string/navigation_item0"
+            android:icon="@drawable/ic_weather"
+            />
+
+        <item
+            android:id="@+id/navigation_bus"
+            android:checked="true"
+            android:title="@string/navigation_item1"
+            android:icon="@drawable/ic_bus"
+            />
+
+        <item android:id="@+id/navigation_reading"
+            android:checked="true"
+            android:title="@string/navigation_item2"
+            android:icon="@drawable/ic_reading"
+            />
+
+        <item android:id="@+id/navigation_gank"
+            android:checked="true"
+            android:title="@string/navigation_item3"
+            android:icon="@drawable/ic_gank"
+            />
+    </group>
+
+    <item android:title="@string/app_name">
+        <menu>
+            <item android:id="@+id/navigation_item_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/srttings"
+                />
+            <item android:id="@+id/navigation_item_about"
+                android:icon="@drawable/ic_about"
+                android:title="@string/about"
+                />
+        </menu>
+    </item>
+</menu>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ReadWeather</string>
+    <string name="navigation_item0">天气</string>
+    <string name="navigation_item1">公交</string>
+    <string name="navigation_item2">闲读</string>
+    <string name="navigation_item3">妹子</string>
+    <string name="srttings">设置</string>
+    <string name="about">关于</string>
 </resources>

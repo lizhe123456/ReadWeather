@@ -2,10 +2,9 @@ package com.readweather.di.component;
 
 import android.app.Activity;
 
-import com.readweather.MainActivity;
+
 import com.readweather.di.module.ActivityModule;
 import com.readweather.di.scope.ActivityScope;
-import com.readweather.ui.TestActivity;
 
 import dagger.Component;
 
@@ -18,7 +17,8 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-    void inject(TestActivity activity);
+//    void inject(TestActivity activity);
 
 //    void inject(MainActivity activity);
+
 }

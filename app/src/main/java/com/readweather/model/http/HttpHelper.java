@@ -2,7 +2,10 @@ package com.readweather.model.http;
 
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
-import com.readweather.model.http.response.BaseResponse;
+import com.readweather.model.http.response.BusResponse;
+
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 /**
@@ -11,7 +14,7 @@ import io.reactivex.Flowable;
 
 public interface HttpHelper {
 
-    Flowable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String station);
+    Flowable<BusResponse<BusBean>> fetchBusBeanInfo(String city, String station);
 
-    Flowable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus);
+    Flowable<BusResponse<List<BusNumberBean>>> fetchBusNumberBeanInfo(String city, String bus);
 }

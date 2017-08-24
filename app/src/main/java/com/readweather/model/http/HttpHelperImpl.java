@@ -1,9 +1,12 @@
 package com.readweather.model.http;
 
+import com.readweather.app.Constants;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.http.api.BusApi;
-import com.readweather.model.http.response.BaseResponse;
+import com.readweather.model.http.response.BusResponse;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,13 +26,13 @@ public class HttpHelperImpl  implements HttpHelper{
     }
 
     @Override
-    public Flowable<BaseResponse<BusBean>> fetchBusBeanInfo(String city, String station) {
-        return busApi.getBusBeanInfo(city,station);
+    public Flowable<BusResponse<BusBean>> fetchBusBeanInfo(String city, String station) {
+        return busApi.getBusBeanInfo(Constants.BUS_KEY,city,station);
     }
 
     @Override
-    public Flowable<BaseResponse<BusNumberBean>> fetchBusNumberBeanInfo(String city, String bus) {
-        return busApi.getBusNumberBeanInfo(city,bus);
+    public Flowable<BusResponse<List<BusNumberBean>>>  fetchBusNumberBeanInfo(String city, String bus) {
+        return busApi.getBusNumberBeanInfo(Constants.BUS_KEY,city,bus);
     }
 
 

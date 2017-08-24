@@ -1,12 +1,11 @@
 package com.readweather.utils;
 
 import com.readweather.model.http.exception.ApiException;
-import com.readweather.model.http.response.BaseResponse;
+import com.readweather.model.http.response.BusResponse;
 
 import org.reactivestreams.Publisher;
 
 import io.reactivex.BackpressureStrategy;
-import io.reactivex.Emitter;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
@@ -41,17 +40,17 @@ public class RxUtil {
         };
     }
 
-    public static <T> FlowableTransformer<BaseResponse<T>, T>  handleBus(){
-        return new FlowableTransformer<BaseResponse<T>, T> () {
+    public static <T> FlowableTransformer<BusResponse<T>, T>  handleBus(){
+        return new FlowableTransformer<BusResponse<T>, T> () {
             @Override
-            public Publisher<T> apply(Flowable<BaseResponse<T>> upstream) {
-                return upstream.flatMap(new Function<BaseResponse<T>, Flowable<T>>() {
+            public Publisher<T> apply(Flowable<BusResponse<T>> upstream) {
+                return upstream.flatMap(new Function<BusResponse<T>, Flowable<T>>() {
                     @Override
-                    public Flowable<T> apply(@NonNull BaseResponse<T> tBaseResponse) throws Exception {
-                        if (!tBaseResponse.getError().equals("")) {
-                            return Flowable.error(new ApiException("服务器返回error"));
-                        } else {
+                    public Flowable<T> apply(@NonNull BusResponse<T> tBaseResponse) throws Exception {
+                        if (tBaseResponse.getReason().equals("success")) {
                             return createData(tBaseResponse.getResult());
+                        } else {
+                            return Flowable.error(new ApiException("服务器返回error"));
                         }
                     }
                 });
