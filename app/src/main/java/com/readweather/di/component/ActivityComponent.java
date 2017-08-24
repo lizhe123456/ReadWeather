@@ -17,8 +17,6 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-//    void inject(TestActivity activity);
 
-//    void inject(MainActivity activity);
 
 }

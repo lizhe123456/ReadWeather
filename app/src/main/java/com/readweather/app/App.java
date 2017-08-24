@@ -3,6 +3,8 @@ package com.readweather.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+
+import com.readweather.BuildConfig;
 import com.readweather.di.component.AppComponent;
 import com.readweather.di.component.DaggerAppComponent;
 import com.readweather.di.module.AppModule;
@@ -34,7 +36,9 @@ public class App extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        AppExceptionHandler.getInstance().setCrashHanler(this);
+        if (!Constants.IS_DEBUG) {
+            AppExceptionHandler.getInstance().setCrashHanler(this);
+        }
         instance = this;
         mContext = getApplicationContext();
         Realm.init(mContext);

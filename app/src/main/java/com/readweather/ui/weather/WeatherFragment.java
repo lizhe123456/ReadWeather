@@ -10,7 +10,7 @@ import com.readweather.base.BaseFrament;
  * 类介绍：
  */
 
-public class WeatherFrament extends BaseFrament {
+public class WeatherFragment extends BaseFrament {
     @Override
     protected int setLayout() {
         return R.layout.fragment_weather;

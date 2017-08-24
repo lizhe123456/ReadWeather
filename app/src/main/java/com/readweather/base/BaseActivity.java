@@ -32,8 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
-        mUnbinder = ButterKnife.bind(mActivity);
         setContentView(setLayout());
+        mUnbinder = ButterKnife.bind(mActivity);
         App.getInstance().addActivity(this);
         init();
 //        initFragment(savedInstanceState);
