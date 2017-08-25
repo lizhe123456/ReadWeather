@@ -44,4 +44,19 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFrament i
 
     protected abstract void initInject();
 
+    @Override
+    public void loading() {
+
+    }
+
+    @Override
+    public void unLoading() {
+
+    }
+
+    @Override
+    public void showErrorMsg(String msg) {
+
+    }
+
 }
