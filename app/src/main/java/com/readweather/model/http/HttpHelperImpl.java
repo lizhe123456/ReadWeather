@@ -3,8 +3,12 @@ package com.readweather.model.http;
 import com.readweather.app.Constants;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
+import com.readweather.model.bean.GankBean;
 import com.readweather.model.http.api.BusApi;
+import com.readweather.model.http.api.GirlsApi;
 import com.readweather.model.http.response.BusResponse;
+import com.readweather.model.http.response.GirlsResponse;
+import com.readweather.presenter.meizi.contract.GirlsContract;
 
 import java.util.List;
 
@@ -16,13 +20,15 @@ import io.reactivex.Flowable;
  * Created by Administrator on 2017/8/18 0018.
  */
 
-public class HttpHelperImpl  implements HttpHelper{
+public class HttpHelperImpl implements HttpHelper{
 
     public BusApi busApi;
+    public GirlsApi girlsApi;
 
     @Inject
-    public HttpHelperImpl(BusApi busApi){
+    public HttpHelperImpl(BusApi busApi,GirlsApi girlsApi){
         this.busApi = busApi;
+        this.girlsApi = girlsApi;
     }
 
     @Override
@@ -33,6 +39,16 @@ public class HttpHelperImpl  implements HttpHelper{
     @Override
     public Flowable<BusResponse<List<BusNumberBean>>>  fetchBusNumberBeanInfo(String city, String bus) {
         return busApi.getBusNumberBeanInfo(Constants.BUS_KEY,city,bus);
+    }
+
+    @Override
+    public Flowable<GirlsResponse<List<GankBean>>> fetchGrilsBeanInfo(int num, int page) {
+        return girlsApi.getGirlList(num,page);
+    }
+
+    @Override
+    public Flowable<GirlsResponse<List<GankBean>>> fetchRandomGirlInfo(int num) {
+        return girlsApi.getRandomGirl(num);
     }
 
 

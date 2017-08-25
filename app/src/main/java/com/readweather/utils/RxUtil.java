@@ -2,6 +2,7 @@ package com.readweather.utils;
 
 import com.readweather.model.http.exception.ApiException;
 import com.readweather.model.http.response.BusResponse;
+import com.readweather.model.http.response.GirlsResponse;
 
 import org.reactivestreams.Publisher;
 
@@ -49,6 +50,24 @@ public class RxUtil {
                     public Flowable<T> apply(@NonNull BusResponse<T> tBaseResponse) throws Exception {
                         if (tBaseResponse.getReason().equals("success")) {
                             return createData(tBaseResponse.getResult());
+                        } else {
+                            return Flowable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
+
+    public static <T> FlowableTransformer<GirlsResponse<T>, T>  handleGank(){
+        return new FlowableTransformer<GirlsResponse<T>, T> () {
+            @Override
+            public Publisher<T> apply(Flowable<GirlsResponse<T>> upstream) {
+                return upstream.flatMap(new Function<GirlsResponse<T>, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(@NonNull GirlsResponse<T> tBaseResponse) throws Exception {
+                        if (!tBaseResponse.isError()) {
+                            return createData(tBaseResponse.getResults());
                         } else {
                             return Flowable.error(new ApiException("服务器返回error"));
                         }

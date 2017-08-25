@@ -3,7 +3,9 @@ package com.readweather.di.module;
 import com.readweather.app.App;
 import com.readweather.app.Constants;
 import com.readweather.di.qualifier.BusUrl;
+import com.readweather.di.qualifier.GirlsUrl;
 import com.readweather.model.http.api.BusApi;
+import com.readweather.model.http.api.GirlsApi;
 import com.readweather.utils.JsonUtil;
 import com.readweather.utils.LogUtil;
 import com.readweather.utils.SystemUtil;
@@ -54,8 +56,21 @@ public class HttpModule {
 
     @Singleton
     @Provides
+    @GirlsUrl
+    Retrofit provideGirlRetrofit(Retrofit.Builder builder,OkHttpClient client){
+        return createRetrofit(builder,client,Constants.GIRLS_API);
+    }
+
+    @Singleton
+    @Provides
     BusApi provideBusService(@BusUrl Retrofit retrofit){
         return retrofit.create(BusApi.class);
+    }
+
+    @Singleton
+    @Provides
+    GirlsApi provideGirlsService(@GirlsUrl Retrofit retrofit){
+        return retrofit.create(GirlsApi.class);
     }
 
     @Singleton

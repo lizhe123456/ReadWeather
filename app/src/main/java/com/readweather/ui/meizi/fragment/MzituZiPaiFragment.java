@@ -2,35 +2,13 @@ package com.readweather.ui.meizi.fragment;
 
 
 import com.readweather.R;
-import com.readweather.base.MvpFragment;
-import com.readweather.presenter.meizi.GirlsPresenter;
-import com.readweather.presenter.meizi.contract.GirlsContract;
+import com.readweather.base.BaseFrament;
 
 /**
  * Created by Administrator on 2017/8/25 0025.
  */
 
-public class MzituZiPaiFragment extends MvpFragment<GirlsPresenter> implements GirlsContract.View{
-
-    @Override
-    public void showErrorMsg(String msg) {
-
-    }
-
-    @Override
-    public void stateError() {
-
-    }
-
-    @Override
-    public void loading() {
-
-    }
-
-    @Override
-    public void unLoading() {
-
-    }
+public class MzituZiPaiFragment extends BaseFrament{
 
     @Override
     protected int setLayout() {
@@ -38,12 +16,13 @@ public class MzituZiPaiFragment extends MvpFragment<GirlsPresenter> implements G
     }
 
     @Override
-    protected void setData() {
+    protected void init() {
 
     }
 
     @Override
-    protected void initInject() {
+    protected void setData() {
 
     }
+
 }
