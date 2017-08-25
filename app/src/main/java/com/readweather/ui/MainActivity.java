@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +55,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private FragmentManager fragmentManager;
     private String currentFragmentTag;
-    private List<Fragment> list;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+
 
     @Override
     protected int setLayout() {
@@ -70,13 +73,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationMenu.addHeaderView(view);
         navigationMenu.setNavigationItemSelectedListener(this);
         fragmentManager = getSupportFragmentManager();
-        list = new ArrayList<>();
         setContentFragment(FRAGMENT_TAG_WEATHER);
     }
 
     @Override
     protected void setData() {
 
+    }
+
+    public void setToolBar(Toolbar toolBar){
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerlayout,toolBar,R.string.open,R.string.close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        actionBarDrawerToggle.syncState();
+        drawerlayout.addDrawerListener(actionBarDrawerToggle);
     }
 
     @Override
@@ -107,6 +125,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void setContentFragment(String tag){
+        drawerlayout.closeDrawers();
         if (currentFragmentTag != null && currentFragmentTag.equals(tag)){
             return;
         }
@@ -120,7 +139,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         Fragment foundFragment = fragmentManager.findFragmentByTag(tag);
 
-        if (currentFragment == null){
+        if (foundFragment == null){
             switch (tag){
                 case FRAGMENT_TAG_WEATHER:
                     foundFragment = new WeatherFragment();
