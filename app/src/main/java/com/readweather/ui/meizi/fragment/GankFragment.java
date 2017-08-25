@@ -56,19 +56,23 @@ public class GankFragment extends MvpFragment<GirlsPresenter> implements GirlsCo
     protected void setData() {
         mList = new ArrayList<>();
         adapter = new GankAdapter(mList,getContext());
+        //瀑布流布局管理器
         layoutManager = new StaggeredGridLayoutManager(SPAN_COUNT,StaggeredGridLayoutManager.VERTICAL);
         //解决瀑布流左右乱跑问题
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         layoutManager.setItemPrefetchEnabled(false);
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        //下拉刷新
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mPresenter.getGirlsData();
             }
         });
-
+        //上拉加载
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             //用来标记是否正在向最后一个滑动，既是否向下滑动
             boolean isSlidingToLast = false;
