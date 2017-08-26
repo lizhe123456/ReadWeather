@@ -8,11 +8,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.SlidingDrawer;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -55,6 +57,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private FragmentManager fragmentManager;
     private String currentFragmentTag;
+    private String tag = FRAGMENT_TAG_WEATHER;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
@@ -73,7 +76,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         navigationMenu.addHeaderView(view);
         navigationMenu.setNavigationItemSelectedListener(this);
         fragmentManager = getSupportFragmentManager();
-        setContentFragment(FRAGMENT_TAG_WEATHER);
+        setContentFragment(tag);
+        drawerlayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                setContentFragment(tag);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
     }
 
     @Override
@@ -102,30 +127,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()){
             case R.id.navigation_item_0:
                 item.setChecked(true);
-                setContentFragment(FRAGMENT_TAG_WEATHER);
+                tag = FRAGMENT_TAG_WEATHER;
                 break;
             case R.id.navigation_item_1:
                 item.setChecked(true);
-                setContentFragment(FRAGMENT_TAG_BUS);
+                tag = FRAGMENT_TAG_BUS;
                 break;
             case R.id.navigation_item_2:
                 item.setChecked(true);
-                setContentFragment(FRAGMENT_TAG_READING);
+                tag = FRAGMENT_TAG_READING;
                 break;
             case R.id.navigation_item_3:
                 item.setChecked(true);
-                setContentFragment(FRAGMENT_TAG_MEIZI);
+                tag = FRAGMENT_TAG_MEIZI;
                 break;
             case R.id.navigation_item_settings:
                 break;
             case R.id.navigation_item_about:
                 break;
         }
+        drawerlayout.closeDrawers();
         return true;
     }
 
     public void setContentFragment(String tag){
-        drawerlayout.closeDrawers();
+
         if (currentFragmentTag != null && currentFragmentTag.equals(tag)){
             return;
         }

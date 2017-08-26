@@ -30,6 +30,16 @@ public class GankBean {
     private String who;
     private int height;
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    private int width;
+
     public int getHeight() {
         return height;
     }
