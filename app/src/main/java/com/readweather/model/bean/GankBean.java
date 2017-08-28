@@ -29,6 +29,7 @@ public class GankBean {
     private boolean used;
     private String who;
     private int height;
+    private int width;
 
     public int getWidth() {
         return width;
@@ -37,8 +38,6 @@ public class GankBean {
     public void setWidth(int width) {
         this.width = width;
     }
-
-    private int width;
 
     public int getHeight() {
         return height;

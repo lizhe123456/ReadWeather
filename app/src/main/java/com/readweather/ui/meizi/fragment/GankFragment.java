@@ -6,10 +6,15 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.readweather.R;
 import com.readweather.base.MvpFragment;
+import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.GankBean;
 import com.readweather.presenter.meizi.GirlsPresenter;
 import com.readweather.presenter.meizi.contract.GirlsContract;
+import com.readweather.service.GirlsThread;
 import com.readweather.ui.meizi.adapter.GankAdapter;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,7 @@ import butterknife.BindView;
 
 public class GankFragment extends MvpFragment<GirlsPresenter> implements GirlsContract.View {
 
+    private static final String GABKFROM = "gank";
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -142,9 +148,14 @@ public class GankFragment extends MvpFragment<GirlsPresenter> implements GirlsCo
     @Override
     public void showMore(List<GankBean> list) {
         mList.addAll(list);
-        for (int i = mList.size() - GirlsPresenter.NUM ; i < mList.size(); i++){
-            adapter.notifyItemInserted(i);
-        }
+        GirlsThread.startWork(getContext(),mList,GABKFROM);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    public void onDataSynEvent(GirlsComingEvent event) {
+        mList = event.getGirls();
+        adapter.notifyItemInserted(event.getGirls().size()+1);
     }
 
 }

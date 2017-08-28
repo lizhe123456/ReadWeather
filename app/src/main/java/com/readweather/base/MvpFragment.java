@@ -1,10 +1,19 @@
 package com.readweather.base;
 
+import android.util.Log;
+
 import com.readweather.app.App;
 import com.readweather.di.component.DaggerFragmentComponent;
 import com.readweather.di.component.FragmentComponent;
 import com.readweather.di.module.FragmentModule;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import javax.inject.Inject;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * author：lizhe
@@ -31,6 +40,8 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFrament i
         if (mPresenter != null){
             mPresenter.attachView(this);
         }
+        //订阅
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -38,11 +49,15 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFrament i
         if (mPresenter != null){
             mPresenter.datachView();
         }
+        //解除订阅
+        EventBus.getDefault().unregister(this);
         super.onDestroyView();
 
     }
 
     protected abstract void initInject();
+
+
 
     @Override
     public void loading() {

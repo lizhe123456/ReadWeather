@@ -26,12 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".ui.TestActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--&gt;-->
-
-        <!--</activity>-->
+        <service android:name=".service.InitService"
+            android:enabled="true" />
     </application>
 
 </manifest>
