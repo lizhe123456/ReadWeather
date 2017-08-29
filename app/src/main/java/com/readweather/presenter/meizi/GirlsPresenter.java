@@ -22,6 +22,7 @@ public class GirlsPresenter extends BasePresenterImpl<GirlsContract.View> implem
     private DataManager mDataManager;
 
     public static final int NUM = 20;
+    public static final int MORENUM = 10;
 
     private int currentPage = 1;
 
@@ -47,7 +48,7 @@ public class GirlsPresenter extends BasePresenterImpl<GirlsContract.View> implem
 
     @Override
     public void getMore() {
-        addSubscribe(mDataManager.fetchGrilsBeanInfo(NUM,++currentPage)
+        addSubscribe(mDataManager.fetchGrilsBeanInfo(MORENUM,++currentPage)
                 .compose(RxUtil.<GirlsResponse<List<GankBean>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<GankBean>>handleGank())
                 .subscribeWith(new CommonSubscriber<List<GankBean>>(mView) {
