@@ -3,10 +3,12 @@ package com.readweather.model;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
+import com.readweather.model.http.response.JiandanResponse;
 import com.readweather.model.prefs.PreferencesHelper;
 
 import java.util.List;
@@ -62,5 +64,11 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     public Flowable<GirlsResponse<List<GankBean>>> fetchRandomGirlInfo(int num) {
         return mHttpHelper.fetchRandomGirlInfo(num);
     }
+
+    @Override
+    public Flowable<JiandanResponse<List<JiandanBean>>> fetchJiandanInfo(int page) {
+        return mHttpHelper.fetchJiandanInfo(page);
+    }
+
 
 }

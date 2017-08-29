@@ -4,10 +4,12 @@ import com.readweather.app.Constants;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
+import com.readweather.model.http.response.JiandanResponse;
 import com.readweather.presenter.meizi.contract.GirlsContract;
 
 import java.util.List;
@@ -51,5 +53,9 @@ public class HttpHelperImpl implements HttpHelper{
         return girlsApi.getRandomGirl(num);
     }
 
+    @Override
+    public Flowable<JiandanResponse<List<JiandanBean>>> fetchJiandanInfo(int page) {
+        return girlsApi.getXXOO(page);
+    }
 
 }

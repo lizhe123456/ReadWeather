@@ -3,10 +3,13 @@ package com.readweather.model.http;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
+import com.readweather.model.http.response.JiandanResponse;
 
 import java.util.List;
+import java.util.logging.FileHandler;
 
 import io.reactivex.Flowable;
 
@@ -23,4 +26,8 @@ public interface HttpHelper {
     Flowable<GirlsResponse<List<GankBean>>> fetchGrilsBeanInfo(int num, int page);
 
     Flowable<GirlsResponse<List<GankBean>>> fetchRandomGirlInfo(int num);
+
+    Flowable<JiandanResponse<List<JiandanBean>>> fetchJiandanInfo(int page);
+
+
 }

@@ -19,6 +19,7 @@ import com.readweather.app.App;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.base.adapter.BaseViewHolder;
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.Girl;
 import com.readweather.utils.GlideuUtil;
 import com.readweather.view.RatioImageView;
 
@@ -33,29 +34,29 @@ import butterknife.ButterKnife;
 
 public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
 
-    private List<GankBean> mList;
+    private List<Girl> mList;
     private Context mContext;
     private LayoutInflater mInflater;
     private OnItemClickListener onItemClickListener;
 
-    public GankAdapter(List<GankBean> mList, Context mContext) {
+    public GankAdapter(List<Girl> mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
     }
 
-    public void setNewData(List<GankBean> list){
+    public void setNewData(List<Girl> list){
         mList.clear();
         mList.addAll(list);
         notifyDataSetChanged();
 
     }
 
-    public List<GankBean> getmList() {
+    public List<Girl> getmList() {
         return mList;
     }
 
-    public void addData(int position, List<GankBean> data){
+    public void addData(int position, List<Girl> data){
         this.mList.addAll(position, data);
         this.notifyItemRangeInserted(position, data.size());
     }
@@ -67,7 +68,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final GankBean girl = mList.get(position);
+        final Girl girl = mList.get(position);
         if (girl.getHeight() != 0) {
             holder.ivGirl.setOriginalSize(girl.getWidth(), girl.getHeight());
         } else {
@@ -110,11 +111,11 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
 
     @Override
     public int getItemViewType(int position) {
-        GankBean girl = mList.get(position);
+        Girl girl = mList.get(position);
         return Math.round((float) girl.getWidth() / (float) girl.getHeight() * 10f);
     }
 
-    public void setLoadMoreData(List<GankBean> list) {
+    public void setLoadMoreData(List<Girl> list) {
         int size = mList.size();
         mList.addAll(list);
         notifyItemInserted(size);

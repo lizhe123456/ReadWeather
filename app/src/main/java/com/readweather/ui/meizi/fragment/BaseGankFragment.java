@@ -8,11 +8,8 @@ import com.readweather.R;
 import com.readweather.base.BasePresenter;
 import com.readweather.base.BaseView;
 import com.readweather.base.MvpFragment;
-import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.GankBean;
-import com.readweather.presenter.meizi.GirlsPresenter;
-import com.readweather.presenter.meizi.contract.GirlsContract;
-import com.readweather.service.GirlsThread;
+import com.readweather.model.bean.Girl;
 import com.readweather.ui.meizi.adapter.GankAdapter;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -34,7 +31,7 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
     @BindView(R.id.refresh)
     SwipeRefreshLayout refresh;
 
-    protected List<GankBean> mList;
+    protected List<Girl> mList;
 
     protected StaggeredGridLayoutManager layoutManager;
 
@@ -144,8 +141,8 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void onDataSynEvent(GirlsComingEvent event) {
-        mList = event.getGirls();
+    public void onDataSynEvent(List<Girl> event) {
+        mList = event;
         if (isLoadMore) {
             if (mList.size() == 0) {
 //                adapter.setLoadEndView(R.layout.load_end_layout);
@@ -154,6 +151,9 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
             }
         } else {
             adapter.setNewData(mList);
+            if (refresh.isRefreshing()) {
+                refresh.setRefreshing(false);
+            }
         }
     }
 }

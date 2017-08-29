@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.readweather.di.module.FragmentModule;
 import com.readweather.di.scope.FragmentScope;
 import com.readweather.ui.meizi.fragment.GankFragment;
+import com.readweather.ui.meizi.fragment.JiandanFragment;
 
 import dagger.Component;
 
@@ -18,4 +19,7 @@ public interface FragmentComponent {
     Activity getActivity();
 
     void inject(GankFragment fragment);
+
+    void inject(JiandanFragment fragment);
+
 }

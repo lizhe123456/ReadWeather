@@ -1,17 +1,14 @@
 package com.readweather.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
-import com.readweather.event.GirlsComingEvent;
-import com.readweather.model.bean.GankBean;
-import com.readweather.utils.LogUtil;
+import com.readweather.model.bean.Girl;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,27 +23,26 @@ import java.util.concurrent.ExecutionException;
 public class GirlsThread extends Thread {
 
     private static Context mContext;
-    private static List<GankBean> mList;
+    private List<Girl> mList;
     private static String from;
     private static GirlsThread t;
     //此变量必须加上volatile
     private static volatile boolean stop = false;
 
-    private GirlsThread(Context context, @Nullable List<GankBean> mList,String from){
+    private GirlsThread(Context context, @Nullable List<Girl> mList,String from){
         this.mContext = context;
         this.mList = mList;
         this.from = from;
     }
 
-
     @Override
     public void run() {
-        List<GankBean> list = null;
+        List<Girl> list = null;
         while (!stop) {
             if (list == null) {
-                 list = new ArrayList<>();
+                list = new ArrayList<>();
             }
-            for (final GankBean gankBean : mList) {
+            for (final Girl gankBean : mList) {
                 Bitmap bitmap = null;
                 try {
                     bitmap = Glide.with(mContext)
@@ -60,7 +56,7 @@ public class GirlsThread extends Thread {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-                synchronized ("") {
+                synchronized (Girl.class) {
                     if (bitmap != null) {
                         gankBean.setHeight(bitmap.getHeight());
                         gankBean.setWidth(bitmap.getWidth());
@@ -68,13 +64,13 @@ public class GirlsThread extends Thread {
                 }
                 list.add(gankBean);
             }
-            EventBus.getDefault().post(new GirlsComingEvent(from, list));
+            EventBus.getDefault().post(list);
             stopWork();
         }
     }
 
 
-    public static void startWork(Context context, @Nullable List<GankBean> mList1, String from1){
+    public static synchronized void startWork(Context context, @Nullable List<Girl> mList1, String from1){
         t = new GirlsThread(context, mList1, from1);
         t.start();
         stop = false;

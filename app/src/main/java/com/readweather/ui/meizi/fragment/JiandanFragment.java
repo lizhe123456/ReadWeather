@@ -1,30 +1,61 @@
 package com.readweather.ui.meizi.fragment;
 
-import com.readweather.R;
-import com.readweather.base.BaseFrament;
-import com.readweather.base.MvpFragment;
-import com.readweather.presenter.meizi.GirlsPresenter;
-import com.readweather.presenter.meizi.contract.GirlsContract;
+import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.Girl;
+import com.readweather.model.bean.JiandanBean;
+import com.readweather.presenter.meizi.JianDanPresenter;
+import com.readweather.presenter.meizi.contract.JianDanContract;
+import com.readweather.service.GirlsThread;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/25 0025.
  */
 
-public class JiandanFragment extends BaseFrament {
+public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implements JianDanContract.View {
+
+    private static final String GABKFROM = "jiandan";
 
     @Override
-    protected int setLayout() {
-        return R.layout.fragment_jiandan;
+    protected void refresh() {
+        super.refresh();
+        mPresenter.getJIanDan();
     }
 
     @Override
-    protected void init() {
-
+    protected void initInject() {
+        getFragmentComponent().inject(this);
     }
 
     @Override
-    protected void setData() {
-
+    protected void getMore() {
+        super.getMore();
+        mPresenter.getMore();
     }
 
+
+    @Override
+    public void showJianDan(List<JiandanBean> list) {
+        List<Girl> girls = new ArrayList<>();
+        for (JiandanBean gank : list) {
+            for (String url : gank.getPics()) {
+                if (!url.toLowerCase().endsWith("gif")) {
+                    //gif占用内存&流量太大，pass掉
+                    girls.add(new Girl(url));
+                }
+            }
+        }
+        GirlsThread.startWork(getContext(),girls,GABKFROM);
+    }
+
+    @Override
+    public void showMore(List<JiandanBean> list) {
+        List<Girl> girls = new ArrayList<>();
+        for (JiandanBean gank : list) {
+            girls.add(new Girl(gank.getComment_content()));
+        }
+        GirlsThread.startWork(getContext(),girls,GABKFROM);
+    }
 }

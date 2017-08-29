@@ -3,6 +3,7 @@ package com.readweather.utils;
 import com.readweather.model.http.exception.ApiException;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
+import com.readweather.model.http.response.JiandanResponse;
 
 import org.reactivestreams.Publisher;
 
@@ -44,7 +45,7 @@ public class RxUtil {
     public static <T> FlowableTransformer<BusResponse<T>, T>  handleBus(){
         return new FlowableTransformer<BusResponse<T>, T> () {
             @Override
-            public Publisher<T> apply(Flowable<BusResponse<T>> upstream) {
+            public Flowable<T> apply(Flowable<BusResponse<T>> upstream) {
                 return upstream.flatMap(new Function<BusResponse<T>, Flowable<T>>() {
                     @Override
                     public Flowable<T> apply(@NonNull BusResponse<T> tBaseResponse) throws Exception {
@@ -62,13 +63,31 @@ public class RxUtil {
     public static <T> FlowableTransformer<GirlsResponse<T>, T>  handleGank(){
         return new FlowableTransformer<GirlsResponse<T>, T> () {
             @Override
-            public Publisher<T> apply(Flowable<GirlsResponse<T>> upstream) {
+            public Flowable<T> apply(Flowable<GirlsResponse<T>> upstream) {
                 return upstream.flatMap(new Function<GirlsResponse<T>, Flowable<T>>() {
                     @Override
                     public Flowable<T> apply(@NonNull GirlsResponse<T> tBaseResponse) throws Exception {
                         if (!tBaseResponse.isError()) {
                             return createData(tBaseResponse.getResults());
                         } else {
+                            return Flowable.error(new ApiException("服务器返回error"));
+                        }
+                    }
+                });
+            }
+        };
+    }
+
+    public static <T> FlowableTransformer<JiandanResponse<T>, T> handleJiandan(){
+        return new FlowableTransformer<JiandanResponse<T>, T>() {
+            @Override
+            public Flowable<T> apply(Flowable<JiandanResponse<T>> upstream) {
+                return upstream.flatMap(new Function<JiandanResponse<T>, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(@NonNull JiandanResponse<T> tJiandanResponse) throws Exception {
+                        if (tJiandanResponse.getStatus().equals("ok")){
+                            return createData(tJiandanResponse.getComments());
+                        }else {
                             return Flowable.error(new ApiException("服务器返回error"));
                         }
                     }

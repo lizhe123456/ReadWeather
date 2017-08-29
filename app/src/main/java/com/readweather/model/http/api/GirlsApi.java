@@ -1,8 +1,10 @@
 package com.readweather.model.http.api;
 
 import com.readweather.model.bean.GankBean;
-import com.readweather.model.bean.JiandanResponse;
+import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.http.response.GirlsResponse;
+import com.readweather.model.http.response.JiandanResponse;
+
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -17,7 +19,7 @@ import retrofit2.http.Query;
 public interface GirlsApi {
 
     @GET("http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_ooxx_comments")
-    Flowable<JiandanResponse> getXXOO(@Query("page") int page);
+    Flowable<JiandanResponse<List<JiandanBean>>> getXXOO(@Query("page") int page);
 
     /**
      * 妹纸列表

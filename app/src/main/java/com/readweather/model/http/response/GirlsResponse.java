@@ -1,10 +1,12 @@
 package com.readweather.model.http.response;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/8/25 0025.
  */
 
-public class GirlsResponse<T> {
+public class GirlsResponse<T> implements Serializable{
 
     public boolean error;
     public T results;
