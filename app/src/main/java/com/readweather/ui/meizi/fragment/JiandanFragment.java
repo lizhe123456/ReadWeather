@@ -1,6 +1,5 @@
 package com.readweather.ui.meizi.fragment;
 
-import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.presenter.meizi.JianDanPresenter;
@@ -16,7 +15,6 @@ import java.util.List;
 
 public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implements JianDanContract.View {
 
-    private static final String GABKFROM = "jiandan";
 
     @Override
     protected void refresh() {
@@ -47,7 +45,7 @@ public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implemen
                 }
             }
         }
-        GirlsThread.startWork(getContext(),girls,GABKFROM);
+        GirlsThread.startWork(getContext(),girls,getClass().getName());
     }
 
     @Override
@@ -56,6 +54,6 @@ public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implemen
         for (JiandanBean gank : list) {
             girls.add(new Girl(gank.getComment_content()));
         }
-        GirlsThread.startWork(getContext(),girls,GABKFROM);
+        GirlsThread.startWork(getContext(),girls,getClass().getName());
     }
 }

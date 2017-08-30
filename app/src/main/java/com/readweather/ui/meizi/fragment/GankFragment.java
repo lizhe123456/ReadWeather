@@ -15,7 +15,6 @@ import java.util.List;
 
 public class GankFragment extends BaseGankFragment<GirlsPresenter> implements GirlsContract.View {
 
-    private static final String GABKFROM = "gank";
 
 
     @Override
@@ -41,7 +40,7 @@ public class GankFragment extends BaseGankFragment<GirlsPresenter> implements Gi
         for (GankBean gank : list) {
             girls.add(new Girl(gank.getUrl()));
         }
-        GirlsThread.startWork(getContext(),girls,GABKFROM);
+        GirlsThread.startWork(getContext(),girls,getClass().getName());
     }
 
     @Override
@@ -50,7 +49,7 @@ public class GankFragment extends BaseGankFragment<GirlsPresenter> implements Gi
         for (GankBean gank : list) {
             girls.add(new Girl(gank.getUrl()));
         }
-        GirlsThread.startWork(getContext(),girls,GABKFROM);
+        GirlsThread.startWork(getContext(),girls,getClass().getName());
     }
 
 }

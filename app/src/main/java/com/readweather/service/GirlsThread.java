@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
+import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.Girl;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,7 +65,7 @@ public class GirlsThread extends Thread {
                 }
                 list.add(gankBean);
             }
-            EventBus.getDefault().post(list);
+            EventBus.getDefault().post(new GirlsComingEvent(from,list));
             stopWork();
         }
     }

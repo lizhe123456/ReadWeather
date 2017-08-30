@@ -8,6 +8,7 @@ import com.readweather.R;
 import com.readweather.base.BasePresenter;
 import com.readweather.base.BaseView;
 import com.readweather.base.MvpFragment;
+import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.ui.meizi.adapter.GankAdapter;
@@ -141,8 +142,10 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
-    public void onDataSynEvent(List<Girl> event) {
-        mList = event;
+    public void onDataSynEvent(GirlsComingEvent event) {
+        if (!event.getFrom().equals(this.getClass().getName()))
+            return;
+        mList = event.getGirls();
         if (isLoadMore) {
             if (mList.size() == 0) {
 //                adapter.setLoadEndView(R.layout.load_end_layout);
