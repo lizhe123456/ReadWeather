@@ -34,7 +34,7 @@ public class GirlsPresenter extends BasePresenterImpl<GirlsContract.View> implem
 
     @Override
     public void getGirlsData() {
-        addSubscribe(mDataManager.fetchGrilsBeanInfo(NUM,currentPage)
+        addSubscribe(mDataManager.fetchGrilsBeanInfo(NUM,currentPage++)
                     .compose(RxUtil.<GirlsResponse<List<GankBean>>>rxSchedulerHelper())
                     .compose(RxUtil.<List<GankBean>>handleGank())
                     .subscribeWith(new CommonSubscriber<List<GankBean>>(mView) {
@@ -46,17 +46,7 @@ public class GirlsPresenter extends BasePresenterImpl<GirlsContract.View> implem
         );
     }
 
-    @Override
-    public void getMore() {
-        addSubscribe(mDataManager.fetchGrilsBeanInfo(MORENUM,++currentPage)
-                .compose(RxUtil.<GirlsResponse<List<GankBean>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<GankBean>>handleGank())
-                .subscribeWith(new CommonSubscriber<List<GankBean>>(mView) {
-                    @Override
-                    public void onNext(List<GankBean> list) {
-                        mView.showMore(list);
-                    }
-                })
-        );
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 }

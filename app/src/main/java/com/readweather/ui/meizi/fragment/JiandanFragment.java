@@ -19,6 +19,7 @@ public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implemen
     @Override
     protected void refresh() {
         super.refresh();
+        mPresenter.setPAGE(1);
         mPresenter.getJIanDan();
     }
 
@@ -30,7 +31,7 @@ public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implemen
     @Override
     protected void getMore() {
         super.getMore();
-        mPresenter.getMore();
+        mPresenter.getJIanDan();
     }
 
 
@@ -48,12 +49,4 @@ public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implemen
         GirlsThread.startWork(getContext(),girls,getClass().getName());
     }
 
-    @Override
-    public void showMore(List<JiandanBean> list) {
-        List<Girl> girls = new ArrayList<>();
-        for (JiandanBean gank : list) {
-            girls.add(new Girl(gank.getComment_content()));
-        }
-        GirlsThread.startWork(getContext(),girls,getClass().getName());
-    }
 }

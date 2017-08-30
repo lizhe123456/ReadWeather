@@ -94,7 +94,6 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
                     // 判断是否滚动到底部
                     if (lastVisiblePos == (totalItemCount - 1) && isSlidingToLast) {
                         //加载更多功能的代码
-
                         getMore();
                     }
                 }

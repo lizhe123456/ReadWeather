@@ -20,13 +20,14 @@ public class GankFragment extends BaseGankFragment<GirlsPresenter> implements Gi
     @Override
     protected void refresh() {
         super.refresh();
+        mPresenter.setCurrentPage(1);
         mPresenter.getGirlsData();
     }
 
     @Override
     protected void getMore() {
         super.getMore();
-        mPresenter.getMore();
+        mPresenter.getGirlsData();
     }
 
     @Override
@@ -36,15 +37,6 @@ public class GankFragment extends BaseGankFragment<GirlsPresenter> implements Gi
 
     @Override
     public void showContent(List<GankBean> list) {
-        List<Girl> girls = new ArrayList<>();
-        for (GankBean gank : list) {
-            girls.add(new Girl(gank.getUrl()));
-        }
-        GirlsThread.startWork(getContext(),girls,getClass().getName());
-    }
-
-    @Override
-    public void showMore(List<GankBean> list) {
         List<Girl> girls = new ArrayList<>();
         for (GankBean gank : list) {
             girls.add(new Girl(gank.getUrl()));

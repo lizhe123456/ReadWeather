@@ -6,6 +6,7 @@ import com.readweather.di.module.FragmentModule;
 import com.readweather.di.scope.FragmentScope;
 import com.readweather.ui.meizi.fragment.GankFragment;
 import com.readweather.ui.meizi.fragment.JiandanFragment;
+import com.readweather.ui.meizi.fragment.MeituFragment;
 
 import dagger.Component;
 
@@ -21,5 +22,7 @@ public interface FragmentComponent {
     void inject(GankFragment fragment);
 
     void inject(JiandanFragment fragment);
+
+    void inject(MeituFragment fragment);
 
 }

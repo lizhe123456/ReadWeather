@@ -1,12 +1,12 @@
 package com.readweather.model.http.api;
 
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
 
 import java.util.List;
-
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -33,5 +33,6 @@ public interface GirlsApi {
     @GET("random/data/福利/{num}")
     Flowable<GirlsResponse<List<GankBean>>> getRandomGirl(@Path("num") int num);
 
-
+    @GET("{url}")
+    Flowable<String> getMeizitu(@Path("url") String url);
 }

@@ -33,7 +33,7 @@ public class JianDanPresenter extends BasePresenterImpl<JianDanContract.View> im
 
     @Override
     public void getJIanDan() {
-        addSubscribe(mDataManager.fetchJiandanInfo(PAGE)
+        addSubscribe(mDataManager.fetchJiandanInfo(PAGE++)
                     .compose(RxUtil.<JiandanResponse<List<JiandanBean>>>rxSchedulerHelper())
                     .compose(RxUtil.<List<JiandanBean>>handleJiandan())
                     .subscribeWith(new CommonSubscriber<List<JiandanBean>>(mView) {
@@ -45,17 +45,7 @@ public class JianDanPresenter extends BasePresenterImpl<JianDanContract.View> im
         );
     }
 
-    @Override
-    public void getMore() {
-        addSubscribe(mDataManager.fetchJiandanInfo(++PAGE)
-                .compose(RxUtil.<JiandanResponse<List<JiandanBean>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<JiandanBean>>handleJiandan())
-                .subscribeWith(new CommonSubscriber<List<JiandanBean>>(mView) {
-                    @Override
-                    public void onNext(List<JiandanBean> list) {
-                        mView.showJianDan(list);
-                    }
-                })
-        );
+    public void setPAGE(int PAGE) {
+        this.PAGE = PAGE;
     }
 }

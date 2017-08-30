@@ -1,11 +1,20 @@
 package com.readweather.utils;
 
+import com.readweather.model.bean.Girl;
 import com.readweather.model.http.exception.ApiException;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.reactivestreams.Publisher;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -97,22 +106,22 @@ public class RxUtil {
     }
 
 
-        /**
-         * 生成Flowable
-         * @param <T>
-         * @return
-         */
-        public static <T> Flowable<T> createData(final T t) {
-            return Flowable.create(new FlowableOnSubscribe<T>() {
-                @Override
-                public void subscribe(FlowableEmitter<T> emitter) throws Exception {
-                    try {
-                        emitter.onNext(t);
-                        emitter.onComplete();
-                    } catch (Exception e) {
-                        emitter.onError(e);
-                    }
+    /**
+     * 生成Flowable
+     * @param <T>
+     * @return
+     */
+    public static <T> Flowable<T> createData(final T t) {
+        return Flowable.create(new FlowableOnSubscribe<T>() {
+            @Override
+            public void subscribe(FlowableEmitter<T> emitter) throws Exception {
+                try {
+                    emitter.onNext(t);
+                    emitter.onComplete();
+                } catch (Exception e) {
+                    emitter.onError(e);
                 }
-            }, BackpressureStrategy.BUFFER);
-        }
+            }
+        }, BackpressureStrategy.BUFFER);
+    }
 }

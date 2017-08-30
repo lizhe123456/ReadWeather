@@ -16,14 +16,11 @@ public interface GirlsContract {
 
         void showContent(List<GankBean> list);
 
-        void showMore(List<GankBean> list);
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void getGirlsData();
-
-        void getMore();
     }
 
 }

@@ -3,6 +3,7 @@ package com.readweather.model;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
@@ -68,6 +69,11 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     @Override
     public Flowable<JiandanResponse<List<JiandanBean>>> fetchJiandanInfo(int page) {
         return mHttpHelper.fetchJiandanInfo(page);
+    }
+
+    @Override
+    public Flowable<String> fetchMeizituInfo(String url) {
+        return mHttpHelper.fetchMeizituInfo(url);
     }
 
 

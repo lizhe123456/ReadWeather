@@ -17,16 +17,15 @@ import java.util.List;
 public interface JianDanContract {
 
     interface View extends BaseView{
+
         void showJianDan(List<JiandanBean> list);
 
-        void showMore(List<JiandanBean> list);
     }
 
     interface Presenter extends BasePresenter<View>{
 
         void getJIanDan();
 
-        void getMore();
     }
 
 }

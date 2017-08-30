@@ -4,6 +4,7 @@ import com.readweather.app.Constants;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
+import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
@@ -56,6 +57,11 @@ public class HttpHelperImpl implements HttpHelper{
     @Override
     public Flowable<JiandanResponse<List<JiandanBean>>> fetchJiandanInfo(int page) {
         return girlsApi.getXXOO(page);
+    }
+
+    @Override
+    public Flowable<String> fetchMeizituInfo(String url) {
+        return null;
     }
 
 }
