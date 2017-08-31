@@ -24,5 +24,6 @@ public interface MeitiContract {
 
         void getMeitu(String url,String realUrl, String fakeRefer);
 
+        void getMeitu(String url);
     }
 }

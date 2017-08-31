@@ -30,10 +30,15 @@ public class MeituFragment extends BaseGankFragment<MeituPresenter> implements M
     @Override
     protected void refresh() {
         super.refresh();
+
+        mPresenter.getMeitu(url,realUrl,fakeRefer);
+    }
+
+    @Override
+    protected void initUrl() {
         fakeRefer = getArguments().getString("url") + "/";
         realUrl = "http://api.caoliyu.cn/meizitu.php?url=%s&refer=%s";
         url = getArguments().getString("url") + "/page/" + currentPage;
-        mPresenter.getMeitu(url,realUrl,fakeRefer);
     }
 
     @Override

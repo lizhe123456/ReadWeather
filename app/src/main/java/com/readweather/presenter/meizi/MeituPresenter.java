@@ -2,6 +2,7 @@ package com.readweather.presenter.meizi;
 
 import com.readweather.base.BasePresenterImpl;
 import com.readweather.model.DataManager;
+import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.presenter.meizi.contract.MeitiContract;
 import com.readweather.utils.RxUtil;
@@ -75,5 +76,39 @@ public class MeituPresenter extends BasePresenterImpl<MeitiContract.View> implem
 
         );
     }
+
+    @Override
+    public void getMeitu(final String url) {
+        addSubscribe(mDataManager.fetchMeizituInfo(url)
+                    .just(url)
+                    .subscribeOn(Schedulers.io())
+                    .map(new Function<String, List<Girl>>() {
+                        @Override
+                        public List<Girl> apply(@NonNull String s) throws Exception {
+                            List<Girl> girls = new ArrayList<>();
+                            try {
+                                Document doc = Jsoup.connect(url).timeout(10000).get();
+                                Element total = doc.select("div.postlist").first();
+                                Elements items = total.select("li");
+                                for (Element element : items) {
+                                    Girl girl = new Girl(element.select("img").first().attr("src"));
+                                    girls.add(girl);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            return girls;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new CommonSubscriber<List<Girl>>(mView) {
+                        @Override
+                        public void onNext(List<Girl> list) {
+                            mView.showMeitu(list);
+                        }
+                    })
+        );
+    }
+
 
 }

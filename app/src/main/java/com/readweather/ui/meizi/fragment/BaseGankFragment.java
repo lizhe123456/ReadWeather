@@ -118,10 +118,15 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
 
     protected void getMore(){
         isLoadMore = true;
+        initUrl();
+    }
+
+    protected void initUrl() {
     }
 
     protected void refresh(){
         isLoadMore = false;
+        initUrl();
     }
 
 

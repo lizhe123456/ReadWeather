@@ -76,23 +76,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
         }
 
         Glide.with(mContext).load(girl.getUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_glide_holder).crossFade(500).into(holder.ivGirl);
-//        Glide.with(mContext).load(mList.get(position).getUrl()).asBitmap().diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(new SimpleTarget<Bitmap>(App.SCREEN_WIDTH / 2, App.SCREEN_WIDTH / 2) {
-//                    @Override
-//                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                        if (holder.getAdapterPosition() != RecyclerView.NO_POSITION){
-//                            if (mList.get(holder.getAdapterPosition()).getHeight() <= 0){
-//                                int width = resource.getWidth();
-//                                int height = resource.getHeight();
-//                                int realHeight = (App.SCREEN_WIDTH / 2) * height / width;
-//                                mList.get(holder.getAdapterPosition()).setHeight(realHeight);
-//                                ViewGroup.LayoutParams lp = holder.ivGirl.getLayoutParams();
-//                                lp.height = realHeight;
-//                            }
-//                            holder.ivGirl.setImageBitmap(resource);
-//                        }
-//                    }
-//                });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

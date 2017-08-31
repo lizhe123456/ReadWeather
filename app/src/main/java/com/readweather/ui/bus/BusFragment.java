@@ -11,6 +11,7 @@ import com.readweather.base.BaseFrament;
  */
 
 public class BusFragment extends BaseFrament {
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_bus;
