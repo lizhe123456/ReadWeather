@@ -28,6 +28,7 @@ public abstract class BaseFrament extends Fragment{
     protected View mRootView;
 
     private Unbinder mUnbinder;
+    protected Bundle savedInstanceState;
 
     @LayoutRes
     protected abstract int setLayout();
@@ -41,6 +42,7 @@ public abstract class BaseFrament extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(setLayout(),container,false);
         mUnbinder = ButterKnife.bind(this,mRootView);
+        this.savedInstanceState = savedInstanceState;
         init();
         return mRootView;
 

@@ -3,6 +3,8 @@ package com.readweather.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -21,7 +23,7 @@ import io.realm.Realm;
  * Created by Administrator on 2017/8/17 0017.
  */
 
-public class App extends Application{
+public class App extends MultiDexApplication {
 
     private static Context mContext;
     public static AppComponent appComponent;
@@ -54,7 +56,6 @@ public class App extends Application{
 
         Realm.init(mContext);
         InitService.start(this);
-
     }
 
     public static AppComponent getAppComponent() {

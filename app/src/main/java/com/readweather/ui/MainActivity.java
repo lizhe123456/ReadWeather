@@ -8,26 +8,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SlidingDrawer;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.readweather.R;
 import com.readweather.base.BaseActivity;
-import com.readweather.ui.bus.BusFragment;
+import com.readweather.ui.map.MapFragment;
 import com.readweather.ui.meizi.MeiZiFragment;
 import com.readweather.ui.read.ReadFragment;
 import com.readweather.ui.weather.WeatherFragment;
-import com.readweather.utils.LogUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -171,7 +165,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     foundFragment = new WeatherFragment();
                     break;
                 case FRAGMENT_TAG_BUS:
-                    foundFragment = new BusFragment();
+                    foundFragment = new MapFragment();
                     break;
                 case FRAGMENT_TAG_READING:
                     foundFragment = new ReadFragment();
