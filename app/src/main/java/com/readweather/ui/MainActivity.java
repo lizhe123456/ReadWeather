@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ImageView imageView;
     private LayoutInflater inflater;
 
-    private static final String FRAGMENT_TAG_BUS = "bus";
+    private static final String FRAGMENT_TAG_MAP = "map";
     private static final String FRAGMENT_TAG_WEATHER = "weather";
     private static final String FRAGMENT_TAG_MEIZI = "meizi";
     private static final String FRAGMENT_TAG_READING = "reading";
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.navigation_item_1:
                 item.setChecked(true);
-                tag = FRAGMENT_TAG_BUS;
+                tag = FRAGMENT_TAG_MAP;
                 break;
             case R.id.navigation_item_2:
                 item.setChecked(true);
@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 case FRAGMENT_TAG_WEATHER:
                     foundFragment = new WeatherFragment();
                     break;
-                case FRAGMENT_TAG_BUS:
+                case FRAGMENT_TAG_MAP:
                     foundFragment = new MapFragment();
                     break;
                 case FRAGMENT_TAG_READING:

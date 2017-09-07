@@ -41,6 +41,7 @@
         </activity>
         <service android:name=".service.InitService"
             android:enabled="true" />
+        <service android:name="com.amap.api.location.APSService"/>
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
 import com.readweather.app.App;
 import com.readweather.utils.LogUtil;
 import butterknife.ButterKnife;
@@ -29,6 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         App.getInstance().addActivity(this);
         init();
 //        initFragment(savedInstanceState);
+        LogUtil.d("s","sadas");
         setData();
     }
 
