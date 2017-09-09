@@ -1,20 +1,20 @@
 package com.readweather.ui.map;
 
-
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import android.util.Log;
+import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.readweather.R;
+import com.readweather.app.App;
+import com.readweather.base.BaseFrament;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * author：lizhe
@@ -23,40 +23,52 @@ import butterknife.Unbinder;
  * 类介绍：
  */
 
-public class MapFragment extends Fragment {
+public class MapFragment extends BaseFrament implements App.RWLocationListener{
 
 
     @BindView(R.id.map)
     MapView map;
-    Unbinder unbinder;
 
     private AMap aMap;
 
-    private View view;
+    private MyLocationStyle myLocationStyle;
 
-    @Nullable
+    //首次定位
+    private boolean isFirstLoc = true;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_map, null);
-            unbinder = ButterKnife.bind(this, view);
-            map.onCreate(savedInstanceState);
-            if (aMap == null) {
-                aMap = map.getMap();
-            }
-        } else {
-            if (view.getParent() != null) {
-                ((ViewGroup) view.getParent()).removeView(view);
-            }
-        }
-
-        return view;
+    protected int setLayout() {
+        return R.layout.fragment_map;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init() {
+        map.onCreate(savedInstanceState);
+        if (aMap == null){
+            aMap = map.getMap();
+            initMap();
+            initLocation();
+        }
+    }
+
+    @Override
+    protected void setData() {
+
+    }
+
+    private void initLocation() {
+        App.getLoction(this);
+    }
+
+
+    private void initMap() {
+        myLocationStyle = new MyLocationStyle();
+        aMap.setMyLocationStyle(myLocationStyle);
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_qu_direction_mylocation));
+        myLocationStyle.strokeColor(Color.BLACK);
+        myLocationStyle.radiusFillColor(Color.argb(100, 0, 0, 180));
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);
+        aMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -89,8 +101,19 @@ public class MapFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    public void onLocationChanged(AMapLocation location) {
+        if (isFirstLoc) {
+
+            //设置缩放级别（缩放级别为4-20级）
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+            //将地图移动到定位点
+            aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
+            isFirstLoc = false;
+         }else {
+            //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+            Log.e("地图错误", "定位失败, 错误码:" + location.getErrorCode() + ", 错误信息:"
+                    + location.getErrorInfo());
+        }
     }
+
 }

@@ -9,6 +9,12 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.readweather.BuildConfig;
 import com.readweather.di.component.AppComponent;
 import com.readweather.di.component.DaggerAppComponent;
@@ -34,6 +40,12 @@ public class App extends MultiDexApplication {
     public static int SCREEN_HEIGHT = -1;
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
+
+    private static AMapLocationClient mLocationClient;
+
+    private static AMapLocationClientOption mLocationClientOption;
+
+    private static AMapLocation mLocation;
 
     public static Context getContext() {
         return mContext;
@@ -113,5 +125,55 @@ public class App extends MultiDexApplication {
             allActivitySet.remove(activity);
         }
     }
+
+    /**
+     * 用于定位
+     */
+    public static void getLoction(final RWLocationListener listener){
+        if (mLocation != null){
+            listener.onLocationChanged(mLocation);
+            return;
+        }
+        getCurrentLocation(listener);
+    }
+
+    /**
+     * 获取当前地址
+     * @param listener
+     */
+    private static void getCurrentLocation(final RWLocationListener listener) {
+        mLocationClient = new AMapLocationClient(mContext);
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation location) {
+                if (location != null){
+                    mLocationClient.stopLocation();
+                    mLocation = location;
+                    listener.onLocationChanged(location);
+                }
+            }
+        });
+        // 初始化AMapLocationClientOption对象
+        mLocationClientOption = new AMapLocationClientOption();
+        // 设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+        mLocationClientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        // 获取最近3s内精度最高的一次定位结果：
+        // 设置setOnceLocationLatest(boolean
+        // b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean
+        // b)接口也会被设置为true，反之不会，默认为false。
+        mLocationClientOption.setOnceLocationLatest(true);
+        // 给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationClientOption);
+        // 启动定位
+        mLocationClient.startLocation();
+    }
+
+    /**
+     * 定位回调借口
+     */
+    public interface RWLocationListener{
+        void onLocationChanged(AMapLocation location);
+    }
+
 
 }

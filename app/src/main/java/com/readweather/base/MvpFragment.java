@@ -1,19 +1,11 @@
 package com.readweather.base;
 
-import android.util.Log;
-
 import com.readweather.app.App;
 import com.readweather.di.component.DaggerFragmentComponent;
 import com.readweather.di.component.FragmentComponent;
 import com.readweather.di.module.FragmentModule;
-
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import javax.inject.Inject;
-
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * author：lizhe
