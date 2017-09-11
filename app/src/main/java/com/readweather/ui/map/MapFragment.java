@@ -105,7 +105,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener{
         if (isFirstLoc) {
 
             //设置缩放级别（缩放级别为4-20级）
-            aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(4));
             //将地图移动到定位点
             aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
             isFirstLoc = false;
