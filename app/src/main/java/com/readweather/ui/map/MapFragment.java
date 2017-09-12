@@ -24,10 +24,8 @@ import com.amap.api.maps.model.MyLocationStyle;
 import com.readweather.R;
 import com.readweather.app.App;
 import com.readweather.base.BaseFrament;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 
 /**
  * author：lizhe
@@ -69,6 +67,8 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener {
     private String desc = "";
 
     private Handler handler = new Handler();
+
+    private AMapLocation mMyLocation;
 
     @Override
     protected int setLayout() {
@@ -158,19 +158,36 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener {
             aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
             //将地图移动到定位点
             aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
-            mMarkerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
-            mMarkerOptions.title("西安市");
-            mMarkerOptions.snippet("气泡的文字");
-            mMarkerOptions.perspective(true);
-            mMarkerOptions.draggable(true);
-            mMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location));//设置图标
-            aMap.addMarker(mMarkerOptions);
+//            mMarkerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
+//            mMarkerOptions.title("西安市");
+//            mMarkerOptions.snippet("气泡的文字");
+//            mMarkerOptions.perspective(true);
+//            mMarkerOptions.draggable(true);
+//            mMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_camera_location));//设置图标
+//            aMap.addMarker(mMarkerOptions);
+
             isFirstLoc = false;
         } else {
             //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
             Log.e("地图错误", "定位失败, 错误码:" + location.getErrorCode() + ", 错误信息:"
                     + location.getErrorInfo());
         }
+        mMyLocation = location;
     }
 
+    @OnClick({R.id.menu, R.id.search, R.id.ori_compass, R.id.my_location_btn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.menu:
+                break;
+            case R.id.search:
+                break;
+            case R.id.ori_compass:
+                break;
+            case R.id.my_location_btn:
+                isFirstLoc = true;
+                onLocationChanged(mMyLocation);
+                break;
+        }
+    }
 }
