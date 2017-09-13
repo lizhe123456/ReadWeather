@@ -1,6 +1,7 @@
 package com.readweather.ui;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -187,5 +188,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         currentFragmentTag = tag;
         invalidateOptionsMenu();
 
+    }
+
+    @Nullable
+    public DrawerLayout getDrawerlayout() {
+        return drawerlayout;
+    }
+
+    @Nullable
+    public NavigationView getNavigationMenu() {
+        return navigationMenu;
     }
 }

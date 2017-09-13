@@ -1,5 +1,6 @@
 package com.readweather.app;
 
+import com.readweather.R;
 import com.readweather.utils.FileUtil;
 
 /**
@@ -42,5 +43,17 @@ public class Constants {
         }
         return url;
     }
+
+    public static int[] markers = {R.drawable.poi_marker_1,
+            R.drawable.poi_marker_2,
+            R.drawable.poi_marker_3,
+            R.drawable.poi_marker_4,
+            R.drawable.poi_marker_5,
+            R.drawable.poi_marker_6,
+            R.drawable.poi_marker_7,
+            R.drawable.poi_marker_8,
+            R.drawable.poi_marker_9,
+            R.drawable.poi_marker_10
+    };
 
 }

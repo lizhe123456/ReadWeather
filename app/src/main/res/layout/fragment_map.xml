@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_context"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.amap.api.maps.MapView
@@ -13,43 +14,58 @@
         android:background="#EEEEEE"
         android:visibility="gone"
         />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:id="@+id/search_maps_bar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:background="#5555">
+
             <ImageView
                 android:id="@+id/menu"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:scaleType="center"
-                android:src="@drawable/menu"
-                />
+                android:src="@drawable/menu" />
+
             <EditText
                 android:id="@+id/edit_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/menu"
-                android:layout_toStartOf="@+id/search"
-                android:background="@null"
                 android:layout_toLeftOf="@+id/menu"
                 android:layout_toRightOf="@+id/search"
-                android:textColor="@color/white"
+                android:layout_toStartOf="@+id/search"
+                android:background="@null"
                 android:inputType="text"
-                />
+                android:textColor="@color/white" />
+
             <ImageView
                 android:id="@+id/search"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_alignParentRight="true"
                 android:scaleType="center"
-                android:src="@drawable/search_img"
-                android:layout_alignParentRight="true" />
+                android:src="@drawable/search_img" />
 
         </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/search_maps_bar"
+            android:overScrollMode="never" />
 
         <ImageButton
             android:id="@+id/ori_compass"
@@ -60,9 +76,7 @@
             android:layout_marginRight="36px"
             android:layout_marginTop="18px"
             android:background="@android:color/transparent"
-
-            android:src="@drawable/maps_dav_compass_needle_large"/>
-
+            android:src="@drawable/maps_dav_compass_needle_large" />
 
         <ImageButton
             android:id="@+id/my_location_btn"
@@ -73,8 +87,7 @@
             android:layout_marginBottom="36px"
             android:layout_marginRight="36px"
             android:background="@drawable/circle_button_with_shadow"
-
-            android:src="@drawable/ic_qu_direction_mylocation"/>
-
+            android:src="@drawable/ic_qu_direction_mylocation" />
     </RelativeLayout>
+
 </FrameLayout>
