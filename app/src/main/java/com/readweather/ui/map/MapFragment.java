@@ -9,12 +9,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
@@ -41,11 +39,9 @@ import com.readweather.ui.MainActivity;
 import com.readweather.ui.map.adapter.SearchAdapter;
 import com.readweather.ui.map.overlay.PoiOverlay;
 import com.readweather.utils.ToastUtil;
-import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * author：lizhe
@@ -388,11 +384,11 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
 
     @Override
     public void onGetInputtips(List<Tip> list, int rCode) {
-        if (rCode == AMapException.CODE_AMAP_SUCCESS) {// 正确返回
+        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+            // 正确返回
             mAdapter.addFirstDataSet(list);
         } else {
             ToastUtil.showShort(rCode);
         }
     }
-
 }
