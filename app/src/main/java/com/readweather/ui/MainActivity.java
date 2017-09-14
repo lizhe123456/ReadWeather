@@ -1,5 +1,6 @@
 package com.readweather.ui;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -22,6 +23,7 @@ import com.readweather.base.BaseActivity;
 import com.readweather.ui.map.MapFragment;
 import com.readweather.ui.meizi.MeiZiFragment;
 import com.readweather.ui.read.ReadFragment;
+import com.readweather.ui.setting.SettingActivity;
 import com.readweather.ui.weather.WeatherFragment;
 
 import butterknife.BindView;
@@ -137,6 +139,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 tag = FRAGMENT_TAG_MEIZI;
                 break;
             case R.id.navigation_item_settings:
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.navigation_item_about:
                 break;

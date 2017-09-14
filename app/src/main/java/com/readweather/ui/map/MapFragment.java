@@ -1,19 +1,24 @@
 package com.readweather.ui.map;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -24,6 +29,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.navi.model.NaviLatLng;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
@@ -35,7 +41,9 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.readweather.R;
 import com.readweather.app.App;
 import com.readweather.base.BaseFrament;
+import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.ui.MainActivity;
+import com.readweather.ui.map.activity.RouteNaviActivity;
 import com.readweather.ui.map.adapter.SearchAdapter;
 import com.readweather.ui.map.overlay.PoiOverlay;
 import com.readweather.utils.ToastUtil;
@@ -74,6 +82,10 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
     FrameLayout fragmentContext;
     @BindView(R.id.recyclerview_content)
     RecyclerView recyclerView;
+    @BindView(R.id.back)
+    ImageView back;
+
+    private RecyclerView.LayoutManager layoutManager;
 
     private AMap aMap;
 
@@ -102,6 +114,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
     private String city;
     private SearchAdapter mAdapter;
 
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_map;
@@ -110,7 +123,11 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
     @Override
     protected void init() {
         map.onCreate(savedInstanceState);
+
         editSearch.addTextChangedListener(this);
+        //recyclerView的布局管理器
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
         mAdapter = new SearchAdapter(getContext());
         recyclerView.setAdapter(mAdapter);
         if (aMap == null) {
@@ -119,6 +136,12 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
             initLocation();
             initMarker();
         }
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, Object item, int position) {
+
+            }
+        });
     }
 
 
@@ -216,7 +239,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
         mMyLocation = location;
     }
 
-    @OnClick({R.id.menu, R.id.search, R.id.ori_compass, R.id.my_location_btn, R.id.edit_search})
+    @OnClick({R.id.menu, R.id.search, R.id.ori_compass, R.id.my_location_btn, R.id.edit_search,R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.menu:
@@ -232,6 +255,16 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
                 onLocationChanged(mMyLocation);
                 break;
             case R.id.edit_search:
+                break;
+            case R.id.back:
+                searchMatch.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
+                menu.setVisibility(View.VISIBLE);
+                back.setVisibility(View.GONE);
+                oriCompass.setVisibility(View.VISIBLE);
+                myLocationBtn.setVisibility(View.VISIBLE);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editSearch.getWindowToken(), 0) ;
                 break;
         }
     }
@@ -249,7 +282,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
         showProgressDialog();
         currentPage = 0;
         // 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
-        mQuery = new PoiSearch.Query(keyWord, "", editSearch.getText().toString());
+        mQuery = new PoiSearch.Query(keyWord, "", mMyLocation.getCityCode());
         mQuery.setPageNum(currentPage);
         mQuery.setPageSize(10);
 
@@ -266,15 +299,47 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
         if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > keyHeight)) {
             //监听到软键盘弹起
             searchMatch.setVisibility(View.VISIBLE);
+            menu.setVisibility(View.GONE);
+            back.setVisibility(View.VISIBLE);
+            oriCompass.setVisibility(View.GONE);
+            myLocationBtn.setVisibility(View.GONE);
+
         } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > keyHeight)) {
             //监听到软件盘关闭
-            searchMatch.setVisibility(View.GONE);
+            //searchMatch.setVisibility(View.GONE);
         }
     }
 
     @Override
-    public View getInfoWindow(Marker marker) {
-        return null;
+    public View getInfoWindow(final Marker marker) {
+        View view = getLayoutInflater(savedInstanceState).inflate(R.layout.poikeywordsearch_uri,
+                null);
+        TextView title = (TextView) view.findViewById(R.id.title);
+        title.setText(marker.getTitle());
+
+        TextView snippet = (TextView) view.findViewById(R.id.snippet);
+        snippet.setText(marker.getSnippet());
+        ImageButton button = (ImageButton) view
+                .findViewById(R.id.start_amap_app);
+        // 调起高德地图app
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAMapNavi(marker);
+            }
+        });
+        return view;
+    }
+
+    private void startAMapNavi(Marker marker){
+        if ( mMyLocation == null) {
+            return;
+        }
+        Intent intent = new Intent(getContext(), RouteNaviActivity.class);
+        intent.putExtra("gps", false);
+        intent.putExtra("start", new NaviLatLng(mMyLocation.getLatitude(), mMyLocation.getLongitude()));
+        intent.putExtra("end", new NaviLatLng(marker.getPosition().latitude, marker.getPosition().longitude));
+        startActivity(intent);
     }
 
     @Override
@@ -284,6 +349,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+
         marker.showInfoWindow();
         return false;
     }
@@ -306,8 +372,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
                         poiOverlay.removeFromMap();
                         poiOverlay.addToMap();
                         poiOverlay.zoomToSpan();
-                    } else if (suggestionCities != null
-                            && suggestionCities.size() > 0) {
+                    } else if (suggestionCities != null && suggestionCities.size() > 0) {
                         showSuggestCity(suggestionCities);
                     } else {
                         ToastUtil.showShort("对不起，没有搜索到相关数据！1");
@@ -343,13 +408,14 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
      * 显示进度框
      */
     private void showProgressDialog() {
-        if (progDialog == null)
+        if (progDialog == null) {
             progDialog = new ProgressDialog(getContext());
-        progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progDialog.setIndeterminate(false);
-        progDialog.setCancelable(false);
-        progDialog.setMessage("正在搜索:\n" + keyWord);
-        progDialog.show();
+            progDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDialog.setIndeterminate(false);
+            progDialog.setCancelable(false);
+            progDialog.setMessage("正在搜索:\n" + keyWord);
+            progDialog.show();
+        }
     }
 
     /**
@@ -387,6 +453,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
             // 正确返回
             mAdapter.addFirstDataSet(list);
+            recyclerView.setVisibility(View.VISIBLE);
         } else {
             ToastUtil.showShort(rCode);
         }

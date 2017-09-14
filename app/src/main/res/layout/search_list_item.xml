@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/tv_info"
-        android:layout_width="match_parent"
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textColor="#333333"
         android:textSize="14sp"
+        android:text="sadasdasd"
         />
     <TextView
         android:id="@+id/tv_desc"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="#666666"
         android:textSize="12sp"
+        android:layout_below="@+id/tv_name"
+        android:text="asdsadsada"
         />
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asfaksfa"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_name"
+        android:textColor="#666666"
+        android:textSize="12sp"
+        />
+</RelativeLayout>

@@ -1,7 +1,7 @@
 package com.readweather.ui.map.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.amap.api.services.help.Tip;
 import com.readweather.R;
@@ -21,8 +21,9 @@ public class SearchAdapter extends BaseAdapter<Tip> {
 
     @Override
     protected void bindDataToItemView(BaseViewHolder holder, Tip item, int position) {
-        holder.setText(R.id.tv_info,item.getAddress())
-            .setText(R.id.tv_desc,item.getDistrict());
+        holder.setText(R.id.tv_name,item.getName())
+            .setText(R.id.tv_desc,item.getDistrict())
+            .setText(R.id.tv_address,item.getAddress());
     }
 
     @Override

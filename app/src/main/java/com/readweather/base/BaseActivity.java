@@ -3,9 +3,13 @@ package com.readweather.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
+import com.readweather.R;
 import com.readweather.app.App;
 import com.readweather.utils.LogUtil;
 import butterknife.ButterKnife;
@@ -21,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Activity mActivity;
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder mUnbinder;
+
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +105,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         LogUtil.d(TAG, "onDestroy()");
         App.getInstance().removeActivity(this);
         mUnbinder.unbind();
+    }
+
+    protected void initToolbar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 }

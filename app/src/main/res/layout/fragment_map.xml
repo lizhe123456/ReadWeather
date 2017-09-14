@@ -35,15 +35,21 @@
                 android:layout_height="48dp"
                 android:scaleType="center"
                 android:src="@drawable/menu" />
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="center"
+                android:src="@drawable/back"
+                android:visibility="gone"
+                />
 
             <EditText
                 android:id="@+id/edit_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toEndOf="@+id/menu"
-                android:layout_toLeftOf="@+id/menu"
-                android:layout_toRightOf="@+id/search"
-                android:layout_toStartOf="@+id/search"
+                android:layout_marginLeft="48dp"
+                android:layout_toLeftOf="@+id/search"
                 android:background="@null"
                 android:inputType="text"
                 android:textColor="@color/white" />

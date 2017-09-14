@@ -2,8 +2,12 @@
 <resources>
     <color name="colorPrimary">#555555</color>
     <color name="colorPrimaryDark">#555555</color>
-    <color name="colorAccent">#555</color>
+    <color name="colorAccent">#ffffff</color>
     <color name="white">#ffffff</color>
     <color name="tab_color">#999999</color>
     <color name="tab_color_bg">#f6f4f2</color>
+    <color name="tv_black">#333333</color>
+    <color name="tv_black6">#666666</color>
+    <color name="tv_black9">#999999</color>
+    <color name="xian">#cccccc</color>
 </resources>
