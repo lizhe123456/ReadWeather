@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:scaleType="center"
+            />
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/phone_menu"
+            android:scaleType="center"
+            />
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/menu"
+            android:src="@drawable/share"
+            android:scaleType="center"
+            />
+        <ImageView
+            android:id="@+id/collection"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/collection_no"
+            android:scaleType="center"
+            android:layout_toLeftOf="@+id/share"
+            />
+    </RelativeLayout>
+
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/photoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>

@@ -1,8 +1,13 @@
 package com.readweather.ui.meizi.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.readweather.R;
 import com.readweather.base.BasePresenter;
@@ -11,6 +16,7 @@ import com.readweather.base.MvpFragment;
 import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
+import com.readweather.ui.meizi.activity.PhotosActivity;
 import com.readweather.ui.meizi.adapter.GankAdapter;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -110,6 +116,15 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
                     //小于等于0 表示停止或向上滚动
                     isSlidingToLast = false;
                 }
+            }
+        });
+        adapter.setOnItemClickListener(new GankAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position, View view) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(),PhotosActivity.class);
+                intent.putExtra("img",mList.get(position).getUrl());
+                startActivity(intent);
             }
         });
         loading();

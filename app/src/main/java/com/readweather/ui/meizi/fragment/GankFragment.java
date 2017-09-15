@@ -16,7 +16,6 @@ import java.util.List;
 public class GankFragment extends BaseGankFragment<GirlsPresenter> implements GirlsContract.View {
 
 
-
     @Override
     protected void refresh() {
         super.refresh();

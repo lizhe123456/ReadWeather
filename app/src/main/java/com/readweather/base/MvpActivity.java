@@ -44,4 +44,19 @@ public abstract class MvpActivity<T extends BasePresenter> extends BaseActivity 
 
     protected abstract void initInject();
 
+    @Override
+    public void loading() {
+
+    }
+
+    @Override
+    public void unLoading() {
+
+    }
+
+    @Override
+    public void showErrorMsg(String msg) {
+
+    }
+
 }

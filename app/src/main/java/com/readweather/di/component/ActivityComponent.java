@@ -5,6 +5,8 @@ import android.app.Activity;
 
 import com.readweather.di.module.ActivityModule;
 import com.readweather.di.scope.ActivityScope;
+import com.readweather.ui.meizi.activity.PhotosActivity;
+import com.readweather.ui.meizi.fragment.MzituZiPaiFragment;
 
 import dagger.Component;
 
@@ -17,6 +19,6 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-
+    void inject(PhotosActivity activity);
 
 }

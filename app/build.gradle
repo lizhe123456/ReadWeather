@@ -61,4 +61,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     //解决64k问题
     compile files('libs/Msc.jar')
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
 }

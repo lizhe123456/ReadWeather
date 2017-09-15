@@ -5,6 +5,7 @@ import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.RealmLikeBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.response.BusResponse;
@@ -38,12 +39,37 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
 
     @Override
     public void insertNewId(int id) {
-
+        mDbHelper.insertNewId(id);
     }
 
     @Override
     public boolean queryNewsId(int id) {
-        return false;
+        return mDbHelper.queryNewsId(id);
+    }
+
+    @Override
+    public void insertLike(RealmLikeBean bean) {
+        mDbHelper.insertLike(bean);
+    }
+
+    @Override
+    public boolean deleteLikeBean(String id) {
+        return mDbHelper.deleteLikeBean(id);
+    }
+
+    @Override
+    public boolean queryLikeBean(String id) {
+        return mDbHelper.queryLikeBean(id);
+    }
+
+    @Override
+    public List<RealmLikeBean> getLikeList() {
+        return mDbHelper.getLikeList();
+    }
+
+    @Override
+    public void changeLikeTime(String id, long time, boolean isPlus) {
+        mDbHelper.changeLikeTime(id,time,isPlus);
     }
 
     @Override

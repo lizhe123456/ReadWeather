@@ -54,6 +54,9 @@
         <activity android:name=".ui.setting.activity.CarSettingActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.meizi.activity.PhotosActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".ui.setting.SettingActivity"
             android:screenOrientation="portrait"
             />
