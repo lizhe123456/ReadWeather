@@ -1,26 +1,19 @@
 package com.readweather.ui.meizi.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.readweather.R;
-import com.readweather.app.App;
-import com.readweather.base.adapter.BaseAdapter;
-import com.readweather.base.adapter.BaseViewHolder;
-import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
-import com.readweather.utils.GlideuUtil;
 import com.readweather.view.RatioImageView;
 
 import java.util.List;
@@ -32,7 +25,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/25 0025.
  */
 
-public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
+public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder> {
 
     private List<Girl> mList;
     private Context mContext;
@@ -45,7 +38,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
         this.mInflater = LayoutInflater.from(mContext);
     }
 
-    public void setNewData(List<Girl> list){
+    public void setNewData(List<Girl> list) {
         mList.clear();
         mList.addAll(list);
         notifyDataSetChanged();
@@ -56,14 +49,14 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
         return mList;
     }
 
-    public void addData(int position, List<Girl> data){
+    public void addData(int position, List<Girl> data) {
         this.mList.addAll(position, data);
         this.notifyItemRangeInserted(position, data.size());
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(mInflater.inflate(R.layout.item_girl,parent,false));
+        return new ViewHolder(mInflater.inflate(R.layout.item_girl, parent, false));
     }
 
     @Override
@@ -75,17 +68,16 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
             holder.ivGirl.setOriginalSize(236, 354);
         }
 
-        Glide.with(mContext).load(girl.getUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_glide_holder).crossFade(500).into(holder.ivGirl);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.ivGirl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null){
-                    View shareView = v.findViewById(R.id.iv_girl);
-                    onItemClickListener.onItemClickListener(position,shareView);
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClickListener(position, v);
                 }
             }
         });
+
+        Glide.with(mContext).load(girl.getUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_glide_holder).crossFade(500).into(holder.ivGirl);
     }
 
     @Override
@@ -112,7 +104,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
 
         }
     }
@@ -122,7 +114,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder>{
     }
 
     public interface OnItemClickListener {
-        void onItemClickListener(int position,View view);
+        void onItemClickListener(int position, View view);
     }
 
 }

@@ -1,17 +1,27 @@
 package com.readweather.ui.meizi.activity;
 
-import android.support.annotation.NonNull;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.readweather.R;
 import com.readweather.base.MvpActivity;
 import com.readweather.model.bean.RealmLikeBean;
 import com.readweather.presenter.db.LikePresenter;
 import com.readweather.presenter.db.contract.LikeContract;
-import com.readweather.utils.GlideuUtil;
-
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -25,6 +35,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeContract.View {
 
+    public static final String URL = "url";
 
     @BindView(R.id.back)
     ImageView back;
@@ -34,11 +45,15 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
     ImageView share;
     @BindView(R.id.collection)
     ImageView collection;
-    @BindView(R.id.photoView)
-    PhotoView photoView;
+    @BindView(R.id.picture)
+    ImageView imageView;
+    @BindView(R.id.title)
+    RelativeLayout title;
 
     private boolean isCollection;
-    PhotoViewAttacher mAttacher;
+    private PhotoViewAttacher mAttacher;
+    private String img;
+    private Bitmap bitmap;
 
     @Override
     protected int setLayout() {
@@ -47,11 +62,12 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
 
     @Override
     protected void init() {
-        mAttacher = new PhotoViewAttacher(photoView);
-        GlideuUtil.loadImageView(getApplicationContext(),getIntent().getStringExtra("img"),photoView);
+//        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) title.getLayoutParams();
+//        params.setMargins(0,getStatusBarHeight(),0,0);
+        setWindowStatusBarColor(R.color.black_all);
+        img = getIntent().getStringExtra(URL);
     }
 
-    @Override
     protected void initInject() {
         getActivityComponent().inject(this);
     }
@@ -59,7 +75,16 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
 
     @Override
     protected void setData() {
-
+//        Glide.with(this).load(img).diskCacheStrategy(DiskCacheStrategy.ALL).priority(Priority.IMMEDIATE).crossFade(0)
+//                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(imageView);
+        Glide.with(this).load(img).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                bitmap = resource;
+                imageView.setImageBitmap(resource);
+                mAttacher = new PhotoViewAttacher(imageView);
+            }
+        });
     }
 
 
@@ -82,15 +107,15 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
         }
     }
 
-    private void showPopupMenu(View view){
-        PopupMenu popupMenu = new PopupMenu(this,view);
+    private void showPopupMenu(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
         //加载menu布局
         popupMenu.getMenuInflater().inflate(R.menu.photo_menu, popupMenu.getMenu());
         //menu点击事件
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.photo_item_0:
                         //保存图片到相册
                         break;
@@ -112,5 +137,20 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
     @Override
     public void stateError() {
 
+    }
+
+    private void setWindowStatusBarColor(int colorResId) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(getResources().getColor(colorResId));
+
+                //底部导航栏
+                //window.setNavigationBarColor(activity.getResources().getColor(colorResId));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

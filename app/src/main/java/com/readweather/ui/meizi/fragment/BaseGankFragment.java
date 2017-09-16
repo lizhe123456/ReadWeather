@@ -1,11 +1,18 @@
 package com.readweather.ui.meizi.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.transition.Explode;
+import android.transition.Transition;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -62,6 +69,7 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
         return R.layout.gank_fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void setData() {
         mList = new ArrayList<>();
@@ -123,8 +131,10 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
             public void onItemClickListener(int position, View view) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(),PhotosActivity.class);
-                intent.putExtra("img",mList.get(position).getUrl());
-                startActivity(intent);
+                intent.putExtra(PhotosActivity.URL,mList.get(position).getUrl());
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        (Activity) getActivity(), view, "shareView");
+                startActivity(intent,optionsCompat.toBundle());
             }
         });
         loading();

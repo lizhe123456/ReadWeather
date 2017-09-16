@@ -55,6 +55,7 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".ui.meizi.activity.PhotosActivity"
+            android:theme="@style/PhotoTheme"
             android:screenOrientation="portrait"
             />
         <activity android:name=".ui.setting.SettingActivity"

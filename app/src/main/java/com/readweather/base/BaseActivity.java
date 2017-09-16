@@ -1,13 +1,16 @@
 package com.readweather.base;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.readweather.R;
 import com.readweather.app.App;
@@ -21,10 +24,10 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-
     protected Activity mActivity;
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder mUnbinder;
+
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -66,6 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         lastClick = System.currentTimeMillis();
         return true;
+
     }
 
 
@@ -118,5 +122,20 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * 检测view是否显示
+     * @param view
+     * @return
+     */
+    protected boolean isShow(View view){
+        if (view.getVisibility() == View.VISIBLE){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
 
 }
