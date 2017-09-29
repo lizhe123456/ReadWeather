@@ -1,9 +1,7 @@
 package com.readweather.ui.meizi.activity;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.support.v4.view.ViewCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -12,11 +10,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.readweather.R;
 import com.readweather.base.MvpActivity;
 import com.readweather.model.bean.RealmLikeBean;
@@ -25,7 +20,6 @@ import com.readweather.presenter.db.contract.LikeContract;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
-import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
