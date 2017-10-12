@@ -1,8 +1,5 @@
 package com.readweather.ui.meizi.fragment;
 
-
-import com.readweather.R;
-import com.readweather.base.BaseFrament;
 import com.readweather.model.bean.Girl;
 import com.readweather.presenter.meizi.MeituPresenter;
 import com.readweather.presenter.meizi.contract.MeitiContract;

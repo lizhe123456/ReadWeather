@@ -76,7 +76,7 @@ public class RealmHelperImpl implements RealmHelper {
      */
     @Override
     public boolean deleteLikeBean(String id) {
-        RealmLikeBean data = mRealm.where(RealmLikeBean.class).equalTo("id",id).findFirst();
+        RealmLikeBean data = mRealm.where(RealmLikeBean.class).equalTo("image",id).findFirst();
         mRealm.beginTransaction();
         if (data != null){
             data.deleteFromRealm();
@@ -94,7 +94,7 @@ public class RealmHelperImpl implements RealmHelper {
     public boolean queryLikeBean(String id) {
         RealmResults<RealmLikeBean> readStateBeen = mRealm.where(RealmLikeBean.class).findAll();
         for (RealmLikeBean item : readStateBeen){
-            if (item.getId() == id){
+            if (item.getImage() == id){
                 return true;
             }
         }

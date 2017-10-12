@@ -7,10 +7,19 @@ import java.io.Serializable;
  */
 
 public class Girl implements Serializable {
+    private String id;
     private String url;
     private int width = 0;
     private int height = 0;
     private String link;//仅妹子图网站需要
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Girl(String url) {
         this.url = url;

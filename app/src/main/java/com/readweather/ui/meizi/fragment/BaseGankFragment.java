@@ -132,8 +132,7 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
                 Intent intent = new Intent();
                 intent.setClass(getContext(),PhotosActivity.class);
                 intent.putExtra(PhotosActivity.URL,mList.get(position).getUrl());
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        (Activity) getActivity(), view, "shareView");
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) getActivity(), view, "shareView");
                 try {
                     ActivityCompat.startActivity(getContext(), intent, optionsCompat.toBundle());
                 } catch (IllegalArgumentException e) {
