@@ -61,7 +61,12 @@ public class HttpHelperImpl implements HttpHelper{
 
     @Override
     public Flowable<String> fetchMeizituInfo(String url) {
-        return null;
+        return girlsApi.getMeizitu(url);
+    }
+
+    @Override
+    public Flowable<String> fetchMeizitusInfo(String url) {
+        return girlsApi.getMeizitus(url);
     }
 
 }

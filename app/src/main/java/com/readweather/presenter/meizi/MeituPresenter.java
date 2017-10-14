@@ -55,7 +55,9 @@ public class MeituPresenter extends BasePresenterImpl<MeitiContract.View> implem
                                 Element total = doc.select("div.postlist").first();
                                 Elements items = total.select("li");
                                 for (Element element : items) {
-                                    Girl girl = new Girl(String.format(realUrl, element.select("img").first().attr("data-original"), fakeRefer));
+                                    String s1 = element.select("a[href]").attr("href");
+                                    String[] split = s1.split("/");
+                                    Girl girl = new Girl(split[split.length-1],String.format(realUrl, element.select("img").first().attr("data-original"), fakeRefer));
                                     girl.setLink(element.select("a[href]").attr("href"));
                                     girls.add(girl);
                                 }
@@ -91,7 +93,7 @@ public class MeituPresenter extends BasePresenterImpl<MeitiContract.View> implem
                                 Element total = doc.select("div.postlist").first();
                                 Elements items = total.select("li");
                                 for (Element element : items) {
-                                    Girl girl = new Girl(element.select("img").first().attr("src"));
+                                    Girl girl = new Girl(element.select("id").first().attr("src"),element.select("img").first().attr("src"));
                                     girls.add(girl);
                                 }
                             } catch (IOException e) {
@@ -109,6 +111,8 @@ public class MeituPresenter extends BasePresenterImpl<MeitiContract.View> implem
                     })
         );
     }
+
+
 
 
 }

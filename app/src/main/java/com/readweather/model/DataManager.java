@@ -102,5 +102,10 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
         return mHttpHelper.fetchMeizituInfo(url);
     }
 
+    @Override
+    public Flowable<String> fetchMeizitusInfo(String url) {
+        return mHttpHelper.fetchMeizitusInfo(url);
+    }
+
 
 }

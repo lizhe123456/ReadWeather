@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.transition.Explode;
 import android.transition.Transition;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.readweather.base.MvpFragment;
 import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
+import com.readweather.ui.meizi.activity.MzituPictureActivity;
 import com.readweather.ui.meizi.activity.PhotosActivity;
 import com.readweather.ui.meizi.adapter.GankAdapter;
 
@@ -129,15 +131,21 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
         adapter.setOnItemClickListener(new GankAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(int position, View view) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(),PhotosActivity.class);
-                intent.putExtra(PhotosActivity.URL,mList.get(position).getUrl());
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) getActivity(), view, "shareView");
-                try {
-                    ActivityCompat.startActivity(getContext(), intent, optionsCompat.toBundle());
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                    getContext().startActivity(intent);
+                if (!TextUtils.isEmpty(mList.get(position).getLink())) {
+                    Intent intent = MzituPictureActivity.newIntent(getActivity(), mList.get(position).getLink(),"");
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), PhotosActivity.class);
+                    intent.putExtra(PhotosActivity.URL, mList.get(position).getUrl());
+                    intent.putExtra(PhotosActivity.ID, mList.get(position).getId());
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) getActivity(), view, "shareView");
+                    try {
+                        ActivityCompat.startActivity(getContext(), intent, optionsCompat.toBundle());
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                        getContext().startActivity(intent);
+                    }
                 }
             }
         });

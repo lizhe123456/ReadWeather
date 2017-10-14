@@ -31,4 +31,6 @@ public interface HttpHelper {
     Flowable<JiandanResponse<List<JiandanBean>>> fetchJiandanInfo(int page);
 
     Flowable<String> fetchMeizituInfo(String url);
+
+    Flowable<String> fetchMeizitusInfo(String url);
 }

@@ -92,13 +92,19 @@ public class RealmHelperImpl implements RealmHelper {
      */
     @Override
     public boolean queryLikeBean(String id) {
-        RealmResults<RealmLikeBean> readStateBeen = mRealm.where(RealmLikeBean.class).findAll();
-        for (RealmLikeBean item : readStateBeen){
-            if (item.getImage() == id){
-                return true;
-            }
+        RealmLikeBean bean = mRealm.where(RealmLikeBean.class).equalTo("id",id).findFirst();
+        if (bean != null){
+            return true;
+        }else {
+            return false;
         }
-        return false;
+//        RealmResults<RealmLikeBean> readStateBeen = mRealm.where(RealmLikeBean.class).findAll();
+//        for (RealmLikeBean item : readStateBeen){
+//            if (item.getId() == id){
+//                return true;
+//            }
+//        }
+//        return false;
     }
 
     /**

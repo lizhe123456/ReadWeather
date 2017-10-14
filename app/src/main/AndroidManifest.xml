@@ -64,6 +64,9 @@
         <service android:name=".service.InitService"
             android:enabled="true" />
         <service android:name="com.amap.api.location.APSService"/>
+        <activity android:name=".ui.meizi.activity.MzituPictureActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

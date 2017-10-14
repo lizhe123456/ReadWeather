@@ -27,6 +27,8 @@ public class MeituFragment extends BaseGankFragment<MeituPresenter> implements M
         }
     }
 
+
+
     @Override
     protected void refresh() {
         super.refresh();

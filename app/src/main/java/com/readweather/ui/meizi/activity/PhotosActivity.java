@@ -17,6 +17,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -48,9 +50,10 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * 目标定在月亮之上，即使失败，也可以落在众星之间。
  */
 
-public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeContract.View {
+public class PhotosActivity extends MvpActivity {
 
     public static final String URL = "url";
+    public static final String ID = "id";
     private static final int ACTION_SAVE = 0;
     private static final int ACTION_SHARE = 1;
 
@@ -81,18 +84,20 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
 
     @Override
     protected void init() {
+        super.init();
 //        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) title.getLayoutParams();
 //        params.setMargins(0,getStatusBarHeight(),0,0);
         mRealmHelper = App.getAppComponent().getDbHelper();
         setWindowStatusBarColor(R.color.black_all);
         img = getIntent().getStringExtra(URL);
-        setLikeState(mRealmHelper.queryLikeBean(img));
+        id = getIntent().getStringExtra(ID);
+        setLikeState(mRealmHelper.queryLikeBean(id));
     }
 
+    @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
-    }
 
+    }
 
     @Override
     protected void setData() {
@@ -166,7 +171,7 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
     private void collectionBitmap(){
         if (isLiked){
             setLikeState(false);
-            mRealmHelper.deleteLikeBean(img);
+            mRealmHelper.deleteLikeBean(id);
         }else {
             setLikeState(true);
             RealmLikeBean bean = new RealmLikeBean();
@@ -185,7 +190,6 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
         } else {
             collection.setImageResource(R.drawable.collection_no);
             isLiked = false;
-
         }
     }
 
@@ -210,10 +214,6 @@ public class PhotosActivity extends MvpActivity<LikePresenter> implements LikeCo
                 });
     }
 
-    @Override
-    public void showContent(List<RealmLikeBean> mList) {
-
-    }
 
     @Override
     public void stateError() {

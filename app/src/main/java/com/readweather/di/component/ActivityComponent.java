@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import com.readweather.di.module.ActivityModule;
 import com.readweather.di.scope.ActivityScope;
+import com.readweather.ui.meizi.activity.MzituPictureActivity;
 import com.readweather.ui.meizi.activity.PhotosActivity;
 import com.readweather.ui.meizi.fragment.MzituZiPaiFragment;
 
@@ -19,6 +20,6 @@ public interface ActivityComponent {
 
     Activity getActivity();
 
-    void inject(PhotosActivity activity);
+    void inject(MzituPictureActivity activity);
 
 }

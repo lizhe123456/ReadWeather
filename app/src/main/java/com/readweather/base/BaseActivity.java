@@ -1,17 +1,13 @@
 package com.readweather.base;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-
 import com.readweather.R;
 import com.readweather.app.App;
 import com.readweather.utils.LogUtil;
@@ -27,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Activity mActivity;
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder mUnbinder;
-
+    protected View mView;
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -35,9 +31,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
-        setContentView(setLayout());
+        mView = LayoutInflater.from(this).inflate(setLayout(),null);
+        setContentView(mView);
         mUnbinder = ButterKnife.bind(mActivity);
-        App.getInstance().addActivity(this);
+        App.getInstance().addActivity(mActivity);
         init();
 //        initFragment(savedInstanceState);
         LogUtil.d("s","sadas");

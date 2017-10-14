@@ -21,7 +21,8 @@ public class Girl implements Serializable {
         this.id = id;
     }
 
-    public Girl(String url) {
+    public Girl(String id,String url) {
+        this.id = id;
         this.url = url;
     }
 

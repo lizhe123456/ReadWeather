@@ -42,7 +42,7 @@ public class JiandanFragment extends BaseGankFragment<JianDanPresenter> implemen
             for (String url : gank.getPics()) {
                 if (!url.toLowerCase().endsWith("gif")) {
                     //gif占用内存&流量太大，pass掉
-                    girls.add(new Girl(url));
+                    girls.add(new Girl(gank.getUser_id(),url));
                 }
             }
         }

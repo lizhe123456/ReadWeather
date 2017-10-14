@@ -35,4 +35,7 @@ public interface GirlsApi {
 
     @GET("{url}")
     Flowable<String> getMeizitu(@Path("url") String url);
+
+    @GET("{url}")
+    Flowable<String> getMeizitus(@Path("url") String url);
 }

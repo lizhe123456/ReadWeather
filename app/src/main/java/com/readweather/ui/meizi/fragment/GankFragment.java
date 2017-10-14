@@ -38,7 +38,7 @@ public class GankFragment extends BaseGankFragment<GirlsPresenter> implements Gi
     public void showContent(List<GankBean> list) {
         List<Girl> girls = new ArrayList<>();
         for (GankBean gank : list) {
-            girls.add(new Girl(gank.getUrl()));
+            girls.add(new Girl(gank.get_id(),gank.getUrl()));
         }
         GirlsThread.startWork(getContext(),girls,getClass().getName());
     }
