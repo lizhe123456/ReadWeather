@@ -2,6 +2,7 @@ package com.readweather.presenter.read.contract;
 
 import com.readweather.base.BasePresenter;
 import com.readweather.base.BaseView;
+import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.NewListBean;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface NewsListContract {
         void setStoriesBean(List<NewListBean.StoriesBean> storiesBeen);
 
         void setTopStoriesBean(List<NewListBean.TopStoriesBean> topStoriesBeen);
+
+        void showMoreContent(String format, DailyBeforeListBean dailyBeforeListBean);
     }
 
     interface Presenter extends BasePresenter<View>{
@@ -25,6 +28,8 @@ public interface NewsListContract {
         void getNewsList();
 
         void insertReadToDB(int id);
+
+        void getBeforeData(String data);
 
     }
 

@@ -57,6 +57,7 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void setData() {
+        initEvent();
         mList = new ArrayList<>();
         adapter = new GankAdapter(mList,getContext());
         //瀑布流布局管理器

@@ -5,6 +5,7 @@ import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
@@ -36,4 +37,6 @@ public interface HttpHelper {
     Flowable<String> fetchMeizitusInfo(String url);
 
     Flowable<NewListBean> fetchNewsListInfo();
+
+    Flowable<DailyBeforeListBean> fetchDailyBeforeListInfo(String data);
 }

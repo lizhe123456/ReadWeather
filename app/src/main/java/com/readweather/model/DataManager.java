@@ -6,6 +6,7 @@ import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.bean.RealmLikeBean;
+import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
@@ -111,6 +112,11 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     @Override
     public Flowable<NewListBean> fetchNewsListInfo() {
         return mHttpHelper.fetchNewsListInfo();
+    }
+
+    @Override
+    public Flowable<DailyBeforeListBean> fetchDailyBeforeListInfo(String data) {
+        return mHttpHelper.fetchDailyBeforeListInfo(data);
     }
 
 

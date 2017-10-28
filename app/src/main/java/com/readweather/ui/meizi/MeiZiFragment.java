@@ -107,7 +107,6 @@ public class MeiZiFragment extends BaseFrament {
 
         viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
         viewPager.setCurrentItem(0);
-        viewPager.setOffscreenPageLimit(0);
         tabs.setupWithViewPager(viewPager);
         tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
 

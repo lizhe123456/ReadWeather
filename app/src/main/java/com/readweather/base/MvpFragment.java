@@ -39,6 +39,10 @@ public abstract class MvpFragment<T extends BasePresenter> extends BaseFrament i
         if (mPresenter != null){
             mPresenter.attachView(this);
         }
+
+    }
+
+    protected void initEvent(){
         //订阅
         EventBus.getDefault().register(this);
     }

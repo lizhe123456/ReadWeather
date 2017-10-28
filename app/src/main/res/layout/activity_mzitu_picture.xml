@@ -25,7 +25,12 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:srlEnablePureScrollMode="true"
+            app:srlEnableRefresh="true"
+            app:srlEnableLoadmore="true"
+            app:srlDragRate="1"
+            >
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_gank"
                 android:layout_width="match_parent"
