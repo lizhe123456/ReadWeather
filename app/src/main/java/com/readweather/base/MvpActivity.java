@@ -1,17 +1,10 @@
 package com.readweather.base;
 
 import android.support.design.widget.Snackbar;
-import android.widget.Toast;
-
 import com.readweather.app.App;
 import com.readweather.di.component.ActivityComponent;
-
 import com.readweather.di.component.DaggerActivityComponent;
 import com.readweather.di.module.ActivityModule;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.inject.Inject;
 
 /**

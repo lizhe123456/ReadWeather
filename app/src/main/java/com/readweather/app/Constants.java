@@ -18,7 +18,7 @@ public class Constants {
     public static final String GIRLS_API2 = "http://i.jandan.net/";
     public static final String WEATHER_API = "https://free-api.heweather.com/v5/weather/";
     public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "lizhe" + File.separator + "ReadWeather";
-
+    public static final String READ_API = "http://news-at.zhihu.com/api/4/";
     public static final String BUS_KEY = "ec47819b07a24015d5ed11e303d6eb57";
 
     public static final boolean IS_DEBUG = true;

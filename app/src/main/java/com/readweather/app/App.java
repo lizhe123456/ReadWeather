@@ -1,28 +1,20 @@
 package com.readweather.app;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.model.MyLocationStyle;
-import com.readweather.BuildConfig;
 import com.readweather.di.component.AppComponent;
 import com.readweather.di.component.DaggerAppComponent;
 import com.readweather.di.module.AppModule;
 import com.readweather.di.module.HttpModule;
 import com.readweather.service.InitService;
-import com.readweather.utils.LocationUtil;
-
 import java.util.HashSet;
 import java.util.Set;
 import io.realm.Realm;

@@ -6,8 +6,10 @@ import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
+import com.readweather.model.http.api.ReadApi;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
@@ -27,11 +29,13 @@ public class HttpHelperImpl implements HttpHelper{
 
     public BusApi busApi;
     public GirlsApi girlsApi;
+    public ReadApi readApi;
 
     @Inject
-    public HttpHelperImpl(BusApi busApi,GirlsApi girlsApi){
+    public HttpHelperImpl(BusApi busApi,GirlsApi girlsApi, ReadApi readApi){
         this.busApi = busApi;
         this.girlsApi = girlsApi;
+        this.readApi = readApi;
     }
 
     @Override
@@ -67,6 +71,11 @@ public class HttpHelperImpl implements HttpHelper{
     @Override
     public Flowable<String> fetchMeizitusInfo(String url) {
         return girlsApi.getMeizitus(url);
+    }
+
+    @Override
+    public Flowable<NewListBean> fetchNewsListInfo() {
+        return readApi.getNewsList();
     }
 
 }

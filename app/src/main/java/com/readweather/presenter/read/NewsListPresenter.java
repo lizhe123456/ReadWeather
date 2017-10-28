@@ -1,0 +1,60 @@
+package com.readweather.presenter.read;
+
+import com.readweather.base.BasePresenterImpl;
+import com.readweather.model.DataManager;
+import com.readweather.model.bean.read.NewListBean;
+import com.readweather.presenter.read.contract.NewsListContract;
+import com.readweather.utils.RxUtil;
+import com.readweather.widgets.CommonSubscriber;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
+
+/**
+ * Created by lizhe on 2017/10/23 0023.
+ * 目标定在月亮之上，即使失败，也可以落在众星之间。
+ */
+
+public class NewsListPresenter extends BasePresenterImpl<NewsListContract.View> implements NewsListContract.Presenter {
+
+    @Inject
+    DataManager dataManager;
+
+    public NewsListPresenter(DataManager dataManager) {
+        this.dataManager = dataManager;
+    }
+
+    @Override
+    public void getNewsList() {
+        addSubscribe(dataManager.fetchNewsListInfo()
+                .compose(RxUtil.<NewListBean>rxSchedulerHelper())
+                .map(new Function<NewListBean, NewListBean>() {
+                    @Override
+                    public NewListBean apply(@NonNull NewListBean newListBean) throws Exception {
+                        List<NewListBean.StoriesBean> list = newListBean.getStories();
+                        for(NewListBean.StoriesBean item : list) {
+                            item.setReadState(dataManager.queryNewsId(item.getId()));
+                        }
+                        return newListBean;
+                    }
+                })
+                .subscribeWith(new CommonSubscriber<NewListBean>(mView) {
+                    @Override
+                    public void onNext(NewListBean dailyListBean) {
+                        mView.setStoriesBean(dailyListBean.getStories());
+                        mView.setTopStoriesBean(dailyListBean.getTop_stories());
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void insertReadToDB(int id) {
+        dataManager.insertNewId(id);
+    }
+
+}

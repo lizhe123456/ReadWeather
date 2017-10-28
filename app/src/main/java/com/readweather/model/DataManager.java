@@ -6,6 +6,7 @@ import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.bean.RealmLikeBean;
+import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.response.BusResponse;
@@ -105,6 +106,11 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     @Override
     public Flowable<String> fetchMeizitusInfo(String url) {
         return mHttpHelper.fetchMeizitusInfo(url);
+    }
+
+    @Override
+    public Flowable<NewListBean> fetchNewsListInfo() {
+        return mHttpHelper.fetchNewsListInfo();
     }
 
 

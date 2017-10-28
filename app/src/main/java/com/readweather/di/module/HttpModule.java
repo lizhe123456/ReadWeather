@@ -1,11 +1,15 @@
 package com.readweather.di.module;
 
+import android.content.Context;
+
 import com.readweather.app.App;
 import com.readweather.app.Constants;
 import com.readweather.di.qualifier.BusUrl;
 import com.readweather.di.qualifier.GirlsUrl;
+import com.readweather.di.qualifier.ReadUrl;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
+import com.readweather.model.http.api.ReadApi;
 import com.readweather.utils.JsonUtil;
 import com.readweather.utils.LogUtil;
 import com.readweather.utils.SystemUtil;
@@ -16,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
+import butterknife.BindView;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -63,6 +68,13 @@ public class HttpModule {
 
     @Singleton
     @Provides
+    @ReadUrl
+    Retrofit provideReadRetrofit(Retrofit.Builder builder, OkHttpClient client){
+        return createRetrofit(builder,client, Constants.READ_API);
+    }
+
+    @Singleton
+    @Provides
     BusApi provideBusService(@BusUrl Retrofit retrofit){
         return retrofit.create(BusApi.class);
     }
@@ -71,6 +83,12 @@ public class HttpModule {
     @Provides
     GirlsApi provideGirlsService(@GirlsUrl Retrofit retrofit){
         return retrofit.create(GirlsApi.class);
+    }
+
+    @Singleton
+    @Provides
+    ReadApi provideReadService(@BusUrl Retrofit retrofit){
+        return retrofit.create(ReadApi.class);
     }
 
     @Singleton

@@ -1,27 +1,31 @@
 package com.readweather.ui.meizi.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.readweather.R;
 import com.readweather.base.MvpActivity;
+import com.readweather.event.GirlsComingEvent;
 import com.readweather.model.bean.Girl;
 import com.readweather.presenter.meizi.MeitusPresenter;
 import com.readweather.presenter.meizi.contract.MeitusContract;
+import com.readweather.service.GirlsThread;
 import com.readweather.ui.meizi.adapter.GankAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -37,6 +41,8 @@ public class MzituPictureActivity extends MvpActivity<MeitusPresenter> implement
     TextView toolbarTitle;
     @BindView(R.id.rv_gank)
     RecyclerView rvGank;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
 
     private String url;
     private String title;
@@ -44,6 +50,7 @@ public class MzituPictureActivity extends MvpActivity<MeitusPresenter> implement
     private String fakeRefer;
     private String realUrl;
     private int currentPage = 1;
+    private boolean isLoadMore = false;
 
     private GankAdapter adapter;
     private  List<Girl> mList;
@@ -67,6 +74,7 @@ public class MzituPictureActivity extends MvpActivity<MeitusPresenter> implement
     @Override
     protected void init() {
         super.init();
+        EventBus.getDefault().register(this);
         url = getIntent().getStringExtra(EXTRA_IMAGE_URL);
         title = getIntent().getStringExtra(EXTRA_IMAGE_TITLE);
 
@@ -74,14 +82,22 @@ public class MzituPictureActivity extends MvpActivity<MeitusPresenter> implement
         mList = new ArrayList<>();
         adapter = new GankAdapter(mList,this);
 
+        refresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refresh();
+            }
+        });
     }
 
     private void refresh() {
+        currentPage = 1;
         mPresenter.getMeitus(baseUsr, currentPage);
-
+        isLoadMore = false;
     }
 
     private void getMore(int page) {
+        isLoadMore = true;
         baseUsr = url + "/" + page;
         mPresenter.getMeitus(baseUsr,realUrl,fakeRefer);
     }
@@ -116,28 +132,6 @@ public class MzituPictureActivity extends MvpActivity<MeitusPresenter> implement
 
         rvGank.setLayoutManager(layoutManager);
         rvGank.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new GankAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClickListener(int position, View view) {
-                if (!TextUtils.isEmpty(mList.get(position).getLink())) {
-                    Intent intent = MzituPictureActivity.newIntent(MzituPictureActivity.this, mList.get(position).getLink(), "");
-                    startActivity(intent);
-                }else {
-                    Intent intent = new Intent();
-                    intent.setClass(MzituPictureActivity.this, PhotosActivity.class);
-                    intent.putExtra(PhotosActivity.URL, mList.get(position).getUrl());
-                    intent.putExtra(PhotosActivity.ID, mList.get(position).getId());
-                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) MzituPictureActivity.this, view, "shareView");
-                    try {
-                        ActivityCompat.startActivity(MzituPictureActivity.this, intent, optionsCompat.toBundle());
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
         loading();
         refresh();
     }
@@ -150,16 +144,37 @@ public class MzituPictureActivity extends MvpActivity<MeitusPresenter> implement
 
     @Override
     public void showMeitu(List<Girl> list) {
-        currentPage++;
-        if (adapter.getmList() == null || adapter.getmList().size() == 0) {
-            adapter.setNewData(list);
-        } else {
-            adapter.addData(adapter.getmList().size(), list);
+        if (refresh.isRefreshing()) {
+            refresh.finishRefresh();
         }
+        GirlsThread.startWork(this,list,getClass().getName());
     }
 
     @Override
     public void getMeiziFromServer(int page) {
         getMore(page);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    public void onDataSynEvent(GirlsComingEvent event) {
+        if (!event.getFrom().equals(this.getClass().getName()))
+            return;
+        mList = event.getGirls();
+        if (isLoadMore) {
+            if (mList.size() == 0) {
+//                adapter.setLoadEndView(R.layout.load_end_layout);
+            } else {
+                adapter.setLoadMoreData(mList);
+            }
+        } else {
+            adapter.setNewData(mList);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -1,9 +1,14 @@
 package com.readweather.ui.meizi.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +19,8 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.readweather.R;
 import com.readweather.model.bean.Girl;
+import com.readweather.ui.meizi.activity.MzituPictureActivity;
+import com.readweather.ui.meizi.activity.PhotosActivity;
 import com.readweather.utils.DensityUtils;
 import com.readweather.view.RatioImageView;
 
@@ -31,7 +38,6 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder> {
     private List<Girl> mList;
     private Context mContext;
     private LayoutInflater mInflater;
-    private OnItemClickListener onItemClickListener;
 
     public GankAdapter(List<Girl> mList, Context mContext) {
         this.mList = mList;
@@ -74,8 +80,21 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder> {
         holder.ivGirl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickListener(position, v);
+                if (!TextUtils.isEmpty(mList.get(position).getLink())) {
+                    Intent intent = MzituPictureActivity.newIntent(mContext, mList.get(position).getLink(), "");
+                    mContext.startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, PhotosActivity.class);
+                    intent.putExtra(PhotosActivity.URL, mList.get(position).getUrl());
+                    intent.putExtra(PhotosActivity.ID, mList.get(position).getId());
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, v, "shareView");
+                    try {
+                        ActivityCompat.startActivity(mContext, intent, optionsCompat.toBundle());
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                        mContext.startActivity(intent);
+                    }
                 }
             }
         });
@@ -112,12 +131,5 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.ViewHolder> {
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClickListener(int position, View view);
-    }
 
 }

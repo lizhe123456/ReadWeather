@@ -63,4 +63,5 @@ dependencies {
     compile files('libs/Msc.jar')
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
 }

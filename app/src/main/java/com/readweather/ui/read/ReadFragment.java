@@ -1,7 +1,12 @@
 package com.readweather.ui.read;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import com.readweather.R;
 import com.readweather.base.BaseFrament;
+import butterknife.BindView;
 
 /**
  * author：lizhe
@@ -11,6 +16,16 @@ import com.readweather.base.BaseFrament;
  */
 
 public class ReadFragment extends BaseFrament {
+
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
+    @BindView(R.id.tool_bar)
+    Toolbar toolBar;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+
+    FragmentManager fragmentManager;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_read;
@@ -18,11 +33,12 @@ public class ReadFragment extends BaseFrament {
 
     @Override
     protected void init() {
-
+        fragmentManager = getFragmentManager();
     }
 
     @Override
     protected void setData() {
 
     }
+
 }
