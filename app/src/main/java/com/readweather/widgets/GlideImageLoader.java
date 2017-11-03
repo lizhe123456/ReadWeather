@@ -1,6 +1,7 @@
 package com.readweather.widgets;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.widget.ImageView;
 
@@ -24,6 +25,5 @@ public class GlideImageLoader extends ImageLoader {
         Uri uri = Uri.parse((String) path);
         imageView.setImageURI(uri);
     }
-
 
 }

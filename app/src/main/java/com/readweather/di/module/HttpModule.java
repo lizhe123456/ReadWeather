@@ -87,7 +87,7 @@ public class HttpModule {
 
     @Singleton
     @Provides
-    ReadApi provideReadService(@BusUrl Retrofit retrofit){
+    ReadApi provideReadService(@ReadUrl Retrofit retrofit){
         return retrofit.create(ReadApi.class);
     }
 

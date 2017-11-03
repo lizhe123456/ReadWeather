@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    android:layout_margin="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+        <ImageView
+            android:id="@+id/iv_news_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_news_img"
+            android:text="我是一个粉刷匠我是一个粉刷匠我我是一个粉刷匠我是一个粉刷匠我是一个粉刷匠我是一个是一个粉刷匠我是一个粉刷匠我是一个粉刷匠我是一个粉刷匠我是一个粉刷匠我是一个粉刷匠我是一个粉刷匠"
+            android:layout_marginLeft="15dp"
+            android:textColor="#333333"
+            android:lines="4"
+            android:ellipsize="end"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,16 +1,11 @@
 package com.readweather.base;
 
-import android.support.design.widget.Snackbar;
 import android.widget.Toast;
-
 import com.readweather.app.App;
 import com.readweather.di.component.DaggerFragmentComponent;
 import com.readweather.di.component.FragmentComponent;
 import com.readweather.di.module.FragmentModule;
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.inject.Inject;
 

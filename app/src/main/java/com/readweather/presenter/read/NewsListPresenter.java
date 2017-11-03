@@ -22,9 +22,10 @@ import io.reactivex.functions.Function;
 
 public class NewsListPresenter extends BasePresenterImpl<NewsListContract.View> implements NewsListContract.Presenter {
 
-    @Inject
+
     DataManager dataManager;
 
+    @Inject
     public NewsListPresenter(DataManager dataManager) {
         this.dataManager = dataManager;
     }
@@ -46,7 +47,12 @@ public class NewsListPresenter extends BasePresenterImpl<NewsListContract.View> 
                 .subscribeWith(new CommonSubscriber<NewListBean>(mView) {
                     @Override
                     public void onNext(NewListBean dailyListBean) {
-                        mView.setStoriesBean(dailyListBean.getStories());
+                        NewListBean.StoriesBean storiesBean = dailyListBean.getStories().get(dailyListBean.getStories().size()-1);
+                        storiesBean.setDate(dailyListBean.getDate());
+                        List<NewListBean.StoriesBean> list = dailyListBean.getStories();
+                        list.remove(dailyListBean.getStories().size()-1);
+                        list.add(storiesBean);
+                        mView.setStoriesBean(list);
                         mView.setTopStoriesBean(dailyListBean.getTop_stories());
                     }
                 })

@@ -14,7 +14,7 @@ import retrofit2.http.Path;
 
 public interface ReadApi {
 
-    @GET("new/latest")
+    @GET("news/latest")
     Flowable<NewListBean> getNewsList();
 
     /**

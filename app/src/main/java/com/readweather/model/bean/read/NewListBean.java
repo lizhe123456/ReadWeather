@@ -60,6 +60,7 @@ public class NewListBean implements Serializable{
         private String title;
         private List<String> images;
         private boolean readState;
+        private String date;
 
         public boolean isReadState() {
             return readState;
@@ -107,6 +108,14 @@ public class NewListBean implements Serializable{
 
         public void setImages(List<String> images) {
             this.images = images;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
         }
     }
 
