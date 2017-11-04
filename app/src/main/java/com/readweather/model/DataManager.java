@@ -6,8 +6,16 @@ import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.bean.RealmLikeBean;
+import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
+import com.readweather.model.bean.read.DetailExtraBean;
+import com.readweather.model.bean.read.HotListBean;
 import com.readweather.model.bean.read.NewListBean;
+import com.readweather.model.bean.read.SectionListBean;
+import com.readweather.model.bean.read.SectionListDetailBean;
+import com.readweather.model.bean.read.ThemeListBean;
+import com.readweather.model.bean.read.ThemeNewsDetailBean;
+import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.response.BusResponse;
@@ -117,6 +125,51 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     @Override
     public Flowable<DailyBeforeListBean> fetchDailyBeforeListInfo(String data) {
         return mHttpHelper.fetchDailyBeforeListInfo(data);
+    }
+
+    @Override
+    public Flowable<ThemeListBean> fetchThemeListInfo() {
+        return mHttpHelper.fetchThemeListInfo();
+    }
+
+    @Override
+    public Flowable<ThemeNewsDetailBean> fetchThemeDetailListInfo(int id) {
+        return mHttpHelper.fetchThemeDetailListInfo(id);
+    }
+
+    @Override
+    public Flowable<SectionListBean> fetchSectionListInfo() {
+        return mHttpHelper.fetchSectionListInfo();
+    }
+
+    @Override
+    public Flowable<SectionListDetailBean> fetchSectionListDetailInfo(int id) {
+        return mHttpHelper.fetchSectionListDetailInfo(id);
+    }
+
+    @Override
+    public Flowable<HotListBean> fetchHotListBeanInfo() {
+        return mHttpHelper.fetchHotListBeanInfo();
+    }
+
+    @Override
+    public Flowable<ZhihuDetailBean> fetchNewsDailyInfo(int id) {
+        return mHttpHelper.fetchNewsDailyInfo(id);
+    }
+
+    @Override
+    public Flowable<DetailExtraBean> fetchDetailExtraInfo(int id) {
+        return mHttpHelper.fetchDetailExtraInfo(id);
+    }
+
+    @Override
+    public Flowable<CommentBean> fetchLongCommentInfo(int id) {
+        return mHttpHelper.fetchLongCommentInfo(id);
+    }
+
+    @Override
+    public Flowable<CommentBean> fetchShortCommentInfo(int id) {
+        return mHttpHelper.fetchShortCommentInfo(id);
     }
 
 

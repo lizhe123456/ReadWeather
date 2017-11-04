@@ -5,8 +5,16 @@ import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
+import com.readweather.model.bean.read.DetailExtraBean;
+import com.readweather.model.bean.read.HotListBean;
 import com.readweather.model.bean.read.NewListBean;
+import com.readweather.model.bean.read.SectionListBean;
+import com.readweather.model.bean.read.SectionListDetailBean;
+import com.readweather.model.bean.read.ThemeListBean;
+import com.readweather.model.bean.read.ThemeNewsDetailBean;
+import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
@@ -39,4 +47,24 @@ public interface HttpHelper {
     Flowable<NewListBean> fetchNewsListInfo();
 
     Flowable<DailyBeforeListBean> fetchDailyBeforeListInfo(String data);
+
+    Flowable<ThemeListBean> fetchThemeListInfo();
+
+    Flowable<ThemeNewsDetailBean> fetchThemeDetailListInfo(int id);
+
+    Flowable<SectionListBean> fetchSectionListInfo();
+
+    Flowable<SectionListDetailBean> fetchSectionListDetailInfo(int id);
+
+    Flowable<HotListBean> fetchHotListBeanInfo();
+
+    Flowable<ZhihuDetailBean> fetchNewsDailyInfo(int id);
+
+    Flowable<DetailExtraBean> fetchDetailExtraInfo(int id);
+
+    Flowable<CommentBean> fetchLongCommentInfo(int id);
+
+    Flowable<CommentBean> fetchShortCommentInfo(int id);
+
+
 }

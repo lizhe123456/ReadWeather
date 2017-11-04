@@ -52,8 +52,8 @@ public class NewsListPresenter extends BasePresenterImpl<NewsListContract.View> 
                         List<NewListBean.StoriesBean> list = dailyListBean.getStories();
                         list.remove(dailyListBean.getStories().size()-1);
                         list.add(storiesBean);
-                        mView.setStoriesBean(list);
                         mView.setTopStoriesBean(dailyListBean.getTop_stories());
+                        mView.setStoriesBean(list);
                     }
                 })
         );

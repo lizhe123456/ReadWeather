@@ -1,19 +1,28 @@
 package com.readweather.ui.read.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.content.Intent;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+
 import com.readweather.R;
 import com.readweather.base.MvpFragment;
+import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.NewListBean;
 import com.readweather.presenter.read.NewsListPresenter;
 import com.readweather.presenter.read.contract.NewsListContract;
+import com.readweather.ui.read.activity.NewsDetailsActivity;
 import com.readweather.ui.read.adapter.NewsAdapter;
+import com.readweather.utils.DateUtil;
+import com.readweather.utils.LogUtil;
 import com.readweather.widgets.GlideImageLoader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -30,11 +39,17 @@ public class MainNewsFragment extends MvpFragment<NewsListPresenter> implements 
     Banner banner;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.refresh)
+    SmartRefreshLayout refresh;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
+
     private NewsAdapter mAdapter;
     //日报数据
     private List<NewListBean.StoriesBean> storiesList;
     //头部banner
     private List<NewListBean.TopStoriesBean> topStoriesList;
+    private String date;
 
     @Override
     public void stateError() {
@@ -44,8 +59,10 @@ public class MainNewsFragment extends MvpFragment<NewsListPresenter> implements 
     @Override
     public void setStoriesBean(List<NewListBean.StoriesBean> storiesBeen) {
         storiesList = storiesBeen;
-        storiesList.add(0,null);
+        storiesList.add(0, null);
         mAdapter.addFirstDataSet(storiesList);
+        date = DateUtil.getNextDay(storiesBeen.get(storiesBeen.size() - 1).getDate(), "0");
+        unLoading();
     }
 
     @Override
@@ -56,7 +73,13 @@ public class MainNewsFragment extends MvpFragment<NewsListPresenter> implements 
 
     @Override
     public void showMoreContent(String format, DailyBeforeListBean dailyBeforeListBean) {
-
+        date = dailyBeforeListBean.getDate();
+        List<NewListBean.StoriesBean> list = new ArrayList<>();
+        list.add(null);
+        list.addAll(dailyBeforeListBean.getStories());
+        mAdapter.setDate(format);
+        mAdapter.addMoreDataSet(list);
+        unLoading();
     }
 
     @Override
@@ -66,19 +89,59 @@ public class MainNewsFragment extends MvpFragment<NewsListPresenter> implements 
 
     @Override
     protected void setData() {
+        loading();
         mPresenter.getNewsList();
         //如果布局大小一致有利于优化
         recyclerView.setHasFixedSize(true);
 
         //使用线性布局管理器
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layout);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(StaggeredGridLayoutManager.VERTICAL, 1);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
         mAdapter = new NewsAdapter(getContext());
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                    //加载更多功能的代码
+                    getMore();
+                }
+            }
+        });
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, Object item, int position) {
+                NewListBean.StoriesBean bean = (NewListBean.StoriesBean) item;
+                Intent intent = new Intent();
+                intent.putExtra("data",bean);
+                intent.setClass(getContext(), NewsDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
 
-    private void setBanners(){
+    public void getMore() {
+        mPresenter.getBeforeData(date);
+        loading();
+    }
+
+    private int getMaxElem(int[] arr) {
+        int size = arr.length;
+        int maxVal = Integer.MIN_VALUE;
+        for (int i = 0; i < size; i++) {
+            if (arr[i] > maxVal)
+                maxVal = arr[i];
+        }
+        return maxVal;
+    }
+
+    private void setBanners() {
         List<String> images = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         for (int i = 0; i < topStoriesList.size(); i++) {
@@ -121,5 +184,6 @@ public class MainNewsFragment extends MvpFragment<NewsListPresenter> implements 
     protected void initInject() {
         getFragmentComponent().inject(this);
     }
+
 
 }

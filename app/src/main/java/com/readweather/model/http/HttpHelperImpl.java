@@ -6,8 +6,16 @@ import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
+import com.readweather.model.bean.read.DetailExtraBean;
+import com.readweather.model.bean.read.HotListBean;
 import com.readweather.model.bean.read.NewListBean;
+import com.readweather.model.bean.read.SectionListBean;
+import com.readweather.model.bean.read.SectionListDetailBean;
+import com.readweather.model.bean.read.ThemeListBean;
+import com.readweather.model.bean.read.ThemeNewsDetailBean;
+import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
 import com.readweather.model.http.api.ReadApi;
@@ -82,6 +90,51 @@ public class HttpHelperImpl implements HttpHelper{
     @Override
     public Flowable<DailyBeforeListBean> fetchDailyBeforeListInfo(String data) {
         return readApi.getDailyBeforeList(data);
+    }
+
+    @Override
+    public Flowable<ThemeListBean> fetchThemeListInfo() {
+        return readApi.getThemeList();
+    }
+
+    @Override
+    public Flowable<ThemeNewsDetailBean> fetchThemeDetailListInfo(int id) {
+        return readApi.getThemeNewsDetailList(id);
+    }
+
+    @Override
+    public Flowable<SectionListBean> fetchSectionListInfo() {
+        return readApi.getSectionList();
+    }
+
+    @Override
+    public Flowable<SectionListDetailBean> fetchSectionListDetailInfo(int id) {
+        return readApi.getSectionNewsDetailList(id);
+    }
+
+    @Override
+    public Flowable<HotListBean> fetchHotListBeanInfo() {
+        return readApi.getHotList();
+    }
+
+    @Override
+    public Flowable<ZhihuDetailBean> fetchNewsDailyInfo(int id) {
+        return readApi.getDetailInfo(id);
+    }
+
+    @Override
+    public Flowable<DetailExtraBean> fetchDetailExtraInfo(int id) {
+        return readApi.getDetailExtraInfo(id);
+    }
+
+    @Override
+    public Flowable<CommentBean> fetchLongCommentInfo(int id) {
+        return readApi.getLongCommentInfo(id);
+    }
+
+    @Override
+    public Flowable<CommentBean> fetchShortCommentInfo(int id) {
+        return readApi.getShortCommentInfo(id);
     }
 
 }

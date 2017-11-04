@@ -8,7 +8,7 @@ import java.util.List;
  * 目标定在月亮之上，即使失败，也可以落在众星之间。
  */
 
-public class NewListBean implements Serializable{
+public class NewListBean implements Serializable {
 
 
     /**
@@ -45,7 +45,7 @@ public class NewListBean implements Serializable{
         this.top_stories = top_stories;
     }
 
-    public static class StoriesBean {
+    public static class StoriesBean implements Serializable{
         /**
          * images : ["https://pic3.zhimg.com/v2-18a6604e08b5e90954802424008e7ba2.jpg"]
          * type : 0
@@ -119,7 +119,7 @@ public class NewListBean implements Serializable{
         }
     }
 
-    public static class TopStoriesBean {
+    public static class TopStoriesBean implements Serializable{
         /**
          * image : https://pic3.zhimg.com/v2-e071dc44bb91ccdbafc2c8ba2ef36362.jpg
          * type : 0

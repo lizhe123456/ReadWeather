@@ -16,6 +16,7 @@ import com.readweather.model.bean.read.NewListBean;
 
 public class NewsAdapter extends BaseAdapter<NewListBean.StoriesBean> {
 
+    private String date;
 
     public NewsAdapter(Context context) {
         super(context);
@@ -27,7 +28,7 @@ public class NewsAdapter extends BaseAdapter<NewListBean.StoriesBean> {
             if (position == 0) {
                 holder.setText(R.id.title,"今日要闻");
             }else {
-                holder.setText(R.id.title,item.getDate());
+                holder.setText(R.id.title,date);
             }
         }else {
             holder.setGlieuImage(R.id.iv_news_img,item.getImages().get(0));
@@ -45,4 +46,11 @@ public class NewsAdapter extends BaseAdapter<NewListBean.StoriesBean> {
         }
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

@@ -9,5 +9,7 @@
         android:padding="10dp"
         android:text="今日要闻"
         android:textColor="#333333"
+        android:textSize="16sp"
+        android:gravity="center"
         />
 </LinearLayout>

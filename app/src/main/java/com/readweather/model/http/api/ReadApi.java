@@ -1,7 +1,15 @@
 package com.readweather.model.http.api;
 
+import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
+import com.readweather.model.bean.read.DetailExtraBean;
+import com.readweather.model.bean.read.HotListBean;
 import com.readweather.model.bean.read.NewListBean;
+import com.readweather.model.bean.read.SectionListBean;
+import com.readweather.model.bean.read.SectionListDetailBean;
+import com.readweather.model.bean.read.ThemeListBean;
+import com.readweather.model.bean.read.ThemeNewsDetailBean;
+import com.readweather.model.bean.read.ZhihuDetailBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
@@ -21,5 +29,55 @@ public interface ReadApi {
      * 往期日报
      */
     @GET("news/before/{date}")
-    Flowable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
+    Flowable<DailyBeforeListBean> getDailyBeforeList(@Path(value = "date") String date);
+
+    /**
+     * 主题日报
+     * @return
+     */
+    @GET("themes")
+    Flowable<ThemeListBean> getThemeList();
+
+    @GET("themes/{id}")
+    Flowable<ThemeNewsDetailBean> getThemeNewsDetailList(@Path(value = "id") int id);
+
+    /**
+     * 专栏
+     * @return
+     */
+    @GET("sections")
+    Flowable<SectionListBean> getSectionList();
+
+    @GET("sections/(id)")
+    Flowable<SectionListDetailBean> getSectionNewsDetailList(@Path(value = "id") int id);
+
+    /**
+     * 热门
+     */
+    @GET("news/hot")
+    Flowable<HotListBean> getHotList();
+
+    /**
+     * 日报详情
+     */
+    @GET("news/{id}")
+    Flowable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
+
+    /**
+     * 日报的额外信息
+     */
+    @GET("story-extra/{id}")
+    Flowable<DetailExtraBean> getDetailExtraInfo(@Path("id") int id);
+
+    /**
+     * 日报的长评论
+     */
+    @GET("story/{id}/long-comments")
+    Flowable<CommentBean> getLongCommentInfo(@Path("id") int id);
+
+    /**
+     * 日报的短评论
+     */
+    @GET("story/{id}/short-comments")
+    Flowable<CommentBean> getShortCommentInfo(@Path("id") int id);
 }

@@ -8,7 +8,10 @@ import com.readweather.ui.meizi.fragment.GankFragment;
 import com.readweather.ui.meizi.fragment.JiandanFragment;
 import com.readweather.ui.meizi.fragment.MeituFragment;
 import com.readweather.ui.meizi.fragment.MzituZiPaiFragment;
+import com.readweather.ui.read.fragment.ColumnFragment;
+import com.readweather.ui.read.fragment.HotNewsFragment;
 import com.readweather.ui.read.fragment.MainNewsFragment;
+import com.readweather.ui.read.fragment.ThemeFragment;
 
 import dagger.Component;
 
@@ -30,5 +33,11 @@ public interface FragmentComponent {
     void inject(MzituZiPaiFragment fragment);
 
     void inject(MainNewsFragment fragment);
+
+    void inject(ColumnFragment fragment);
+
+    void inject(ThemeFragment fragment);
+
+    void inject(HotNewsFragment fragment);
 
 }
