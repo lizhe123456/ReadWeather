@@ -67,6 +67,10 @@
         <activity android:name=".ui.meizi.activity.MzituPictureActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.read.activity.NewsDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme"
+            />
     </application>
 
 </manifest>

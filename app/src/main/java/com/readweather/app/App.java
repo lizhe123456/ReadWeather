@@ -15,6 +15,10 @@ import com.readweather.di.component.DaggerAppComponent;
 import com.readweather.di.module.AppModule;
 import com.readweather.di.module.HttpModule;
 import com.readweather.service.InitService;
+import com.readweather.utils.LogUtil;
+import com.tencent.smtt.sdk.QbSdk;
+import com.tencent.smtt.sdk.TbsListener;
+
 import java.util.HashSet;
 import java.util.Set;
 import io.realm.Realm;
@@ -61,7 +65,46 @@ public class App extends MultiDexApplication {
         getScreenSize();
 
         Realm.init(mContext);
+        initTbs();
         InitService.start(this);
+
+
+    }
+
+    private void initTbs() {
+
+        QbSdk.PreInitCallback callback = new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+                LogUtil.i("onViewInitFinished is " + b);
+            }
+        };
+
+        QbSdk.setTbsListener(new TbsListener() {
+            @Override
+            public void onDownloadFinish(int i) {
+                LogUtil.i("onDownloadFinish");
+            }
+
+            @Override
+            public void onInstallFinish(int i) {
+                LogUtil.i("onInstallFinish");
+            }
+
+            @Override
+            public void onDownloadProgress(int i) {
+                LogUtil.i("onDownloadProgress:" + i);
+            }
+        });
+
+        QbSdk.initX5Environment(getApplicationContext(), QbSdk.WebviewInitType.FIRSTUSE_AND_PRELOAD, callback);
+
+
     }
 
     public static AppComponent getAppComponent() {

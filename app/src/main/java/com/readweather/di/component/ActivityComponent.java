@@ -8,6 +8,7 @@ import com.readweather.di.scope.ActivityScope;
 import com.readweather.ui.meizi.activity.MzituPictureActivity;
 import com.readweather.ui.meizi.activity.PhotosActivity;
 import com.readweather.ui.meizi.fragment.MzituZiPaiFragment;
+import com.readweather.ui.read.activity.NewsDetailsActivity;
 
 import dagger.Component;
 
@@ -21,5 +22,7 @@ public interface ActivityComponent {
     Activity getActivity();
 
     void inject(MzituPictureActivity activity);
+
+    void inject(NewsDetailsActivity activity);
 
 }
