@@ -1,5 +1,6 @@
 package com.readweather.ui.read.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.presenter.read.ThemePresenter;
 import com.readweather.presenter.read.contract.ThemeListContract;
+import com.readweather.ui.read.activity.ThemeActivity;
 import com.readweather.ui.read.adapter.ThemeAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -54,7 +56,15 @@ public class ThemeFragment extends MvpFragment<ThemePresenter> implements ThemeL
         mAdapter = new ThemeAdapter(getContext());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, Object item, int position) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), ThemeActivity.class);
+                intent.putExtra("id",((ThemeListBean.OthersBean)item).getId());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -38,7 +38,7 @@ public interface ReadApi {
     @GET("themes")
     Flowable<ThemeListBean> getThemeList();
 
-    @GET("themes/{id}")
+    @GET("theme/{id}")
     Flowable<ThemeNewsDetailBean> getThemeNewsDetailList(@Path(value = "id") int id);
 
     /**
@@ -48,7 +48,7 @@ public interface ReadApi {
     @GET("sections")
     Flowable<SectionListBean> getSectionList();
 
-    @GET("sections/(id)")
+    @GET("section/(id)")
     Flowable<SectionListDetailBean> getSectionNewsDetailList(@Path(value = "id") int id);
 
     /**

@@ -61,8 +61,8 @@ public class NewsDetailsActivity extends MvpBackActivity<NewsDetailsPresenter> i
 
     @Override
     protected void setData() {
-        NewListBean.StoriesBean news = (NewListBean.StoriesBean) getIntent().getSerializableExtra("data");
-        mPresenter.getDetailData(news.getId());
+        int id =  getIntent().getIntExtra("id",0);
+        mPresenter.getDetailData(id);
         SwipeBackLayout ss = getSwipeBackLayout();
         ss.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }

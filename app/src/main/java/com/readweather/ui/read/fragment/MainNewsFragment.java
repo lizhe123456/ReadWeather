@@ -115,7 +115,7 @@ public class MainNewsFragment extends MvpFragment<NewsListPresenter> implements 
             public void onClick(View view, Object item, int position) {
                 NewListBean.StoriesBean bean = (NewListBean.StoriesBean) item;
                 Intent intent = new Intent();
-                intent.putExtra("data",bean);
+                intent.putExtra("id",bean.getId());
                 intent.setClass(getContext(), NewsDetailsActivity.class);
                 startActivity(intent);
             }
