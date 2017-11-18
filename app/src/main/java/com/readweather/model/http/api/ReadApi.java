@@ -48,7 +48,7 @@ public interface ReadApi {
     @GET("sections")
     Flowable<SectionListBean> getSectionList();
 
-    @GET("section/(id)")
+    @GET("section/{id}")
     Flowable<SectionListDetailBean> getSectionNewsDetailList(@Path(value = "id") int id);
 
     /**

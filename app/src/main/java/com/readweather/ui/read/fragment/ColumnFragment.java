@@ -1,5 +1,6 @@
 package com.readweather.ui.read.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,11 @@ import android.view.ViewGroup;
 
 import com.readweather.R;
 import com.readweather.base.MvpFragment;
+import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.SectionListBean;
 import com.readweather.presenter.read.SectionPresenter;
 import com.readweather.presenter.read.contract.SectionListContract;
+import com.readweather.ui.read.activity.ColumnActivity;
 import com.readweather.ui.read.adapter.ColumnAdapter;
 import com.readweather.ui.read.adapter.ThemeAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -55,6 +58,16 @@ public class ColumnFragment extends MvpFragment<SectionPresenter> implements Sec
         mAdapter = new ColumnAdapter(getContext());
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, Object item, int position) {
+                SectionListBean.DataBean bean = (SectionListBean.DataBean) item;
+                Intent intent = new Intent();
+                intent.putExtra("id",bean.getId());
+                intent.setClass(getContext(),ColumnActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     @Override

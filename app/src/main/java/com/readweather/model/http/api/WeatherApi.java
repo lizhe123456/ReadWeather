@@ -7,4 +7,5 @@ package com.readweather.model.http.api;
 public interface WeatherApi {
 
 
+
 }

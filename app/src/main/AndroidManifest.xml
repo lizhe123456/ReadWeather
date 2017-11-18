@@ -75,6 +75,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme"
             />
+        <activity android:name=".ui.read.activity.ColumnActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme"
+            />
     </application>
 
 </manifest>
