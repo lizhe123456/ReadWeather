@@ -39,11 +39,11 @@ public class App extends MultiDexApplication {
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
 
-    private static AMapLocationClient mLocationClient;
+    private  AMapLocationClient mLocationClient;
 
-    private static AMapLocationClientOption mLocationClientOption;
+    private AMapLocationClientOption mLocationClientOption;
 
-    private static AMapLocation mLocation;
+    private AMapLocation mLocation;
 
     public static Context getContext() {
         return mContext;
@@ -166,7 +166,7 @@ public class App extends MultiDexApplication {
     /**
      * 用于定位
      */
-    public static void getLoction(final RWLocationListener listener){
+    public void getLoction(final RWLocationListener listener){
         if (mLocation != null){
             listener.onLocationChanged(mLocation);
             return;
@@ -178,7 +178,7 @@ public class App extends MultiDexApplication {
      * 获取当前地址
      * @param listener
      */
-    private static void getCurrentLocation(final RWLocationListener listener) {
+    private void getCurrentLocation(final RWLocationListener listener) {
         mLocationClient = new AMapLocationClient(mContext);
         mLocationClient.setLocationListener(new AMapLocationListener() {
                 @Override
@@ -200,6 +200,10 @@ public class App extends MultiDexApplication {
         // 启动定位
         mLocationClient.startLocation();
 
+    }
+
+    public void stopLocation(){
+        mLocationClient.stopLocation();
     }
 
     /**

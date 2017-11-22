@@ -129,7 +129,6 @@ public abstract class BaseGankFragment<T extends BasePresenter> extends MvpFragm
         initUrl();
     }
 
-
     private int getMaxElem(int[] arr) {
         int size = arr.length;
         int maxVal = Integer.MIN_VALUE;

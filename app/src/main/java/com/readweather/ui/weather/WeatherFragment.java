@@ -1,14 +1,15 @@
 package com.readweather.ui.weather;
 
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.widget.TextView;
 import com.readweather.R;
 import com.readweather.base.BaseFrament;
-import com.readweather.base.MvpFragment;
-import com.readweather.model.bean.weather.HeWeather6;
-import com.readweather.model.bean.weather.WeatherBean;
-import com.readweather.presenter.weather.WeatherPresenter;
-import com.readweather.presenter.weather.contract.WeatherContract;
-
+import com.readweather.ui.weather.adapter.WeatherPageAdapter;
+import com.readweather.utils.SpUtil;
 import java.util.List;
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * author：lizhe
@@ -17,51 +18,63 @@ import java.util.List;
  * 类介绍：
  */
 
-public class WeatherFragment extends MvpFragment<WeatherPresenter> implements WeatherContract.View {
+public class WeatherFragment extends BaseFrament {
 
+
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.city)
+    TextView city;
+
+    private List<String> cityList;
+    private WeatherPageAdapter adapter;
 
     @Override
     protected int setLayout() {
         return R.layout.fragment_weather;
     }
 
+
     @Override
-    protected void initInject() {
-        getFragmentComponent().inject(this);
+    protected void init() {
+        adapter = new WeatherPageAdapter(getChildFragmentManager());
+        cityList = SpUtil.getList(getContext(), "city");
+        if (cityList == null || cityList.size() == 0) {
+            WeatherItemFragment fragment = new WeatherItemFragment();
+            Bundle data = new Bundle();
+            data.putString("city", "location");
+            fragment.setArguments(data);
+            adapter.addFrag(fragment);
+        } else {
+            for (int i = 0; i < cityList.size() + 1; i++) {
+                Bundle data = new Bundle();
+                WeatherItemFragment fragment = new WeatherItemFragment();
+                if (i == 0) {
+                    data.putString("city", "location");
+                } else {
+                    data.putString("city", cityList.get(i - 1));
+                }
+                fragment.setArguments(data);
+                adapter.addFrag(fragment);
+            }
+        }
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(0);
+        viewPager.setCurrentItem(0);
     }
 
     @Override
     protected void setData() {
-        mPresenter.getWeatherInfo("武汉");
-    }
-
-    @Override
-    public void stateError() {
 
     }
 
-    @Override
-    public void showBasic(WeatherBean.BasicBean bean) {
 
+    @OnClick(R.id.weather_setting)
+    public void onViewClicked() {
     }
 
-    @Override
-    public void showUpdateBean(WeatherBean.UpdateBean bean) {
-
+    public void setCity(String city){
+        this.city.setText(city);
     }
 
-    @Override
-    public void showNowBean(WeatherBean.NowBean bean) {
-
-    }
-
-    @Override
-    public void showDailyForecast(List<WeatherBean.DailyForecastBean> list) {
-
-    }
-
-    @Override
-    public void showLifestyle(List<WeatherBean.LifestyleBean> list) {
-
-    }
 }

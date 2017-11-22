@@ -167,7 +167,7 @@ public class MapFragment extends BaseFrament implements App.RWLocationListener, 
     }
 
     private void initLocation() {
-        App.getLoction(this);
+        App.getInstance().getLoction(this);
     }
 
 
