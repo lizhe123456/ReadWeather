@@ -1,20 +1,13 @@
 package com.readweather.utils;
 
-import com.readweather.model.bean.Girl;
+import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.http.exception.ApiException;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
+import com.readweather.model.http.response.WeatherResponse;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.reactivestreams.Publisher;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -63,6 +56,20 @@ public class RxUtil {
                         } else {
                             return Flowable.error(new ApiException("服务器返回error"));
                         }
+                    }
+                });
+            }
+        };
+    }
+
+    public static <T> FlowableTransformer<WeatherResponse<T>,T> handleWeather(){
+        return new FlowableTransformer<WeatherResponse<T>, T>() {
+            @Override
+            public Flowable<T> apply(Flowable<WeatherResponse<T>> upstream) {
+                return upstream.flatMap(new Function<WeatherResponse<T>, Flowable<T>>() {
+                    @Override
+                    public Flowable<T> apply(@NonNull WeatherResponse<T> tWeatherResponse) throws Exception {
+                        return (Flowable<T>) createData(tWeatherResponse.getData());
                     }
                 });
             }

@@ -9,13 +9,14 @@ import java.util.List;
  */
 
 public class WeatherBean implements Serializable {
+
     /**
-     * basic : {"cid":"CN101010100","location":"北京","parent_city":"北京","admin_area":"北京","cnty":"中国","lat":"39.90498734","lon":"116.4052887","tz":"+8.0"}
-     * update : {"loc":"2017-11-18 16:46","utc":"2017-11-18 08:46"}
+     * basic : {"cid":"CN101200101","location":"武汉","parent_city":"武汉","admin_area":"湖北","cnty":"中国","lat":"30.5843544","lon":"114.29856873","tz":"+8.0"}
+     * update : {"loc":"2017-11-22 13:52","utc":"2017-11-22 05:52"}
      * status : ok
-     * now : {"cloud":"0","cond_code":"100","cond_txt":"晴","fl":"0","hum":"36","pcpn":"0.0","pres":"1028","tmp":"4","vis":"8","wind_deg":"272","wind_dir":"西风","wind_sc":"3-4","wind_spd":"10"}
-     * daily_forecast : [{"cond_code_d":"100","cond_code_n":"100","cond_txt_d":"晴","cond_txt_n":"晴","date":"2017-11-18","hum":"15","mr":"06:25","ms":"17:11","pcpn":"0.0","pop":"0","pres":"1032","sr":"07:02","ss":"16:57","tmp_max":"5","tmp_min":"-6","uv_index":"3","vis":"20","wind_deg":"264","wind_dir":"西风","wind_sc":"微风","wind_spd":"12"},{"cond_code_d":"101","cond_code_n":"100","cond_txt_d":"多云","cond_txt_n":"晴","date":"2017-11-19","hum":"19","mr":"07:22","ms":"17:47","pcpn":"0.0","pop":"0","pres":"1028","sr":"07:03","ss":"16:57","tmp_max":"7","tmp_min":"-5","uv_index":"3","vis":"20","wind_deg":"197","wind_dir":"西南风","wind_sc":"微风","wind_spd":"7"},{"cond_code_d":"100","cond_code_n":"101","cond_txt_d":"晴","cond_txt_n":"多云","date":"2017-11-20","hum":"30","mr":"08:18","ms":"18:26","pcpn":"0.0","pop":"0","pres":"1027","sr":"07:04","ss":"16:56","tmp_max":"10","tmp_min":"-3","uv_index":"4","vis":"11","wind_deg":"217","wind_dir":"西南风","wind_sc":"微风","wind_spd":"5"}]
-     * lifestyle : [{"brf":"较不舒适","txt":"白天天气晴好，但仍会使您感觉偏冷，不很舒适，请注意适时添加衣物，以防感冒。","type":"comf"},{"brf":"冷","txt":"天气冷，建议着棉服、羽绒服、皮夹克加羊毛衫等冬季服装。年老体弱者宜着厚棉衣、冬大衣或厚羽绒服。","type":"drsg"},{"brf":"较易发","txt":"天凉，昼夜温差较大，较易发生感冒，请适当增减衣服，体质较弱的朋友请注意适当防护。","type":"flu"},{"brf":"较适宜","txt":"天气较好，但考虑风力较强且气温较低，推荐您进行室内运动，若在户外运动注意防风并适当增减衣物。","type":"sport"},{"brf":"一般","txt":"天气较好，温度稍低，加之风稍大，让人感觉有点凉，会对外出有一定影响，外出注意防风保暖。","type":"trav"},{"brf":"中等","txt":"属中等强度紫外线辐射天气，外出时建议涂擦SPF高于15、PA+的防晒护肤品，戴帽子、太阳镜。","type":"uv"},{"brf":"较适宜","txt":"较适宜洗车，未来一天无雨，风力较小，擦洗一新的汽车至少能保持一天。","type":"cw"},{"brf":"良","txt":"气象条件有利于空气污染物稀释、扩散和清除，可在室外正常活动。","type":"air"}]
+     * now : {"cloud":"0","cond_code":"100","cond_txt":"晴","fl":"16","hum":"33","pcpn":"0","pres":"1025","tmp":"15","vis":"10","wind_deg":"60","wind_dir":"东北风","wind_sc":"微风","wind_spd":"9"}
+     * daily_forecast : [{"cond_code_d":"100","cond_code_n":"100","cond_txt_d":"晴","cond_txt_n":"晴","date":"2017-11-22","hum":"36","mr":"09:48","ms":"20:28","pcpn":"0.0","pop":"0","pres":"1026","sr":"06:55","ss":"17:24","tmp_max":"13","tmp_min":"3","uv_index":"3","vis":"10","wind_deg":"355","wind_dir":"北风","wind_sc":"微风","wind_spd":"6"},{"cond_code_d":"100","cond_code_n":"100","cond_txt_d":"晴","cond_txt_n":"晴","date":"2017-11-23","hum":"28","mr":"10:34","ms":"21:18","pcpn":"0.0","pop":"0","pres":"1029","sr":"06:56","ss":"17:24","tmp_max":"13","tmp_min":"3","uv_index":"4","vis":"10","wind_deg":"0","wind_dir":"无持续风向","wind_sc":"微风","wind_spd":"4"},{"cond_code_d":"101","cond_code_n":"101","cond_txt_d":"多云","cond_txt_n":"多云","date":"2017-11-24","hum":"32","mr":"11:18","ms":"22:10","pcpn":"0.0","pop":"0","pres":"1025","sr":"06:57","ss":"17:24","tmp_max":"15","tmp_min":"5","uv_index":"4","vis":"10","wind_deg":"0","wind_dir":"无持续风向","wind_sc":"微风","wind_spd":"6"}]
+     * lifestyle : [{"brf":"较舒适","txt":"白天虽然天气晴好，但早晚会感觉偏凉，午后舒适、宜人。","type":"comf"},{"brf":"较冷","txt":"建议着厚外套加毛衣等服装。年老体弱者宜着大衣、呢外套加羊毛衫。","type":"drsg"},{"brf":"较易发","txt":"天凉，昼夜温差较大，较易发生感冒，请适当增减衣服，体质较弱的朋友请注意适当防护。","type":"flu"},{"brf":"较适宜","txt":"天气较好，但考虑风力较强且气温较低，推荐您进行室内运动，若在户外运动注意防风并适当增减衣物。","type":"sport"},{"brf":"适宜","txt":"天气较好，风稍大，但温度适宜，是个好天气哦。适宜旅游，您可以尽情地享受大自然的无限风光。","type":"trav"},{"brf":"中等","txt":"属中等强度紫外线辐射天气，外出时建议涂擦SPF高于15、PA+的防晒护肤品，戴帽子、太阳镜。","type":"uv"},{"brf":"较适宜","txt":"较适宜洗车，未来一天无雨，风力较小，擦洗一新的汽车至少能保持一天。","type":"cw"},{"brf":"良","txt":"气象条件有利于空气污染物稀释、扩散和清除，可在室外正常活动。","type":"air"}]
      */
 
     private BasicBean basic;
@@ -73,15 +74,15 @@ public class WeatherBean implements Serializable {
         this.lifestyle = lifestyle;
     }
 
-    public static class BasicBean {
+    public static class BasicBean implements Serializable{
         /**
-         * cid : CN101010100
-         * location : 北京
-         * parent_city : 北京
-         * admin_area : 北京
+         * cid : CN101200101
+         * location : 武汉
+         * parent_city : 武汉
+         * admin_area : 湖北
          * cnty : 中国
-         * lat : 39.90498734
-         * lon : 116.4052887
+         * lat : 30.5843544
+         * lon : 114.29856873
          * tz : +8.0
          */
 
@@ -161,8 +162,8 @@ public class WeatherBean implements Serializable {
 
     public static class UpdateBean {
         /**
-         * loc : 2017-11-18 16:46
-         * utc : 2017-11-18 08:46
+         * loc : 2017-11-22 13:52
+         * utc : 2017-11-22 05:52
          */
 
         private String loc;
@@ -185,21 +186,21 @@ public class WeatherBean implements Serializable {
         }
     }
 
-    public static class NowBean {
+    public static class NowBean implements Serializable{
         /**
          * cloud : 0
          * cond_code : 100
          * cond_txt : 晴
-         * fl : 0
-         * hum : 36
-         * pcpn : 0.0
-         * pres : 1028
-         * tmp : 4
-         * vis : 8
-         * wind_deg : 272
-         * wind_dir : 西风
-         * wind_sc : 3-4
-         * wind_spd : 10
+         * fl : 16
+         * hum : 33
+         * pcpn : 0
+         * pres : 1025
+         * tmp : 15
+         * vis : 10
+         * wind_deg : 60
+         * wind_dir : 东北风
+         * wind_sc : 微风
+         * wind_spd : 9
          */
 
         private String cloud;
@@ -321,29 +322,29 @@ public class WeatherBean implements Serializable {
         }
     }
 
-    public static class DailyForecastBean {
+    public static class DailyForecastBean implements Serializable{
         /**
          * cond_code_d : 100
          * cond_code_n : 100
          * cond_txt_d : 晴
          * cond_txt_n : 晴
-         * date : 2017-11-18
-         * hum : 15
-         * mr : 06:25
-         * ms : 17:11
+         * date : 2017-11-22
+         * hum : 36
+         * mr : 09:48
+         * ms : 20:28
          * pcpn : 0.0
          * pop : 0
-         * pres : 1032
-         * sr : 07:02
-         * ss : 16:57
-         * tmp_max : 5
-         * tmp_min : -6
+         * pres : 1026
+         * sr : 06:55
+         * ss : 17:24
+         * tmp_max : 13
+         * tmp_min : 3
          * uv_index : 3
-         * vis : 20
-         * wind_deg : 264
-         * wind_dir : 西风
+         * vis : 10
+         * wind_deg : 355
+         * wind_dir : 北风
          * wind_sc : 微风
-         * wind_spd : 12
+         * wind_spd : 6
          */
 
         private String cond_code_d;
@@ -537,10 +538,10 @@ public class WeatherBean implements Serializable {
         }
     }
 
-    public static class LifestyleBean {
+    public static class LifestyleBean implements Serializable{
         /**
-         * brf : 较不舒适
-         * txt : 白天天气晴好，但仍会使您感觉偏冷，不很舒适，请注意适时添加衣物，以防感冒。
+         * brf : 较舒适
+         * txt : 白天虽然天气晴好，但早晚会感觉偏凉，午后舒适、宜人。
          * type : comf
          */
 

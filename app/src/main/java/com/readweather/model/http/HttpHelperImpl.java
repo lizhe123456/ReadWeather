@@ -16,12 +16,17 @@ import com.readweather.model.bean.read.SectionListDetailBean;
 import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
+import com.readweather.model.bean.weather.ForecastBean;
+import com.readweather.model.bean.weather.HeWeather6;
+import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
 import com.readweather.model.http.api.ReadApi;
+import com.readweather.model.http.api.WeatherApi;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
+import com.readweather.model.http.response.WeatherResponse;
 import com.readweather.presenter.meizi.contract.GirlsContract;
 
 import java.util.List;
@@ -39,12 +44,14 @@ public class HttpHelperImpl implements HttpHelper{
     public BusApi busApi;
     public GirlsApi girlsApi;
     public ReadApi readApi;
+    public WeatherApi weatherApi;
 
     @Inject
-    public HttpHelperImpl(BusApi busApi,GirlsApi girlsApi, ReadApi readApi){
+    public HttpHelperImpl(BusApi busApi,GirlsApi girlsApi, ReadApi readApi, WeatherApi weatherApi){
         this.busApi = busApi;
         this.girlsApi = girlsApi;
         this.readApi = readApi;
+        this.weatherApi = weatherApi;
     }
 
     @Override
@@ -135,6 +142,16 @@ public class HttpHelperImpl implements HttpHelper{
     @Override
     public Flowable<CommentBean> fetchShortCommentInfo(int id) {
         return readApi.getShortCommentInfo(id);
+    }
+
+    @Override
+    public Flowable<WeatherResponse<WeatherBean>> fetchWeatherInfo(String location) {
+        return weatherApi.getWeatherInfo(Constants.WEATHER_KEY,location);
+    }
+
+    @Override
+    public Flowable<ForecastBean> fetchForecastInfo(String location) {
+        return weatherApi.getForecastInfo(Constants.WEATHER_KEY,location);
     }
 
 }

@@ -16,11 +16,15 @@ import com.readweather.model.bean.read.SectionListDetailBean;
 import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
+import com.readweather.model.bean.weather.ForecastBean;
+import com.readweather.model.bean.weather.HeWeather6;
+import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
+import com.readweather.model.http.response.WeatherResponse;
 import com.readweather.model.prefs.PreferencesHelper;
 
 import java.util.List;
@@ -170,6 +174,16 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     @Override
     public Flowable<CommentBean> fetchShortCommentInfo(int id) {
         return mHttpHelper.fetchShortCommentInfo(id);
+    }
+
+    @Override
+    public Flowable<WeatherResponse<WeatherBean>> fetchWeatherInfo(String location) {
+        return mHttpHelper.fetchWeatherInfo(location);
+    }
+
+    @Override
+    public Flowable<ForecastBean> fetchForecastInfo(String location) {
+        return mHttpHelper.fetchForecastInfo(location);
     }
 
 

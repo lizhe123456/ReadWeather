@@ -12,6 +12,7 @@ import com.readweather.ui.read.fragment.ColumnFragment;
 import com.readweather.ui.read.fragment.HotNewsFragment;
 import com.readweather.ui.read.fragment.MainNewsFragment;
 import com.readweather.ui.read.fragment.ThemeFragment;
+import com.readweather.ui.weather.WeatherFragment;
 
 import dagger.Component;
 
@@ -39,5 +40,7 @@ public interface FragmentComponent {
     void inject(ThemeFragment fragment);
 
     void inject(HotNewsFragment fragment);
+
+    void inject(WeatherFragment fragment);
 
 }

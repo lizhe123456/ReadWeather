@@ -15,9 +15,13 @@ import com.readweather.model.bean.read.SectionListDetailBean;
 import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
+import com.readweather.model.bean.weather.ForecastBean;
+import com.readweather.model.bean.weather.HeWeather6;
+import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
+import com.readweather.model.http.response.WeatherResponse;
 
 import java.util.List;
 import java.util.logging.FileHandler;
@@ -66,5 +70,8 @@ public interface HttpHelper {
 
     Flowable<CommentBean> fetchShortCommentInfo(int id);
 
+    Flowable<WeatherResponse<WeatherBean>> fetchWeatherInfo(String location);
+
+    Flowable<ForecastBean> fetchForecastInfo(String location);
 
 }

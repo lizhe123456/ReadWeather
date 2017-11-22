@@ -2,6 +2,13 @@ package com.readweather.ui.weather;
 
 import com.readweather.R;
 import com.readweather.base.BaseFrament;
+import com.readweather.base.MvpFragment;
+import com.readweather.model.bean.weather.HeWeather6;
+import com.readweather.model.bean.weather.WeatherBean;
+import com.readweather.presenter.weather.WeatherPresenter;
+import com.readweather.presenter.weather.contract.WeatherContract;
+
+import java.util.List;
 
 /**
  * author：lizhe
@@ -10,19 +17,51 @@ import com.readweather.base.BaseFrament;
  * 类介绍：
  */
 
-public class WeatherFragment extends BaseFrament {
+public class WeatherFragment extends MvpFragment<WeatherPresenter> implements WeatherContract.View {
+
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_weather;
     }
 
     @Override
-    protected void init() {
-
+    protected void initInject() {
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected void setData() {
+        mPresenter.getWeatherInfo("武汉");
+    }
+
+    @Override
+    public void stateError() {
+
+    }
+
+    @Override
+    public void showBasic(WeatherBean.BasicBean bean) {
+
+    }
+
+    @Override
+    public void showUpdateBean(WeatherBean.UpdateBean bean) {
+
+    }
+
+    @Override
+    public void showNowBean(WeatherBean.NowBean bean) {
+
+    }
+
+    @Override
+    public void showDailyForecast(List<WeatherBean.DailyForecastBean> list) {
+
+    }
+
+    @Override
+    public void showLifestyle(List<WeatherBean.LifestyleBean> list) {
 
     }
 }
