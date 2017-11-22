@@ -7,7 +7,6 @@ import com.readweather.base.MvpFragment;
 import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.presenter.weather.WeatherPresenter;
 import com.readweather.presenter.weather.contract.WeatherContract;
-
 import java.util.List;
 
 
