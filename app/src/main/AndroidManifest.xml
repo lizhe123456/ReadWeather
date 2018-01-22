@@ -38,7 +38,7 @@
         >
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="fb5992b41820622b27a95d91631217cc"/>
+            android:value="cb53ced5e951cee4f01b305cacecfdf7"/>
         <activity android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
             >

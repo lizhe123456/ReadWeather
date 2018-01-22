@@ -1,5 +1,6 @@
 package com.readweather.ui.weather;
 
+import android.support.v7.widget.RecyclerView;
 import com.amap.api.location.AMapLocation;
 import com.readweather.R;
 import com.readweather.app.App;
@@ -8,6 +9,7 @@ import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.presenter.weather.WeatherPresenter;
 import com.readweather.presenter.weather.contract.WeatherContract;
 import java.util.List;
+import butterknife.BindView;
 
 
 /**
@@ -16,7 +18,10 @@ import java.util.List;
  */
 
 public class WeatherItemFragment extends MvpFragment<WeatherPresenter> implements WeatherContract.View
-        ,App.RWLocationListener{
+        , App.RWLocationListener {
+
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
 
     private String city = "";
 
@@ -32,17 +37,15 @@ public class WeatherItemFragment extends MvpFragment<WeatherPresenter> implement
 
     @Override
     protected void setData() {
-
         String city = getArguments().getString("city");
-        if (city == null){
+        if (city == null) {
             return;
         }
-        if (city.equals("location")){
+        if (city.equals("location")) {
             App.getInstance().getLoction(this);
-        }else {
+        } else {
             mPresenter.getWeatherInfo(city);
         }
-
     }
 
     @Override
@@ -52,7 +55,7 @@ public class WeatherItemFragment extends MvpFragment<WeatherPresenter> implement
 
     @Override
     public void showBasic(WeatherBean.BasicBean bean) {
-        ((WeatherFragment)(getParentFragment())).setCity(bean.getLocation());
+        ((WeatherFragment) (getParentFragment())).setCity(bean.getLocation());
     }
 
     @Override
@@ -80,4 +83,5 @@ public class WeatherItemFragment extends MvpFragment<WeatherPresenter> implement
         mPresenter.getWeatherInfo(location.getCity());
         App.getInstance().stopLocation();
     }
+
 }
