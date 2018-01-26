@@ -4,4 +4,12 @@
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="ImageTextView">
+        <attr name="text_size" format="dimension" />
+        <attr name="text_color" format="color" />
+        <attr name="text_paddingLife" format="dimension" />
+        <attr name="text_gravity" format="boolean" />
+        <attr name="text_bg" format="integer"/>
+        <attr name="text1" format="string"/>
+    </declare-styleable>
 </resources>
