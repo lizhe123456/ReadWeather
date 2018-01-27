@@ -15,6 +15,7 @@ public class HomePageBean {
     private List<Classify> classifies;
     private PushData pushData;
     private List<TimeLimitData> timeLimitData;
+    private List<MoreData> moreData;
 
     public int getSize() {
         return size;
@@ -54,6 +55,14 @@ public class HomePageBean {
 
     public void setClassifies(List<Classify> classifies) {
         this.classifies = classifies;
+    }
+
+    public List<MoreData> getMoreData() {
+        return moreData;
+    }
+
+    public void setMoreData(List<MoreData> moreData) {
+        this.moreData = moreData;
     }
 
     public class Classify implements Serializable{
@@ -186,6 +195,10 @@ public class HomePageBean {
                 this.type = type;
             }
         }
+
+    }
+
+    public class MoreData implements Serializable{
 
     }
 

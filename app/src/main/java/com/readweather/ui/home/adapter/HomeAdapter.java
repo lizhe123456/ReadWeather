@@ -2,6 +2,7 @@ package com.readweather.ui.home.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.readweather.R;
 import com.readweather.model.bean.HomePageBean;
 import com.readweather.utils.GlideuUtil;
+import com.readweather.view.ImageTextView;
 import com.readweather.widgets.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -146,10 +148,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                 break;
             case ITEM2 :
                 //布局样式2
-
+                TextView textView = viewHolder.getView(R.id.tc_title);
+                ImageTextView imageTextView1 = viewHolder.getView(R.id.img_item1);
+                ImageTextView imageTextView2 = viewHolder.getView(R.id.img_item2);
+                GridView gridView = viewHolder.getView(R.id.grid_view);
                 break;
             case ITEM3 :
                 //布局样式3
+
                 break;
             case ITEM4 :
                 //布局样式4
@@ -162,6 +168,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                 break;
             case MORE :
                 //底部更多
+                viewHolder.setMoreItem();
+
                 break;
         }
     }
@@ -195,7 +203,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             mViews = new SparseArray<>();
         }
 
-        private  <V extends View> V getView(int id){
+        public  <V extends View> V getView(int id){
             View view = mViews.get(id);
             if (view == null){
                 view = itemView.findViewById(id);
@@ -260,6 +268,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                     //跳转url
                 }
             });
+        }
+
+        public void setMoreItem() {
+            RecyclerView recyclerView = getView(R.id.recyclerView);
+            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+
         }
     }
 
