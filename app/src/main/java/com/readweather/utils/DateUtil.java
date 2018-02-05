@@ -58,6 +58,11 @@ public class DateUtil {
         return dateString;
     }
 
+    public static String dateToStr1(Date dateDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd");
+        String dateString = formatter.format(dateDate);
+        return dateString;
+    }
     /**
      * 将短时间格式时间转换为字符串 yyyy-MM-dd
      *

@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.readweather.R;
 import com.readweather.base.BaseActivity;
+import com.readweather.ui.home.HomePageFragment;
 import com.readweather.ui.map.MapFragment;
 import com.readweather.ui.meizi.MeiZiFragment;
 import com.readweather.ui.read.ReadFragment;
@@ -167,7 +168,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (foundFragment == null){
             switch (tag){
                 case FRAGMENT_TAG_WEATHER:
-                    foundFragment = new WeatherFragment();
+                    foundFragment = new HomePageFragment();
                     break;
                 case FRAGMENT_TAG_MAP:
                     foundFragment = new MapFragment();

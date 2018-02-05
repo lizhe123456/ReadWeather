@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.readweather.di.module.FragmentModule;
 import com.readweather.di.scope.FragmentScope;
+import com.readweather.ui.home.HomePageFragment;
 import com.readweather.ui.meizi.fragment.GankFragment;
 import com.readweather.ui.meizi.fragment.JiandanFragment;
 import com.readweather.ui.meizi.fragment.MeituFragment;
@@ -43,5 +44,7 @@ public interface FragmentComponent {
     void inject(HotNewsFragment fragment);
 
     void inject(WeatherItemFragment fragment);
+
+    void inject(HomePageFragment fragment);
 
 }

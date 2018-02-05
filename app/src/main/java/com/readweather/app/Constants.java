@@ -19,6 +19,9 @@ public class Constants {
     public static final String WEATHER_API = "https://free-api.heweather.com/s6/";
     public static final String PATH_SDCARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "lizhe" + File.separator + "ReadWeather";
     public static final String READ_API = "https://news-at.zhihu.com/api/4/";
+    public static final String TODAY_API = "http://v.juhe.cn/todayOnhistory/";
+    public static final String TODAY_KEY = "ececf0cc333cf4afa3da65d379f1b4b9";
+
     public static final String BUS_KEY = "ec47819b07a24015d5ed11e303d6eb57";
     //和风天气key 1000次访问量
     public static final String WEATHER_KEY = "d1f1aa4110264d5baef72f8f88b59560";

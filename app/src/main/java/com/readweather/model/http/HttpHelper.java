@@ -4,6 +4,7 @@ import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
+import com.readweather.model.bean.HomeBean;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
@@ -73,5 +74,7 @@ public interface HttpHelper {
     Flowable<WeatherResponse<WeatherBean>> fetchWeatherInfo(String location);
 
     Flowable<ForecastBean> fetchForecastInfo(String location);
+
+    Flowable<HomeBean.TodayOnhistory> fetchTodayOnhistoryInfo();
 
 }

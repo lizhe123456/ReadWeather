@@ -5,10 +5,13 @@ import com.readweather.app.Constants;
 import com.readweather.di.qualifier.BusUrl;
 import com.readweather.di.qualifier.GirlsUrl;
 import com.readweather.di.qualifier.ReadUrl;
+import com.readweather.di.qualifier.TodayUrl;
 import com.readweather.di.qualifier.WeatherUrl;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
+import com.readweather.model.http.api.HomeApi;
 import com.readweather.model.http.api.ReadApi;
+import com.readweather.model.http.api.ToDayApi;
 import com.readweather.model.http.api.WeatherApi;
 import com.readweather.utils.JsonUtil;
 import com.readweather.utils.LogUtil;
@@ -78,6 +81,13 @@ public class HttpModule {
 
     @Singleton
     @Provides
+    @TodayUrl
+    Retrofit provideTodayRetrofit(Retrofit.Builder builder, OkHttpClient client){
+        return createRetrofit(builder,client, Constants.TODAY_API);
+    }
+
+    @Singleton
+    @Provides
     BusApi provideBusService(@BusUrl Retrofit retrofit){
         return retrofit.create(BusApi.class);
     }
@@ -98,6 +108,12 @@ public class HttpModule {
     @Provides
     WeatherApi provideWeatherService(@WeatherUrl Retrofit retrofit){
         return retrofit.create(WeatherApi.class);
+    }
+
+    @Singleton
+    @Provides
+    ToDayApi provideToDayService(@TodayUrl Retrofit retrofit){
+        return retrofit.create(ToDayApi.class);
     }
 
     @Singleton

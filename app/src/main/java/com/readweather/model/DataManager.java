@@ -4,6 +4,7 @@ import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
 import com.readweather.model.bean.Girl;
+import com.readweather.model.bean.HomeBean;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.bean.RealmLikeBean;
 import com.readweather.model.bean.read.CommentBean;
@@ -184,6 +185,11 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     @Override
     public Flowable<ForecastBean> fetchForecastInfo(String location) {
         return mHttpHelper.fetchForecastInfo(location);
+    }
+
+    @Override
+    public Flowable<HomeBean.TodayOnhistory> fetchTodayOnhistoryInfo() {
+        return mHttpHelper.fetchTodayOnhistoryInfo();
     }
 
 

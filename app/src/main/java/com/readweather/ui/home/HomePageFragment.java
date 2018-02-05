@@ -4,6 +4,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.readweather.R;
 import com.readweather.base.BaseFrament;
+import com.readweather.base.MvpFragment;
+import com.readweather.model.bean.HomeBean;
+import com.readweather.presenter.homepage.HomePagePresenter;
+import com.readweather.presenter.homepage.contract.HomePageContract;
 import com.readweather.ui.home.adapter.HomeAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import butterknife.BindView;
@@ -13,7 +17,7 @@ import butterknife.BindView;
  * 类介绍：
  */
 
-public class HomePageFrament extends BaseFrament {
+public class HomePageFragment extends MvpFragment<HomePagePresenter> implements HomePageContract.View {
 
 
     @BindView(R.id.recyclerView)
@@ -28,9 +32,10 @@ public class HomePageFrament extends BaseFrament {
         return R.layout.fragment_home;
     }
 
-    @Override
-    protected void init() {
 
+    @Override
+    protected void initInject() {
+        getFragmentComponent().inject(this);
     }
 
     @Override
@@ -39,8 +44,17 @@ public class HomePageFrament extends BaseFrament {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setAdapter(mAdapter);
-
+        mPresenter.getHomePage("武汉市");
     }
 
 
+    @Override
+    public void stateError() {
+
+    }
+
+    @Override
+    public void showContent(HomeBean homeBean) {
+        homeBean.hashCode();
+    }
 }

@@ -155,7 +155,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                 break;
             case ITEM3 :
                 //布局样式3
-
                 break;
             case ITEM4 :
                 //布局样式4
