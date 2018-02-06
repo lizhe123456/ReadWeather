@@ -3,9 +3,8 @@ package com.readweather.model.http;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
-import com.readweather.model.bean.Girl;
-import com.readweather.model.bean.HomeBean;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.TodayOnhistory;
 import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.DetailExtraBean;
@@ -17,16 +16,12 @@ import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.model.bean.weather.ForecastBean;
-import com.readweather.model.bean.weather.HeWeather6;
 import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
 import com.readweather.model.http.response.WeatherResponse;
-
 import java.util.List;
-import java.util.logging.FileHandler;
-
 import io.reactivex.Flowable;
 
 /**
@@ -75,6 +70,6 @@ public interface HttpHelper {
 
     Flowable<ForecastBean> fetchForecastInfo(String location);
 
-    Flowable<HomeBean.TodayOnhistory> fetchTodayOnhistoryInfo();
+    Flowable<TodayOnhistory> fetchTodayOnhistoryInfo();
 
 }

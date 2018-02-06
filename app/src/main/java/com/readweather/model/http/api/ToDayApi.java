@@ -1,7 +1,6 @@
 package com.readweather.model.http.api;
 
-import com.readweather.model.bean.HomeBean;
-
+import com.readweather.model.bean.TodayOnhistory;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,5 +12,5 @@ import retrofit2.http.Query;
 public interface ToDayApi {
 
     @GET("queryEvent.php")
-    Flowable<HomeBean.TodayOnhistory> getTodayOnhistoryInfo(@Query("key") String key, @Query("date") String date);
+    Flowable<TodayOnhistory> getTodayOnhistoryInfo(@Query("key") String key, @Query("date") String date);
 }

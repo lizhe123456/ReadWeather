@@ -41,4 +41,5 @@ class HolleActivity : AppCompatActivity() {
         super.onStop()
         LogUtil.d("asdas")
     }
+
 }

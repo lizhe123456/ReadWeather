@@ -4,9 +4,8 @@ import com.readweather.app.Constants;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
-import com.readweather.model.bean.Girl;
-import com.readweather.model.bean.HomeBean;
 import com.readweather.model.bean.JiandanBean;
+import com.readweather.model.bean.TodayOnhistory;
 import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.DetailExtraBean;
@@ -18,11 +17,9 @@ import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.model.bean.weather.ForecastBean;
-import com.readweather.model.bean.weather.HeWeather6;
 import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.http.api.BusApi;
 import com.readweather.model.http.api.GirlsApi;
-import com.readweather.model.http.api.HomeApi;
 import com.readweather.model.http.api.ReadApi;
 import com.readweather.model.http.api.ToDayApi;
 import com.readweather.model.http.api.WeatherApi;
@@ -30,14 +27,10 @@ import com.readweather.model.http.response.BusResponse;
 import com.readweather.model.http.response.GirlsResponse;
 import com.readweather.model.http.response.JiandanResponse;
 import com.readweather.model.http.response.WeatherResponse;
-import com.readweather.presenter.meizi.contract.GirlsContract;
 import com.readweather.utils.DateUtil;
-
 import java.util.Date;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import io.reactivex.Flowable;
 
 /**
@@ -162,7 +155,7 @@ public class HttpHelperImpl implements HttpHelper{
     }
 
     @Override
-    public Flowable<HomeBean.TodayOnhistory> fetchTodayOnhistoryInfo() {
+    public Flowable<TodayOnhistory> fetchTodayOnhistoryInfo() {
         return toDayApi.getTodayOnhistoryInfo(Constants.TODAY_KEY, DateUtil.dateToStr1(new Date()));
     }
 

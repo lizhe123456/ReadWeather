@@ -5,14 +5,11 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
     <TextView
+        android:id="@+id/more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="更多item"
+        android:text="更多内容"
         android:gravity="center"
-        android:padding="8dp"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"/>
+        android:padding="8dp"
+        android:drawableRight="@drawable/go_to"/>
 </LinearLayout>

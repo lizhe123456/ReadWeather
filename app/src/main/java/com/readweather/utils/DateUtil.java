@@ -59,7 +59,7 @@ public class DateUtil {
     }
 
     public static String dateToStr1(Date dateDate) {
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("M/d");
         String dateString = formatter.format(dateDate);
         return dateString;
     }

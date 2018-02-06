@@ -2,7 +2,7 @@ package com.readweather.presenter.homepage.contract;
 
 import com.readweather.base.BasePresenter;
 import com.readweather.base.BaseView;
-import com.readweather.model.bean.HomeBean;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/2/5.
@@ -11,7 +11,7 @@ import com.readweather.model.bean.HomeBean;
 public interface HomePageContract {
 
     interface View extends BaseView{
-        void showContent(HomeBean homeBean);
+        void showContent(List<Object> homeBean);
     }
 
     interface Presenter extends BasePresenter<View>{

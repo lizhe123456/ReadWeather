@@ -2,7 +2,7 @@ package com.readweather.presenter.homepage;
 
 import com.readweather.base.BasePresenterImpl;
 import com.readweather.model.DataManager;
-import com.readweather.model.bean.HomeBean;
+import com.readweather.model.bean.TodayOnhistory;
 import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.bean.read.SectionListBean;
 import com.readweather.model.bean.read.ThemeListBean;
@@ -11,9 +11,8 @@ import com.readweather.model.http.response.WeatherResponse;
 import com.readweather.presenter.homepage.contract.HomePageContract;
 import com.readweather.utils.RxUtil;
 import com.readweather.widgets.CommonSubscriber;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function5;
@@ -42,19 +41,19 @@ public class HomePagePresenter extends BasePresenterImpl<HomePageContract.View> 
                 dataManager.fetchSectionListInfo(),
                 dataManager.fetchNewsListInfo(),
                 dataManager.fetchTodayOnhistoryInfo(),
-                new Function5<WeatherResponse<WeatherBean>, ThemeListBean, SectionListBean,NewListBean,HomeBean.TodayOnhistory,HomeBean>() {
+                new Function5<WeatherResponse<WeatherBean>, ThemeListBean, SectionListBean,NewListBean,TodayOnhistory,List<Object>>() {
                     @Override
-                    public HomeBean apply(WeatherResponse<WeatherBean> weatherBeanWeatherResponse, ThemeListBean themeListBean,
+                    public List<Object> apply(WeatherResponse<WeatherBean> weatherBeanWeatherResponse, ThemeListBean themeListBean,
                                           SectionListBean sectionListBean, NewListBean newListBean,
-                                          HomeBean.TodayOnhistory todayOnhistory) throws Exception {
+                                          TodayOnhistory todayOnhistory) throws Exception {
                         return createHomeBean(weatherBeanWeatherResponse,themeListBean,sectionListBean,newListBean,todayOnhistory);
                     }
 
                 })
-                .compose(RxUtil.<HomeBean>rxSchedulerHelper())
-                .subscribeWith(new CommonSubscriber<HomeBean>(mView) {
+                .compose(RxUtil.<List<Object>>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<List<Object>>(mView) {
                     @Override
-                    public void onNext(HomeBean homeBean) {
+                    public void onNext(List<Object> homeBean) {
                         mView.showContent(homeBean);
                     }
                 })
@@ -69,19 +68,18 @@ public class HomePagePresenter extends BasePresenterImpl<HomePageContract.View> 
      * @param todayOnhistory
      * @return
      */
-    private HomeBean createHomeBean(WeatherResponse<WeatherBean> weatherBeanWeatherResponse,
+    private List<Object> createHomeBean(WeatherResponse<WeatherBean> weatherBeanWeatherResponse,
                                     ThemeListBean themeListBean,
                                     SectionListBean sectionListBean,
                                     NewListBean newListBean,
-                                    HomeBean.TodayOnhistory todayOnhistory){
-        HomeBean homeBean = new HomeBean();
-        homeBean.setSectionList(sectionListBean.getData());
-        homeBean.setOthersBeans(themeListBean.getOthers());
+                                    TodayOnhistory todayOnhistory){
+        List<Object> list = new ArrayList<>();
         WeatherBean weatherBean = weatherBeanWeatherResponse.getData().get(0);
-        HomeBean.Weather weather = new HomeBean.Weather(weatherBean.getBasic().getParent_city(),weatherBean.getUpdate().getLoc(),weatherBean.getNow().getCond_txt(),weatherBean.getNow().getTmp(),weatherBean.getDaily_forecast(),weatherBean.getLifestyle());
-        homeBean.setWeather(weather);
-        homeBean.setaNew(newListBean.getTop_stories());
-        homeBean.setTodayOnhistory(todayOnhistory);
-        return homeBean;
+        list.add(weatherBean);
+        list.add(themeListBean);
+        list.add(todayOnhistory);
+        list.add(sectionListBean);
+        list.add(newListBean);
+        return list;
     }
 }

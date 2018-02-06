@@ -3,10 +3,9 @@ package com.readweather.model;
 import com.readweather.model.bean.BusBean;
 import com.readweather.model.bean.BusNumberBean;
 import com.readweather.model.bean.GankBean;
-import com.readweather.model.bean.Girl;
-import com.readweather.model.bean.HomeBean;
 import com.readweather.model.bean.JiandanBean;
 import com.readweather.model.bean.RealmLikeBean;
+import com.readweather.model.bean.TodayOnhistory;
 import com.readweather.model.bean.read.CommentBean;
 import com.readweather.model.bean.read.DailyBeforeListBean;
 import com.readweather.model.bean.read.DetailExtraBean;
@@ -18,7 +17,6 @@ import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.model.bean.weather.ForecastBean;
-import com.readweather.model.bean.weather.HeWeather6;
 import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.model.db.RealmHelper;
 import com.readweather.model.http.HttpHelper;
@@ -188,7 +186,7 @@ public class DataManager implements HttpHelper,RealmHelper,PreferencesHelper{
     }
 
     @Override
-    public Flowable<HomeBean.TodayOnhistory> fetchTodayOnhistoryInfo() {
+    public Flowable<TodayOnhistory> fetchTodayOnhistoryInfo() {
         return mHttpHelper.fetchTodayOnhistoryInfo();
     }
 

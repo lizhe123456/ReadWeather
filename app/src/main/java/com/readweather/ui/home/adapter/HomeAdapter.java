@@ -1,25 +1,31 @@
 package com.readweather.ui.home.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readweather.R;
-import com.readweather.model.bean.HomePageBean;
+import com.readweather.app.App;
+import com.readweather.model.bean.TodayOnhistory;
+import com.readweather.model.bean.read.NewListBean;
+import com.readweather.model.bean.read.SectionListBean;
+import com.readweather.model.bean.read.ThemeListBean;
+import com.readweather.model.bean.weather.WeatherBean;
+import com.readweather.ui.read.adapter.ColumnAdapter;
+import com.readweather.ui.read.adapter.ThemeAdapter;
 import com.readweather.utils.GlideuUtil;
-import com.readweather.view.ImageTextView;
-import com.readweather.widgets.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+import com.readweather.view.RGridView;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,23 +37,30 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
-    private HomePageBean homePageBean;
+    private List<Object> homeBean;
     private Context mContext;
     private LayoutInflater mInflater;
 
-    private final static int HEAD = 0;
-    private final static int PUSH = 1;
-    private final static int ITEM1 = 2;
-    private final static int ITEM2 = 3;
-    private final static int ITEM3 = 4;
-    private final static int ITEM4 = 5;
-    private final static int ITEM5 = 6;
-    private final static int ITEM6 = 7;
-    private final static int MORE = 8;
+    private final static int WEATHER = 0;
+    private final static int THEME = 1;
+    private final static int SECTION = 2;
+    private final static int TODAYONHISTORY = 3;
+    private final static int NEW = 4;
+    private final static int MORE = 5;
 
     public HomeAdapter(Context context) {
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
+    }
+
+    public void addData(List<Object> list){
+        if (homeBean == null){
+            homeBean = list;
+        }else {
+            homeBean.clear();
+            homeBean.addAll(list);
+        }
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -57,74 +70,47 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         ViewHolder viewHolder3 = null;
         ViewHolder viewHolder4 = null;
         ViewHolder viewHolder5 = null;
-        ViewHolder viewHolder6 = null;
-        ViewHolder viewHolder7 = null;
-        ViewHolder viewHolder8 = null;
         ViewHolder viewHolder9 = null;
-        if (getItemViewType(position) == HEAD){
+        if (getItemViewType(position) == WEATHER){
             //头部布局
             if (viewHolder1 == null){
-                View view = mInflater.inflate(R.layout.head_item,null);
+                View view = mInflater.inflate(R.layout.head_weather,null);
                 viewHolder1 = new ViewHolder(view);
             }
             return viewHolder1;
-        }else if (getItemViewType(position) == PUSH){
+        }else if (getItemViewType(position) == THEME){
             //推送布局
             if (viewHolder2 == null){
-                View view1 = mInflater.inflate(R.layout.push_item,null);
-                viewHolder2 = new ViewHolder(view1);
+                View view = mInflater.inflate(R.layout.push_theme,null);
+                viewHolder2 = new ViewHolder(view);
             }
             return viewHolder2;
-        }else if (getItemViewType(position) == ITEM1){
+        }else if (getItemViewType(position) == SECTION){
             //布局样式1
             if (viewHolder3 == null){
-                View view2 = mInflater.inflate(R.layout.home_item1,null);
-                viewHolder3 = new ViewHolder(view2);
+                View view = mInflater.inflate(R.layout.home_section,null);
+                viewHolder3 = new ViewHolder(view);
             }
             return viewHolder3;
-        }else if (getItemViewType(position) == ITEM2){
+        }else if (getItemViewType(position) == TODAYONHISTORY){
             //布局样式2
             if (viewHolder4 == null){
-                View view3 = mInflater.inflate(R.layout.home_item2,null);
-                viewHolder4 = new ViewHolder(view3);
+                View view = mInflater.inflate(R.layout.home_today,null);
+                viewHolder4 = new ViewHolder(view);
             }
             return viewHolder4;
-        }else if (getItemViewType(position) == ITEM3){
+        }else if (getItemViewType(position) == NEW){
             //布局样式3
             if (viewHolder5 == null){
-                View view4 = mInflater.inflate(R.layout.home_item3,null);
-                viewHolder5 = new ViewHolder(view4);
+                View view = mInflater.inflate(R.layout.home_new,null);
+                viewHolder5 = new ViewHolder(view);
             }
             return viewHolder5;
-        }else if (getItemViewType(position) == ITEM4){
-            //布局样式4
-            if (viewHolder6 == null){
-                View view5 = mInflater.inflate(R.layout.home_item4,null);
-                viewHolder6 = new ViewHolder(view5);
-            }
-            return viewHolder6;
-
-        }else if (getItemViewType(position) == ITEM5){
-            //布局样式5
-            if (viewHolder7 == null){
-                View view6 = mInflater.inflate(R.layout.home_item5,null);
-                viewHolder7 = new ViewHolder(view6);
-            }
-            return viewHolder7;
-
-        }else if (getItemViewType(position) == ITEM6){
-            //布局样式6
-            if (viewHolder8 == null){
-                View view7 = mInflater.inflate(R.layout.home_item6,null);
-                viewHolder8 = new ViewHolder(view7);
-            }
-            return viewHolder8;
-
         }else if (getItemViewType(position) == MORE){
             //底部更多
             if (viewHolder9 == null){
-                View view8 = mInflater.inflate(R.layout.home_more,null);
-                viewHolder9 = new ViewHolder(view8);
+                View view = mInflater.inflate(R.layout.home_more,null);
+                viewHolder9 = new ViewHolder(view);
             }
             return viewHolder9;
         }
@@ -134,40 +120,39 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         switch (getItemViewType(position)) {
-            case HEAD :
-                //头部布局
-                viewHolder.setBannerImg(R.id.banner,homePageBean.getHeadData());
+            case WEATHER :
+                WeatherBean weatherBean = (WeatherBean) homeBean.get(position);
+                String num = weatherBean.getDaily_forecast().get(0).getTmp_min() + " ~ " + weatherBean.getDaily_forecast().get(0).getTmp_max()+ " ℃";
+                String code = weatherBean.getNow().getCond_code();
+                viewHolder.setText(R.id.tv_update,weatherBean.getUpdate().getLoc());
+                viewHolder.setText(R.id.tv_address,weatherBean.getBasic().getParent_city());
+                viewHolder.setText(R.id.tv_cond_txt,weatherBean.getNow().getCond_txt());
+                viewHolder.setText(R.id.tv_num,num);
+                viewHolder.setText(R.id.tv_now,"当前：" + weatherBean.getNow().getTmp() + " ℃");
+
+                viewHolder.setWeatherGridDate(R.id.grid,weatherBean.getDaily_forecast());
+                //设置背景
+//                viewHolder.setBackgroundResource(R.id.weather_bg,100);
                 break;
-            case PUSH:
-                //推送布局
-                viewHolder.loadImage(R.id.image,homePageBean.getPushData().getPushImg());
+            case THEME:
+                ThemeListBean themeListBean = (ThemeListBean) homeBean.get(position);
+                viewHolder.setThemeList(R.id.recyclerView_theme,themeListBean.getOthers());
                 break;
-            case ITEM1 :
-                //布局样式1
-                viewHolder.setGridDate(R.id.grid_view,homePageBean.getClassifies());
+            case SECTION :
+                SectionListBean sectionListBean = (SectionListBean) homeBean.get(position);
+                viewHolder.setSectionList(R.id.recyclerView_section,sectionListBean.getData());
                 break;
-            case ITEM2 :
-                //布局样式2
-                TextView textView = viewHolder.getView(R.id.tc_title);
-                ImageTextView imageTextView1 = viewHolder.getView(R.id.img_item1);
-                ImageTextView imageTextView2 = viewHolder.getView(R.id.img_item2);
-                GridView gridView = viewHolder.getView(R.id.grid_view);
+            case TODAYONHISTORY :
+                TodayOnhistory todayOnhistory = (TodayOnhistory) homeBean.get(position);
+
                 break;
-            case ITEM3 :
-                //布局样式3
-                break;
-            case ITEM4 :
-                //布局样式4
-                break;
-            case ITEM5 :
-                //布局样式5
-                break;
-            case ITEM6 :
-                //布局样式6
+            case NEW :
+                NewListBean newListBean = (NewListBean) homeBean.get(position);
+
                 break;
             case MORE :
                 //底部更多
-                viewHolder.setMoreItem();
+                viewHolder.setMoreItem(R.id.more);
 
                 break;
         }
@@ -176,21 +161,24 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return homePageBean == null ? 0: homePageBean.getSize();
+        return homeBean == null ? 0: homeBean.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0){
-            return HEAD;
-        }else if (position == 1){
-            return PUSH;
-        }else if (position == getItemCount() - 1){
-            return MORE;
-        }else {
-            return homePageBean.getTimeLimitData().get(position).getType();
+        Object object = homeBean.get(position);
+        if (object instanceof WeatherBean){
+            return WEATHER;
+        }else if (object instanceof ThemeListBean){
+            return THEME;
+        }else if (object instanceof NewListBean){
+            return NEW;
+        }else if (object instanceof SectionListBean){
+            return SECTION;
+        }else if (object instanceof TodayOnhistory){
+            return TODAYONHISTORY;
         }
-
+        return MORE;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -209,6 +197,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                 mViews.put(id,view);
             }
             return (V) view;
+        }
+
+        public ViewHolder setBackgroundResource(int resId,int url){
+            View view = getView(resId);
+            view.setBackgroundResource(url);
+            return this;
         }
 
         public ViewHolder setText(int resId,CharSequence text){
@@ -235,44 +229,66 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             return this;
         }
 
-        public void setBannerImg(int viewId,List<HomePageBean.HeadData> bannerImg) {
-            Banner banner = getView(viewId);
-            //设置banner样式
-            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-            //设置图片加载器
-            banner.setImageLoader(new GlideImageLoader());
-            //设置图片集合
-            List<String> imgs = new ArrayList<>();
-            for (HomePageBean.HeadData headData: bannerImg) {
-                imgs.add(headData.getHeadImg());
+
+        public void setWeatherGridDate(int viewId,List<WeatherBean.DailyForecastBean> classifies) {
+            GridView gridView = getView(viewId);
+            WeatherGridViewAdapter adapter = new WeatherGridViewAdapter(mContext);
+            // item宽度
+            int itemWidth;
+            //item之间的间隔
+            int itemPaddingH = DensityUtil.dp2px(10);
+            if (classifies.size() < 5) {
+                itemWidth = (App.SCREEN_WIDTH - itemPaddingH * 2) / classifies.size();
+            }else {
+                itemWidth = (int) ((App.SCREEN_WIDTH - itemPaddingH * 2)  / 4.5);
             }
-            banner.setImages(bannerImg);
-            //设置banner动画效果
-            banner.setBannerAnimation(Transformer.DepthPage);
-            //设置自动轮播，默认为true
-            banner.isAutoPlay(true);
-            //设置轮播时间
-            banner.setDelayTime(1500);
-            banner.start();
+
+            //计算GridView宽度
+            int gridviewWidth = classifies.size() * itemWidth;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    gridviewWidth, DensityUtil.dp2px(100));
+            gridView.setLayoutParams(params);
+            gridView.setColumnWidth(itemWidth);
+            gridView.setStretchMode(GridView.NO_STRETCH);
+            gridView.setNumColumns(classifies.size());
+            gridView.setAdapter(adapter);
+            adapter.addList(classifies);
         }
 
-        public void setGridDate(int viewId,List<HomePageBean.Classify> classifies) {
-            GridView gridView = getView(viewId);
-            GridViewAdapter adapter = new GridViewAdapter(mContext);
-            gridView.setAdapter(adapter);
-            adapter.setmData(classifies);
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        public void setMoreItem(int viewId) {
+            TextView tvMore = getView(viewId);
+            tvMore.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    //跳转url
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "没有更多了...", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
-        public void setMoreItem() {
-            RecyclerView recyclerView = getView(R.id.recyclerView);
-            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        public void setThemeList(int viewId,List<ThemeListBean.OthersBean> data) {
+            ThemeAdapter adapter = new ThemeAdapter(mContext);
+            List<ThemeListBean.OthersBean> adapterData = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                adapterData.add(data.get(i));
+            }
+            RecyclerView recyclerView = getView(viewId);
+            StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(adapter);
+            adapter.addFirstDataSet(adapterData);
+        }
 
+        public void setSectionList(int viewId, List<SectionListBean.DataBean> data) {
+            ColumnAdapter columnAdapter = new ColumnAdapter(mContext);
+            List<SectionListBean.DataBean> adapterData = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                adapterData.add(data.get(i));
+            }
+            RecyclerView recyclerView = getView(viewId);
+            StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(columnAdapter);
+            columnAdapter.addFirstDataSet(adapterData);
         }
     }
 
