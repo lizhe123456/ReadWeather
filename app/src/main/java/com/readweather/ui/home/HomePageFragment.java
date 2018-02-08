@@ -56,6 +56,6 @@ public class HomePageFragment extends MvpFragment<HomePagePresenter> implements 
 
     @Override
     public void showContent(List<Object> homeBean) {
-        mAdapter.addData(homeBean);
+        mAdapter.addFirstDataSet(homeBean);
     }
 }

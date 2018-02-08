@@ -54,6 +54,7 @@ public class HomePagePresenter extends BasePresenterImpl<HomePageContract.View> 
                 .subscribeWith(new CommonSubscriber<List<Object>>(mView) {
                     @Override
                     public void onNext(List<Object> homeBean) {
+                        homeBean.add(null);
                         mView.showContent(homeBean);
                     }
                 })
