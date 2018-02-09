@@ -13,8 +13,6 @@ import com.readweather.model.bean.HomePageBean;
 
 public class MoreItemAdapter extends BaseAdapter<HomePageBean.MoreData> {
 
-
-
     public MoreItemAdapter(Context context) {
         super(context);
     }

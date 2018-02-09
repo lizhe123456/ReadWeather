@@ -1,6 +1,7 @@
 package com.readweather.ui.home.adapter;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -20,6 +21,8 @@ import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.weather.WeatherBean;
 import com.readweather.ui.read.adapter.ColumnAdapter;
 import com.readweather.ui.read.adapter.ThemeAdapter;
+import com.readweather.view.LooperTextView;
+import com.readweather.view.adpter.LooperTextAdapter;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +68,6 @@ public class HomeAdapter extends BaseAdapter<Object> {
             setMoreItem(holder);
         }
     }
-
-
-
 
     @Override
     protected int getItemViewLayoutId(int position, Object item) {
@@ -129,7 +129,16 @@ public class HomeAdapter extends BaseAdapter<Object> {
     }
 
     public void setThemeList(BaseViewHolder holder,List<ThemeListBean.OthersBean> data) {
-        ThemeAdapter adapter = new ThemeAdapter(getContext());
+        TextView textView = holder.getView(R.id.tv_title);
+        textView.setText("主题");
+        LinearLayout itemGo = holder.getView(R.id.item_go);
+        itemGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        ThemeHomeAdapter adapter = new ThemeHomeAdapter(getContext());
         List<ThemeListBean.OthersBean> adapterData = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             adapterData.add(data.get(i));
@@ -137,21 +146,30 @@ public class HomeAdapter extends BaseAdapter<Object> {
         RecyclerView recyclerView = holder.getView(R.id.recyclerView_theme);
         StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(10));
         recyclerView.setAdapter(adapter);
         adapter.addFirstDataSet(adapterData);
     }
 
     public void setSectionList(BaseViewHolder holder, List<SectionListBean.DataBean> data) {
         TextView textView = holder.getView(R.id.tv_title);
-        textView.setText("asdasdasd");
-        ColumnAdapter columnAdapter = new ColumnAdapter(getContext());
+        textView.setText("专栏");
+        LinearLayout itemGo = holder.getView(R.id.item_go);
+        itemGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        SectionAdapter columnAdapter = new SectionAdapter(getContext());
         List<SectionListBean.DataBean> adapterData = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 6; i++) {
             adapterData.add(data.get(i));
         }
         RecyclerView recyclerView = holder.getView(R.id.recyclerView_section);
         StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(10));
         recyclerView.setAdapter(columnAdapter);
         columnAdapter.addFirstDataSet(adapterData);
     }
@@ -159,9 +177,16 @@ public class HomeAdapter extends BaseAdapter<Object> {
     private void setNewList(BaseViewHolder holder, List<NewListBean.TopStoriesBean> top_stories) {
         RecyclerView recyclerView = holder.getView(R.id.recyclerView_new);
         TextView mTvTitle = holder.getView(R.id.tv_title);
+        mTvTitle.setText("日报");
+        LinearLayout itemGo = holder.getView(R.id.item_go);
+        itemGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         HomeNewAdapter homeNewAdapter = new HomeNewAdapter(getContext());
-        mTvTitle.setText("asdasd");
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(homeNewAdapter);
@@ -172,7 +197,34 @@ public class HomeAdapter extends BaseAdapter<Object> {
         if (result == null){
             return;
         }
+        LooperTextView looperTextView = holder.getView(R.id.looper_view);
+        TodayAdapter adapter = new TodayAdapter(getContext(),result);
+        looperTextView.setAdapter(adapter);
+        looperTextView.setOnLooperItemClickListener(new LooperTextView.OnLooperItemClickListener() {
+            @Override
+            public void onLooperItemClick(int position) {
+
+            }
+        });
 
     }
+    class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+        int mSpace;
 
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+            outRect.left = mSpace;
+            outRect.right = mSpace;
+            outRect.bottom = mSpace;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = mSpace;
+            }
+
+        }
+
+        public SpaceItemDecoration(int space) {
+            this.mSpace = space;
+        }
+    }
 }

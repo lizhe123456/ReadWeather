@@ -25,6 +25,6 @@ public class HomeNewAdapter extends BaseAdapter<NewListBean.TopStoriesBean> {
 
     @Override
     protected int getItemViewLayoutId(int position, NewListBean.TopStoriesBean item) {
-        return R.layout.news_list_item;
+        return R.layout.news_list_item2;
     }
 }

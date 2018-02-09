@@ -30,7 +30,6 @@ public class HomePageFragment extends MvpFragment<HomePagePresenter> implements 
         return R.layout.fragment_home;
     }
 
-
     @Override
     protected void initInject() {
         getFragmentComponent().inject(this);
@@ -51,8 +50,6 @@ public class HomePageFragment extends MvpFragment<HomePagePresenter> implements 
     public void stateError() {
 
     }
-
-
 
     @Override
     public void showContent(List<Object> homeBean) {

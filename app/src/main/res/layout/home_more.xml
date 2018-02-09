@@ -11,5 +11,5 @@
         android:text="更多内容"
         android:gravity="center"
         android:padding="8dp"
-        android:drawableRight="@drawable/go_to"/>
+        android:drawableRight="@drawable/goto1"/>
 </LinearLayout>

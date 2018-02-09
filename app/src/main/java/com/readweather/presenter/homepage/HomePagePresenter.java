@@ -77,8 +77,8 @@ public class HomePagePresenter extends BasePresenterImpl<HomePageContract.View> 
         List<Object> list = new ArrayList<>();
         WeatherBean weatherBean = weatherBeanWeatherResponse.getData().get(0);
         list.add(weatherBean);
-        list.add(themeListBean);
         list.add(todayOnhistory);
+        list.add(themeListBean);
         list.add(sectionListBean);
         list.add(newListBean);
         return list;
