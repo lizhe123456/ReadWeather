@@ -2,7 +2,7 @@ package com.readweather.ko
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.readweather.R
 import com.readweather.utils.LogUtil
 

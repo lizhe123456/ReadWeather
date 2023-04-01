@@ -1,49 +1,36 @@
-package com.readweather.base;
+package com.zjzy.modulebase.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-
-import com.readweather.R;
-import com.readweather.app.App;
-import com.readweather.utils.LogUtil;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 /**
- * Created by lizhe on 2017/11/6 0006.
- * 目标定在月亮之上，即使失败，也可以落在众星之间。
+ * Created by Administrator on 2017/8/18 0018.
  */
 
-public abstract class BaseBackActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends FragmentActivity implements IBaseView{
 
     protected Activity mActivity;
     protected final String TAG = this.getClass().getSimpleName();
-    private Unbinder mUnbinder;
-    protected View mView;
 
-    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivity = this;
-        mView = LayoutInflater.from(this).inflate(setLayout(),null);
-        setContentView(mView);
-        mUnbinder = ButterKnife.bind(mActivity);
-        App.getInstance().addActivity(mActivity);
+        setBaseContentView();
+        initFragment(savedInstanceState);
         init();
-//        initFragment(savedInstanceState);
-        LogUtil.d("s","sadas");
         setData();
     }
 
+    protected abstract void setBaseContentView();
 
     @LayoutRes
     protected abstract int setLayout();
@@ -76,41 +63,38 @@ public abstract class BaseBackActivity extends SwipeBackActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        LogUtil.d(TAG, "onRestart()");
+        Log.d(TAG, "onRestart()");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtil.d(TAG, "onStart()");
+        Log.d(TAG, "onStart()");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtil.d(TAG, "onResume()");
+        Log.d(TAG, "onResume()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtil.d(TAG, "onPause()");
+        Log.d(TAG, "onPause()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtil.d(TAG, "onStop()");
+        Log.d(TAG, "onStop()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtil.d(TAG, "onDestroy()");
-        App.getInstance().removeActivity(this);
-        mUnbinder.unbind();
+        Log.d(TAG, "onDestroy()");
     }
-
 
     /**
      * 检测view是否显示
@@ -124,6 +108,5 @@ public abstract class BaseBackActivity extends SwipeBackActivity {
             return false;
         }
     }
-
 
 }

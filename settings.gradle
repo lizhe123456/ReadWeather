@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ReadWeather"
 include ':app'
-include ':photoview'
+include ':commomview'
+include ':moduleBase'

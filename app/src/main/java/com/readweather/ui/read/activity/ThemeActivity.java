@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.readweather.R;
-import com.readweather.base.MvpBackActivity;
+import com.readweather.base.MvpActivity;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.base.adapter.BaseViewHolder;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
@@ -31,7 +31,7 @@ import butterknife.BindView;
  * 目标定在月亮之上，即使失败，也可以落在众星之间。
  */
 
-public class ThemeActivity extends MvpBackActivity<ThemeDetailPresenter> implements ThemeDetailContract.View {
+public class ThemeActivity extends MvpActivity<ThemeDetailPresenter> implements ThemeDetailContract.View {
 
     @BindView(R.id.detail_bar_image)
     ImageView detailBarImage;

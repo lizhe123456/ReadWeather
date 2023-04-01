@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private FragmentManager fragmentManager;
     private String currentFragmentTag;
-    private String tag = FRAGMENT_TAG_MEIZI;
+    private String tag = FRAGMENT_TAG_READING;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
 

@@ -8,7 +8,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.readweather.R;
-import com.readweather.base.MvpBackActivity;
+import com.readweather.base.MvpActivity;
 import com.readweather.model.bean.read.DetailExtraBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.presenter.read.NewsDetailsPresenter;
@@ -22,7 +22,6 @@ import com.tencent.smtt.sdk.WebViewClient;
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import butterknife.BindView;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 
 /**
@@ -30,7 +29,7 @@ import me.imid.swipebacklayout.lib.SwipeBackLayout;
  * 目标定在月亮之上，即使失败，也可以落在众星之间。
  */
 
-public class NewsDetailsActivity extends MvpBackActivity<NewsDetailsPresenter> implements NewsDetailsContract.View {
+public class NewsDetailsActivity extends MvpActivity<NewsDetailsPresenter> implements NewsDetailsContract.View {
     @BindView(R.id.detail_bar_image)
     ImageView detailBarImage;
     @BindView(R.id.detail_bar_copyright)
@@ -63,8 +62,6 @@ public class NewsDetailsActivity extends MvpBackActivity<NewsDetailsPresenter> i
     protected void setData() {
         int id =  getIntent().getIntExtra("id",0);
         mPresenter.getDetailData(id);
-        SwipeBackLayout ss = getSwipeBackLayout();
-        ss.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
     }
 
     @Override

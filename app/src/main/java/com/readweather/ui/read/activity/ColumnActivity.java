@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.readweather.R;
-import com.readweather.base.MvpBackActivity;
+import com.readweather.base.MvpActivity;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.bean.read.SectionListDetailBean;
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * 目标定在月亮之上，即使失败，也可以落在众星之间。
  */
 
-public class ColumnActivity extends MvpBackActivity<SectionDetailPresenter> implements SectionDetailContract.View {
+public class ColumnActivity extends MvpActivity<SectionDetailPresenter> implements SectionDetailContract.View {
 
 
     @BindView(R.id.tv_title)
