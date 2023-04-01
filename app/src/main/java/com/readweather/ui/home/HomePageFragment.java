@@ -1,7 +1,11 @@
 package com.readweather.ui.home;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import static com.readweather.app.App.getContext;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.readweather.R;
 import com.readweather.base.MvpFragment;
 import com.readweather.presenter.homepage.HomePagePresenter;

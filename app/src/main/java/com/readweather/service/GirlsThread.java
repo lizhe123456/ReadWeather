@@ -3,7 +3,8 @@ package com.readweather.service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.renderscript.ScriptIntrinsicYuvToRGB;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -30,7 +31,7 @@ public class GirlsThread extends Thread {
     //此变量必须加上volatile
     private static volatile boolean stop = false;
 
-    private GirlsThread(Context context, @Nullable List<Girl> mList,String from){
+    private GirlsThread(Context context, @Nullable List<Girl> mList, String from){
         this.mContext = context;
         this.mList = mList;
         this.from = from;

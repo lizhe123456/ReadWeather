@@ -1,9 +1,9 @@
 package com.readweather.ui.setting.activity;
 
-import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
 
 import com.readweather.R;
 import com.readweather.base.BaseActivity;

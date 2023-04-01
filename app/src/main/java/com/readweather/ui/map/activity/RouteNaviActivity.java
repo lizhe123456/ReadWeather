@@ -2,8 +2,9 @@ package com.readweather.ui.map.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.amap.api.navi.AMapNavi;
 import com.amap.api.navi.AMapNaviListener;
@@ -22,7 +23,6 @@ import com.amap.api.navi.model.NaviInfo;
 import com.amap.api.navi.model.NaviLatLng;
 import com.autonavi.tbt.TrafficFacilityInfo;
 import com.readweather.R;
-import com.readweather.utils.TTSController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class RouteNaviActivity extends AppCompatActivity implements AMapNaviView
     AMapNaviView amapNavi;
 
     private AMapNavi mAMapNavi;
-    private TTSController mTTSController;
+//    private TTSController mTTSController;
     private boolean mIsGps;
 
 
@@ -52,15 +52,15 @@ public class RouteNaviActivity extends AppCompatActivity implements AMapNaviView
         setContentView(R.layout.activity_navi);
         ButterKnife.bind(this);
         //初始化语音
-        mTTSController = TTSController.getInstance(this);
-        mTTSController.init();
+//        mTTSController = TTSController.getInstance(this);
+//        mTTSController.init();
 
         amapNavi.onCreate(savedInstanceState);
         amapNavi.setAMapNaviViewListener(this);
 
         mAMapNavi = AMapNavi.getInstance(this);
         mAMapNavi.addAMapNaviListener(this);
-        mAMapNavi.addAMapNaviListener(mTTSController);
+//        mAMapNavi.addAMapNaviListener(mTTSController);
         mAMapNavi.setEmulatorNaviSpeed(60);
         getNaviParm();
     }
@@ -109,7 +109,7 @@ public class RouteNaviActivity extends AppCompatActivity implements AMapNaviView
     protected void onPause() {
         super.onPause();
         amapNavi.onPause();
-        mTTSController.stopSpeaking();
+//        mTTSController.stopSpeaking();
 
     }
 
@@ -118,8 +118,8 @@ public class RouteNaviActivity extends AppCompatActivity implements AMapNaviView
         super.onDestroy();
         amapNavi.onDestroy();
         mAMapNavi.stopNavi();
-        mTTSController.destroy();
-        mAMapNavi.removeAMapNaviListener(mTTSController);
+//        mTTSController.destroy();
+//        mAMapNavi.removeAMapNaviListener(mTTSController);
     }
 
     @Override

@@ -2,11 +2,11 @@ package com.readweather.base;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import com.readweather.R;
 import com.readweather.app.App;

@@ -1,31 +1,24 @@
 package com.readweather.ui.read.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.readweather.R;
-import com.readweather.base.BaseFrament;
 import com.readweather.base.MvpFragment;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.HotListBean;
-import com.readweather.model.bean.read.NewListBean;
 import com.readweather.presenter.read.HotListPresenter;
 import com.readweather.presenter.read.contract.HotListContract;
 import com.readweather.ui.read.activity.NewsDetailsActivity;
 import com.readweather.ui.read.adapter.HotNewsAdapter;
-import com.readweather.ui.read.adapter.NewsAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by lizhe on 2017/10/28 0028.

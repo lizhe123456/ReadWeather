@@ -2,14 +2,8 @@ package com.readweather.ui.meizi.activity;
 
 import android.Manifest;
 import android.app.WallpaperManager;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.net.wifi.ScanResult;
 import android.os.Build;
-import android.os.Environment;
-import android.support.design.widget.Snackbar;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -17,8 +11,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -28,22 +20,16 @@ import com.readweather.app.Constants;
 import com.readweather.base.MvpActivity;
 import com.readweather.model.bean.RealmLikeBean;
 import com.readweather.model.db.RealmHelper;
-import com.readweather.presenter.db.LikePresenter;
-import com.readweather.presenter.db.contract.LikeContract;
 import com.readweather.utils.ShareUtil;
-import com.readweather.utils.SnackbarUtil;
 import com.readweather.utils.SystemUtil;
 import com.readweather.utils.ToastUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import java.io.File;
-import java.io.FileOutputStream;
+import com.tjzy.photoview.PhotoViewAttacher;
 import java.io.IOException;
-import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
-import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 /**
  * Created by lizhe on 2017/9/15 0015.

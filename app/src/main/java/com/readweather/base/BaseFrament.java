@@ -1,12 +1,14 @@
 package com.readweather.base;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -18,7 +20,7 @@ import butterknife.Unbinder;
  * 类介绍：fragment基类
  */
 
-public abstract class BaseFrament extends Fragment{
+public abstract class BaseFrament extends Fragment {
 
     // 标识fragment视图已经初始化完毕
     private boolean isViewPrepared;

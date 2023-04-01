@@ -1,11 +1,16 @@
 package com.readweather.app;
 
+import static io.realm.Realm.getApplicationContext;
+
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+
+import androidx.multidex.MultiDexApplication;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;

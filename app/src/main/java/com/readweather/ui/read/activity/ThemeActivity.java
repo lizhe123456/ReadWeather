@@ -2,22 +2,21 @@ package com.readweather.ui.read.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.google.android.material.appbar.AppBarLayout;
 import com.readweather.R;
 import com.readweather.base.MvpBackActivity;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.base.adapter.BaseViewHolder;
-import com.readweather.model.bean.read.HotListBean;
 import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.presenter.read.ThemeDetailPresenter;
 import com.readweather.presenter.read.contract.ThemeDetailContract;
@@ -26,7 +25,6 @@ import com.readweather.utils.GlideuUtil;
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by lizhe on 2017/11/6 0006.

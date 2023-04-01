@@ -7,3 +7,12 @@
 /build
 /captures
 .externalNativeBuild
+
+#Ant
+build.xml
+local.properties
+proguard.cfg
+
+
+/photoview/src/test/
+/app/src/test/

@@ -1,8 +1,9 @@
 package com.readweather.ui.weather.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * 目标定在月亮之上，即使失败，也可以落在众星之间。
  */
 
-public class WeatherPageAdapter extends FragmentPagerAdapter{
+public class WeatherPageAdapter extends FragmentPagerAdapter {
 
     List<Fragment> mFragmentList = new ArrayList<>();
 

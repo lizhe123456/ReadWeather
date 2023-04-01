@@ -1,15 +1,12 @@
 package com.readweather.ui.read.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.readweather.R;
-import com.readweather.base.BaseFrament;
 import com.readweather.base.MvpFragment;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.ThemeListBean;
@@ -22,8 +19,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by lizhe on 2017/10/28 0028.

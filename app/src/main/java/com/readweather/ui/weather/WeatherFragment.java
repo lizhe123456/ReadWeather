@@ -1,8 +1,10 @@
 package com.readweather.ui.weather;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.widget.TextView;
+
+import androidx.viewpager.widget.ViewPager;
+
 import com.readweather.R;
 import com.readweather.base.BaseFrament;
 import com.readweather.ui.weather.adapter.WeatherPageAdapter;

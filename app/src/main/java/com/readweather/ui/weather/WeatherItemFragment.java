@@ -1,6 +1,7 @@
 package com.readweather.ui.weather;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.amap.api.location.AMapLocation;
 import com.readweather.R;
 import com.readweather.app.App;

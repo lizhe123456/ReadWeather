@@ -113,7 +113,7 @@ public class RealmHelperImpl implements RealmHelper {
      */
     @Override
     public List<RealmLikeBean> getLikeList() {
-        RealmResults<RealmLikeBean> data = mRealm.where(RealmLikeBean.class).findAllSorted("time");
+        RealmResults<RealmLikeBean> data = mRealm.where(RealmLikeBean.class).findAll().sort("time");
         return mRealm.copyFromRealm(data);
     }
 

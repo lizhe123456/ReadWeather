@@ -1,6 +1,6 @@
 package com.readweather.base;
 
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import com.readweather.app.App;
 import com.readweather.di.component.ActivityComponent;
 import com.readweather.di.component.DaggerActivityComponent;

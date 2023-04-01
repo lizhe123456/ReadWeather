@@ -1,10 +1,8 @@
 package com.readweather.ui.setting;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-
+import androidx.appcompat.widget.Toolbar;
 import com.readweather.R;
 import com.readweather.base.BaseActivity;
 import com.readweather.ui.setting.activity.CarSettingActivity;

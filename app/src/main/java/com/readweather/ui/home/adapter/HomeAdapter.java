@@ -2,14 +2,16 @@ package com.readweather.ui.home.adapter;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.readweather.R;
 import com.readweather.app.App;
 import com.readweather.base.adapter.BaseAdapter;
@@ -19,10 +21,7 @@ import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.bean.read.SectionListBean;
 import com.readweather.model.bean.read.ThemeListBean;
 import com.readweather.model.bean.weather.WeatherBean;
-import com.readweather.ui.read.adapter.ColumnAdapter;
-import com.readweather.ui.read.adapter.ThemeAdapter;
 import com.readweather.view.LooperTextView;
-import com.readweather.view.adpter.LooperTextAdapter;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 import java.util.ArrayList;
 import java.util.List;

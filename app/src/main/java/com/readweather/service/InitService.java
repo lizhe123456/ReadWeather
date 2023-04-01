@@ -3,7 +3,8 @@ package com.readweather.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.readweather.BuildConfig;
 import com.readweather.app.Constants;

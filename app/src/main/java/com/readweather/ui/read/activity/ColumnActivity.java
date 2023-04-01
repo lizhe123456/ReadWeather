@@ -1,26 +1,23 @@
 package com.readweather.ui.read.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.readweather.R;
 import com.readweather.base.MvpBackActivity;
 import com.readweather.base.adapter.BaseAdapter;
 import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.bean.read.SectionListDetailBean;
-import com.readweather.model.bean.read.ThemeNewsDetailBean;
 import com.readweather.presenter.read.SectionDetailPresenter;
 import com.readweather.presenter.read.contract.SectionDetailContract;
 import com.readweather.ui.read.adapter.NewsAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

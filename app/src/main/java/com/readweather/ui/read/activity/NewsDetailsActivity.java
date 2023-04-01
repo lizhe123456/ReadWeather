@@ -1,15 +1,15 @@
 package com.readweather.ui.read.activity;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+
+import com.google.android.material.appbar.AppBarLayout;
 import com.readweather.R;
-import com.readweather.base.MvpActivity;
 import com.readweather.base.MvpBackActivity;
 import com.readweather.model.bean.read.DetailExtraBean;
-import com.readweather.model.bean.read.NewListBean;
 import com.readweather.model.bean.read.ZhihuDetailBean;
 import com.readweather.presenter.read.NewsDetailsPresenter;
 import com.readweather.presenter.read.contract.NewsDetailsContract;
